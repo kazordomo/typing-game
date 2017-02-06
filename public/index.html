@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Typing Game</title>
+    <link href="css/styles.css" type="text/css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <div class="game-area">
+            <div class="wrapper clearfix">
+                <div class="reset">
+                    <button id="language"><i class="fa fa-bars" aria-hidden="true"></i></button>
+                    <button id="refresh"><i class="fa fa-refresh" aria-hidden="true" tabindex="2"></i></button>
+                </div>
+                <div id="language-selection" style="display: none;">
+                    <ul class="clearfix">
+                        <li>Svenska</li>
+                        <li>Engelska</li>
+                        <li>Comming soon</li>
+                        <li>Comming soon</li>
+                    </ul>
+                </div>
+                <form id="typingForm">
+                    <input type="text" id="typing-area" autocomplete="off" autofocus>
+                </form>
+                <div class="timer-area"><span id="time-counter"></span></div>
+            </div>
+            <div class="words-area">
+                <span id="word1"></span>
+                <span id="word2"></span>
+                <span id="word3"></span>
+                <span id="word4"></span>
+                <span id="word5"></span>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="js/main.js"></script>
+</body>
+</html>

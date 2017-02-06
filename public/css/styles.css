@@ -1,0 +1,118 @@
+body {
+    background: url('../images/wordbook.jpg');
+    background-size: cover;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+div.container {
+    width: 725px;
+    /*height: 150px;*/
+    margin: 200px auto 0px auto;
+}
+
+div.game-area {
+    float: right;
+    width: 650px;
+}
+
+div.wrapper {
+    width: 100%;
+}
+
+#language-selection {
+    width: 90%;
+    margin-bottom: 10px;
+    padding: 30px;
+    box-sizing: border-box;
+    background: #DED716;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+#language-selection ul li {
+    float: left;
+    margin-right: 25px;
+    color: #000000;
+}
+
+#language-selection ul li:nth-child(3), #language-selection ul li:nth-child(4) {
+    font-style: italic;
+}
+
+div.container .reset {
+    width: 585px;
+    height: 45px;
+    margin-bottom: 10px;
+}
+
+div.container .reset button {
+    width: 50px;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+div.container .reset button i {
+    font-size: 20px;
+}
+
+#refresh {
+    float: right;
+    background: #EBD088;
+}
+
+#language {
+    float: left;
+    background: #E68E29;
+}
+
+#typing-area {
+    float: left;
+    width: 90%;
+    height: 65%;
+    margin-bottom: 5%;
+    padding: 30px 50px;
+    font-size: 40px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    outline: none;
+    border: 3px solid transparent;
+}
+
+div.timer-area {
+    float: right;
+    width: 6%;
+    margin-top: 30px;
+    margin-left: 4%;
+}
+
+#time-counter {
+    color: #FFFFFF;
+    font-size: 40px;
+}
+
+div.container .words-area {
+    width: 150%;
+    height: 30%;
+    color: #FFFFFF;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+div.container .words-area span {
+    margin-right: 10px;
+}
