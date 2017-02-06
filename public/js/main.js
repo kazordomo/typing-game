@@ -1,3 +1,4 @@
+//TODO fetch different languages from db and have them be able too choose from language-selection
 let sv_words = [
     "hej",
     "jag",
@@ -121,9 +122,39 @@ let en_words = [
     "monitor",
     "food"
 ];
-let words = sv_words;
 
+let getElement = (element) =>  {
+    return document.getElementById(element);
+};
+
+let words = sv_words;
+let language = getElement('language');
+let languageSelection = getElement('language-selection');
+let refresh = getElement('refresh');
+let word1 = getElement('word1');
+let word2 = getElement('word2');
+let word3 = getElement('word3');
+let word4 = getElement('word4');
+let word5 = getElement('word5');
+let typingArea = document.getElementById('typing-area');
+let timeCounter = getElement('time-counter');
+
+let counter = 0;
+let correct = 0;
+let misses = 0;
+let keystrokes = 0;
+let character = 0;
 let timer = null;
+
+word1.innerHTML = words[counter];
+word2.innerHTML = words[counter + 1];
+word3.innerHTML = words[counter + 2];
+word4.innerHTML = words[counter + 3];
+word5.innerHTML = words[counter + 4];
+
+//TODO: randomize and make it time-based
+//TODO: REFACTOR!! FUNCTIONS / VARIABLES
+
 let startTimer = (duration, element) => {
     timer = duration;
     element.innerHTML = timer;
@@ -147,31 +178,24 @@ let startTimer = (duration, element) => {
     }, 1000);
 };
 
-let getElement = (element) =>  {
-    return document.getElementById(element);
+//check if the word that is typed is correct
+let spellChecker = () => {
+    if(typingArea.value == word1.innerHTML) {
+        counter++;
+        correct++;
+    } else {
+        misses++;
+        counter++;
+        typingArea.style.border = '3px solid #DE1D1D';
+    }
+    typingArea.value = '';
+    character = 0;
+    word1.innerHTML = words[counter];
+    word2.innerHTML = words[counter + 1];
+    word3.innerHTML = words[counter + 2];
+    word4.innerHTML = words[counter + 3];
+    word5.innerHTML = words[counter + 4];
 };
-
-//TODO implement language controller
-let language = getElement('language');
-let languageSelection = getElement('language-selection');
-let refresh = getElement('refresh');
-let word1 = getElement('word1');
-let word2 = getElement('word2');
-let word3 = getElement('word3');
-let word4 = getElement('word4');
-let word5 = getElement('word5');
-let typingArea = document.getElementById('typing-area');
-let timeCounter = getElement('time-counter');
-
-let counter = 0;
-let correct = 0;
-let misses = 0;
-let keystrokes = 0;
-let character = 0;
-
-language.addEventListener("click", () => {
-    languageSelection.style.display = languageSelection.style.display === 'none' ? 'block' : 'none';
-});
 
 let resetAll = () => {
     typingArea.disabled = false;
@@ -196,41 +220,19 @@ let resetAll = () => {
     console.log("HEJ");
 };
 
+//language animation fade
+language.addEventListener("click", () => {
+    languageSelection.style.padding = languageSelection.style.padding === "0px" ? "30px" : "0px";
+    languageSelection.style.marginBottom = languageSelection.style.marginBottom === "0px" ? "15px" : "0px";
+    languageSelection.style.fontSize = languageSelection.style.fontSize === "0px" ? "20px" : "0px";
+});
+
 //reset stats and timer when refresh is clicked
 refresh.addEventListener("click", resetAll);
 
-//loop with words[i]. if word == typingArea + space-press, i++
-//TODO: randomize and make it time-based
-//TODO: REFACTOR!! FUNCTIONS / VARIABLES
-//TODO: Reload button that resets everything. Should work if clock is set to null
-
-word1.innerHTML = words[counter];
-word2.innerHTML = words[counter + 1];
-word3.innerHTML = words[counter + 2];
-word4.innerHTML = words[counter + 3];
-word5.innerHTML = words[counter + 4];
-
-//check if the word that is typed is correct
-let spellChecker = () => {
-    if(typingArea.value == word1.innerHTML) {
-        counter++;
-        correct++;
-    } else {
-        misses++;
-        counter++;
-        typingArea.style.border = '3px solid #DE1D1D';
-    }
-    typingArea.value = '';
-    character = 0;
-    word1.innerHTML = words[counter];
-    word2.innerHTML = words[counter + 1];
-    word3.innerHTML = words[counter + 2];
-    word4.innerHTML = words[counter + 3];
-    word5.innerHTML = words[counter + 4];
-};
-
 //reset game with "r"
 document.onkeyup = (e) => {
+    //TODO: make click disabled right after end of round, to prevent missclick
     if(timer === null || timer === 0) {
         if(e.keyCode == 82) {
             resetAll();
@@ -239,7 +241,6 @@ document.onkeyup = (e) => {
 };
 
 typingArea.onkeydown = (e) => {
-
     //to prevent lagg, remove space when new word,
     //instead of removing characters on keyup
     typingArea.value=typingArea.value.replace(/\s+/g,'');
