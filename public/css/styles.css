@@ -30,27 +30,6 @@ div.wrapper {
     width: 100%;
 }
 
-#language-selection {
-    width: 50%;
-    box-sizing: border-box;
-    background: #DED716;
-    border-radius: 20px;
-    font-weight: 700;
-    transition: all .3s ease-in-out;
-}
-
-#language-selection ul li {
-    float: left;
-    margin-right: 25px;
-    padding: 0px 10px 0px 0px;
-    color: #000000;
-    /*border-bottom: 1px solid #000000;*/
-}
-
-#language-selection ul li:nth-child(3), #language-selection ul li:nth-child(4) {
-    font-style: italic;
-}
-
 div.container .reset {
     width: 585px;
     height: 45px;
@@ -75,11 +54,6 @@ div.container .reset button i {
     background: #EBD088;
 }
 
-#language {
-    float: left;
-    background: #E68E29;
-}
-
 #typing-area {
     float: left;
     width: 90%;
@@ -94,10 +68,6 @@ div.container .reset button i {
 }
 
 div.timer-area {
-    float: right;
-    width: 6%;
-    margin-top: 30px;
-    margin-left: 4%;
 }
 
 #time-counter {
