@@ -123,19 +123,19 @@ let en_words = [
     "food"
 ];
 
-let getElement = (element) =>  {
+let getElementId = (element) =>  {
     return document.getElementById(element);
+};
+let getElementClass = (elements) => {
+    return document.getElementsByClassName(elements);
 };
 
 let words = sv_words;
-let refresh = getElement('refresh');
-let word1 = getElement('word1');
-let word2 = getElement('word2');
-let word3 = getElement('word3');
-let word4 = getElement('word4');
-let word5 = getElement('word5');
-let typingArea = document.getElementById('typing-area');
-let timeCounter = getElement('time-counter');
+let refresh = getElementId('refresh');
+let typingArea = getElementId('typing-area');
+let showScore = getElementClass('score');
+let word = getElementClass('word');
+let timeCounter = getElementId('time-counter');
 
 let counter = 0;
 let correct = 0;
@@ -152,13 +152,13 @@ let shuffle = (arr) => {
     }
     return arr;
 };
-words = shuffle(words);
 
-word1.innerHTML = words[counter];
-word2.innerHTML = words[counter + 1];
-word3.innerHTML = words[counter + 2];
-word4.innerHTML = words[counter + 3];
-word5.innerHTML = words[counter + 4];
+words = shuffle(words);
+word[0].innerHTML = words[counter];
+word[1].innerHTML = words[counter + 1];
+word[2].innerHTML = words[counter + 2];
+word[3].innerHTML = words[counter + 3];
+word[4].innerHTML = words[counter + 4];
 
 //TODO: randomize words
 //TODO: REFACTOR!! FUNCTIONS / VARIABLES
@@ -176,14 +176,18 @@ let startTimer = (duration, element) => {
             element.innerHTML = "GAME!";
             typingArea.disabled = true;
             typingArea.value = 'Press ENTER to restart';
-            word1.style.color = "#27C42A";
-            word2.style.color = "#DE1D1D";
-            word1.innerHTML = correct + ' correct words!';
-            word2.innerHTML = misses + (misses == 1 ? ' wrong word. ' : ' wrong words. ');
-            word3.innerHTML = keystrokes + ' total keystrokes.';
-            word4.innerHTML = '';
-            word5.innerHTML = '';
-            console.log(timer);
+            for (let i = 0; i < word.length; i++) {
+                word[i].style.display = 'none';
+            }
+            for(let i = 0; i < showScore.length; i++) {
+                showScore[i].style.display = 'block';
+            }
+            showScore[0].innerHTML = correct + ' correct words!';
+            showScore[1].innerHTML = misses + (misses == 1 ? ' wrong word. ' : ' wrong words. ');
+            showScore[2].innerHTML = keystrokes + ' total keystrokes.';
+            showScore[0].style.color = "#27C42A";
+            showScore[1].style.color = "#DE1D1D";
+            typingArea.style.border = '3px solid transparent';
         } else
             element.innerHTML = timer;
     }, 1000);
@@ -191,7 +195,7 @@ let startTimer = (duration, element) => {
 
 //check if the word that is typed is correct
 let spellChecker = () => {
-    if(typingArea.value == word1.innerHTML) {
+    if(typingArea.value == word[0].innerHTML) {
         counter++;
         correct++;
     } else {
@@ -201,11 +205,11 @@ let spellChecker = () => {
     }
     typingArea.value = '';
     character = 0;
-    word1.innerHTML = words[counter];
-    word2.innerHTML = words[counter + 1];
-    word3.innerHTML = words[counter + 2];
-    word4.innerHTML = words[counter + 3];
-    word5.innerHTML = words[counter + 4];
+    word[0].innerHTML = words[counter];
+    word[1].innerHTML = words[counter + 1];
+    word[2].innerHTML = words[counter + 2];
+    word[3].innerHTML = words[counter + 3];
+    word[4].innerHTML = words[counter + 4];
 };
 
 let resetAll = () => {
@@ -213,18 +217,22 @@ let resetAll = () => {
     shuffle(words);
     typingArea.disabled = false;
     typingArea.value = '';
-    word1.style.color = "#FFFFFF";
-    word2.style.color = "#FFFFFF";
+    for(let i = 0; i < showScore.length; i++) {
+        showScore[i].style.display = 'none';
+    }
+    for(let i = 0; i < word.length; i++) {
+        word[i].style.display = 'block';
+    }
     counter = 0;
     correct = 0;
     misses = 0;
     keystrokes = 0;
     character = 0;
-    word1.innerHTML = words[counter];
-    word2.innerHTML = words[counter + 1];
-    word3.innerHTML = words[counter + 2];
-    word4.innerHTML = words[counter + 3];
-    word5.innerHTML = words[counter + 4];
+    word[0].innerHTML = words[counter];
+    word[1].innerHTML = words[counter + 1];
+    word[2].innerHTML = words[counter + 2];
+    word[3].innerHTML = words[counter + 3];
+    word[4].innerHTML = words[counter + 4];
     typingArea.focus();
     timeCounter.innerHTML = '';
     typingArea.style.border = '3px solid transparent';
@@ -253,7 +261,7 @@ typingArea.onkeydown = (e) => {
         keystrokes++;
 
         if(timer === 0) {
-            startTimer(5, timeCounter);
+            startTimer(15, timeCounter);
         }
 
         if(e.keyCode === 8) {
@@ -268,14 +276,16 @@ typingArea.onkeydown = (e) => {
     }
 };
 
+let errorChar;
 typingArea.onkeyup = (e) => {
 
     if(timer > 0) {
         if(e.keyCode !== 32) {
-            if (word1.innerHTML.charAt(character - 1) != typingArea.value.charAt(character - 1)) {
+            if (word[0].innerHTML.charAt(character - 1) != typingArea.value.charAt(character - 1)) {
                 typingArea.style.border = '3px solid #DE1D1D';
+                errorChar = character - 1;
             }
-            else {
+            else if(word[0].innerHTML.charAt(errorChar) == typingArea.value.charAt(errorChar)){
                 typingArea.style.border = '3px solid transparent';
             }
         }

@@ -1,6 +1,7 @@
 body {
-    background: url('../images/wordbook.jpg');
+    background: url('../images/rain-colors.jpg');
     background-size: cover;
+    font-family: 'Droid Serif', serif;
 }
 
 ul {
@@ -31,7 +32,6 @@ div.wrapper {
 }
 
 div.container .reset {
-    width: 585px;
     height: 45px;
     margin-bottom: 15px;
 }
@@ -56,7 +56,7 @@ div.container .reset button i {
 
 #typing-area {
     float: left;
-    width: 90%;
+    width: 100%;
     height: 65%;
     margin-bottom: 15px;
     padding: 30px 50px;
@@ -67,22 +67,26 @@ div.container .reset button i {
     border: 3px solid transparent;
 }
 
-div.timer-area {
-}
-
 #time-counter {
     color: #FFFFFF;
-    font-size: 40px;
+    font-size: 45px;
 }
 
 div.container .words-area {
     width: 150%;
-    height: 30%;
+    font-size: 35px;
     color: #FFFFFF;
-    font-size: 30px;
-    font-weight: 700;
 }
 
-div.container .words-area span {
+.word {
+    float: left;
+    padding: 5px 25px;
+}
+.word:nth-child(1) {
+    background: rgba(0,0,0,0.6);
+    border-radius: 10px;
+}
+.score {
+    float: left;
     margin-right: 10px;
 }
