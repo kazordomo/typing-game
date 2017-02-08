@@ -144,15 +144,26 @@ let keystrokes = 0;
 let character = 0;
 let timer = 0;
 
+//shuffle the words
+let shuffle = (arr) => {
+    for (let i = arr.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
+    }
+    return arr;
+};
+words = shuffle(words);
+
 word1.innerHTML = words[counter];
 word2.innerHTML = words[counter + 1];
 word3.innerHTML = words[counter + 2];
 word4.innerHTML = words[counter + 3];
 word5.innerHTML = words[counter + 4];
 
-//TODO: randomize and make it time-based
+//TODO: randomize words
 //TODO: REFACTOR!! FUNCTIONS / VARIABLES
 
+//store global to make it clearable
 let start;
 let startTimer = (duration, element) => {
     timer = duration;
@@ -199,6 +210,7 @@ let spellChecker = () => {
 
 let resetAll = () => {
     clearInterval(start);
+    shuffle(words);
     typingArea.disabled = false;
     typingArea.value = '';
     word1.style.color = "#FFFFFF";
