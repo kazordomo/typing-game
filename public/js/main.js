@@ -1,4 +1,3 @@
-//TODO fetch different languages from db and have them be able too choose from language-selection
 let sv_words = [
     "hej",
     "jag",
@@ -142,6 +141,8 @@ let correct = 0;
 let misses = 0;
 let keystrokes = 0;
 let character = 0;
+//used to store the falsy character
+let errorChar = 0;
 let timer = 0;
 
 //shuffle the words
@@ -159,9 +160,6 @@ word[1].innerHTML = words[counter + 1];
 word[2].innerHTML = words[counter + 2];
 word[3].innerHTML = words[counter + 3];
 word[4].innerHTML = words[counter + 4];
-
-//TODO: randomize words
-//TODO: REFACTOR!! FUNCTIONS / VARIABLES
 
 //store global to make it clearable
 let start;
@@ -242,19 +240,17 @@ let resetAll = () => {
 //reset stats and timer when refresh is clicked
 refresh.addEventListener("click", resetAll);
 
-//reset game with "r"
-document.onkeyup = (e) => {
-    //TODO: make click disabled right after end of round, to prevent missclick
-    if(timer === 0 || timer === null) {
-        if(e.keyCode == 13) {
-            resetAll();
-        }
+//reset game with "enter"
+document.onkeydown = (e) => {
+    if (e.keyCode == 13) {
+        resetAll();
+        //prevent page reload
+        e.preventDefault();
     }
 };
 
 typingArea.onkeydown = (e) => {
-    //to prevent lagg, remove space when new word,
-    //instead of removing characters on keyup
+    //instead of space, reset the typing area
     typingArea.value=typingArea.value.replace(/\s+/g,'');
 
     if(timer > 0 || timer === 0 || timer === null) {
@@ -279,9 +275,7 @@ typingArea.onkeydown = (e) => {
     }
 };
 
-let errorChar;
 typingArea.onkeyup = (e) => {
-
     if(timer > 0) {
         if(e.keyCode !== 32) {
             if (word[0].innerHTML.charAt(character - 1) != typingArea.value.charAt(character - 1)) {
@@ -293,5 +287,4 @@ typingArea.onkeyup = (e) => {
             }
         }
     }
-
 };
