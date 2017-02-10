@@ -1,114 +1,3 @@
-let sv_words = [
-    "hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap","hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap","hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap","hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap","hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap","hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap","hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap","hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap","hej",
-    "jag",
-    "heter",
-    "åker",
-    "kanske",
-    "påskägg",
-    "lök",
-    "svamp",
-    "fot",
-    "park",
-    "bänk",
-    "soffa",
-    "vetenskap"
-];
 let en_words = [
     "hello",
     "no",
@@ -119,7 +8,22 @@ let en_words = [
     "computer",
     "foot",
     "monitor",
-    "food"
+    "food",
+    "go",
+    "mum",
+    "shallow",
+    "cup",
+    "of",
+    "tea",
+    "race",
+    "bottle",
+    "finger",
+    "arm",
+    "stomach",
+    "lamp",
+    "clock",
+    "and",
+    "know"
 ];
 
 let getElementId = (element) =>  {
@@ -129,7 +33,7 @@ let getElementClass = (elements) => {
     return document.getElementsByClassName(elements);
 };
 
-let words = sv_words;
+let words = en_words;
 let refresh = getElementId('refresh');
 let typingArea = getElementId('typing-area');
 let showScore = getElementClass('score');
@@ -253,23 +157,23 @@ typingArea.onkeydown = (e) => {
     //instead of space, reset the typing area
     typingArea.value=typingArea.value.replace(/\s+/g,'');
 
-    if(timer > 0 || timer === 0 || timer === null) {
-        keystrokes++;
-
-        if(timer === 0) {
-            startTimer(15, timeCounter);
-        }
-
-        if(e.keyCode === 8) {
-            character--;
-            if(word[0].innerHTML.charAt(character- 1) == typingArea.value.charAt(character - 1)){
-                typingArea.style.border = '3px solid transparent';
+    if(timer > 0 || timer === 0) {
+        if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
+            keystrokes++;
+            if(timer === 0) {
+                startTimer(15, timeCounter);
             }
-        } else {
-            if(e.keyCode === 32){
-                spellChecker();
+            if(e.keyCode === 8) {
+                character--;
+                if(word[0].innerHTML.charAt(character- 1) == typingArea.value.charAt(character - 1)){
+                    typingArea.style.border = '3px solid transparent';
+                }
             } else {
-                character++;
+                if(e.keyCode === 32){
+                    spellChecker();
+                } else {
+                    character++;
+                }
             }
         }
     }
