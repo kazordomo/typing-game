@@ -9,6 +9,7 @@
 </head>
 <body>
 
+    <div class="fade"></div>
     <div class="container">
         <div class="game-area">
             <div class="wrapper clearfix">
@@ -16,9 +17,15 @@
                     <span id="time-counter"></span>
                     <button id="refresh"><i class="fa fa-refresh" aria-hidden="true"></i></button>
                 </div>
-                <form id="typingForm">
-                    <input type="text" id="typing-area" autocomplete="off" autofocus>
-                </form>
+                <input type="text" id="typing-area" autocomplete="off" autofocus>
+                <div class="highscore">
+                    <i class="fa fa-times closeHighscore" aria-hidden="true"></i>
+                    <h2>Top 10 of today! Submit your score?</h2>
+                    <form id="nameForm" action="/" method="POST">
+                        <input type="text" placeholder="Name..." name="name" autocomplete="off" autofocus>
+                        <button type="submit"><i class="fa fa-check" aria-hidden="true"></i></button>
+                    </form>
+                </div>
             </div>
             <div class="words-area">
                 <span class="word"></span>

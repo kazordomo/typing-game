@@ -28,6 +28,7 @@ div.game-area {
 }
 
 div.wrapper {
+    position: relative;
     width: 100%;
 }
 
@@ -90,3 +91,62 @@ div.container .words-area {
     float: left;
     margin-right: 10px;
 }
+
+/* CLEAN THE BELOW UP PL0X */
+
+.fade {
+    /*display: none;*/
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.highscore {
+    /*display: none;*/
+    width: 450px;
+    position: absolute;
+    z-index: 100;
+    margin-left: 95px;
+    margin-top: -50px;
+    background: #FFFFFF;
+    padding: 20px 50px;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.closeHighscore {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+#nameForm input[type="text"] {
+    float: left;
+    width: 75%;
+    padding: 20px 20px;
+    background: #FAF2F8;
+    font-size: 25px;
+    border: none;
+    border-radius: 5px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    box-sizing: border-box;
+}
+
+#nameForm button {
+    float: left;
+    width: 25%;
+    padding: 20px 20px;
+    font-size: 25px;
+    background: #27C42A;
+    border: none;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    box-sizing: border-box;
+}
+

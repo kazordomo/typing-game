@@ -32,6 +32,9 @@ let getElementId = (element) =>  {
 let getElementClass = (elements) => {
     return document.getElementsByClassName(elements);
 };
+let getElementQuery = (element) => {
+    return document.querySelector(element);
+}
 
 let words = en_words;
 let refresh = getElementId('refresh');
@@ -39,6 +42,10 @@ let typingArea = getElementId('typing-area');
 let showScore = getElementClass('score');
 let word = getElementClass('word');
 let timeCounter = getElementId('time-counter');
+//TODO: refactor and make the submit work with username
+let fade = getElementQuery('.fade');
+let closeHighscore = getElementQuery('.closeHighscore');
+let highscore = getElementQuery('.highscore');
 
 let counter = 0;
 let correct = 0;
@@ -48,6 +55,13 @@ let character = 0;
 //used to store the falsy character
 let errorChar = 0;
 let timer = 0;
+
+let dismiss = () => {
+    highscore.style.display = 'none';
+    fade.style.display = 'none';
+};
+
+closeHighscore.addEventListener('click', dismiss);
 
 //shuffle the words
 let shuffle = (arr) => {
