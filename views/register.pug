@@ -2,9 +2,10 @@ extends layout
 
 block content
     .container
-        form#register-form(method='POST' action='/register')
-            input#register-email(type="text" placeholder="Email" name="email")
-            input#register-name(type="text" placeholder="Name" name="name")
-            input#register-password(type="password" placeholder="Password" name="password")
-            input#register-password2(type="password" placeholder="Reenter password" name="confirmPassword")
-            button(type="submit") Sign up
+        #register
+            form#register-form(method='POST' action='/register')
+                input#register-email(type="text" placeholder="Email..." name="email")
+                input#register-name(type="text" placeholder="Name..." name="name")
+                input#register-password(type="password" placeholder="Password..." name="password")
+                input#register-password2(type="password" placeholder="Reenter password..." name="confirmPassword")
+                button(type="submit") Sign up

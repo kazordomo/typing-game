@@ -1,3 +1,6 @@
+/*  RESETS
+------------------------------------------------------------ */
+
 body {
     background: url('../images/rain-colors.jpg');
     background-size: cover;
@@ -10,6 +13,14 @@ ul {
     list-style: none;
 }
 
+input[type="text"], #register input[type="password"], button {
+    border: none;
+    outline: none;
+}
+
+/*  GLOBALS
+------------------------------------------------------------ */
+
 .clearfix::after {
     content: "";
     clear: both;
@@ -21,21 +32,83 @@ div.container {
     margin: 200px auto 0px auto;
 }
 
-div.game-area {
-    float: right;
-    width: 650px;
-}
-
 div.wrapper {
     width: 100%;
 }
 
-div.container .reset {
+/*  INDEX/FRONT PAGE
+------------------------------------------------------------ */
+#front-page {
+    max-width: 100%;
+    width: 500px;
+    margin: 0 auto;
+}
+
+#front-page a {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 20px 10px;
+    background: #755273;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 25px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+#front-page a:hover {
+    background: #634A62;
+}
+
+/*  REGISTER
+------------------------------------------------------------ */
+#register {
+    max-width: 100%;
+    width: 500px;
+    margin: 0 auto;
+}
+
+#register input[type="text"], #register input[type="password"] {
+    width: 100%;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    background: rgba(117, 82, 115, 0.7);
+    color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+#register button {
+    float: right;
+    width: 25%;
+    padding: 15px 5px;
+    background: #FF9705;
+    color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/*  LOGIN
+------------------------------------------------------------ */
+
+/*  GAME
+------------------------------------------------------------ */
+
+#game-area {
+    float: right;
+    width: 650px;
+}
+
+#game-area .reset {
     height: 45px;
     margin-bottom: 15px;
 }
 
-div.container .reset button {
+#game-area .reset button {
     width: 50px;
     height: 100%;
     border: none;
@@ -44,7 +117,7 @@ div.container .reset button {
     cursor: pointer;
 }
 
-div.container .reset button i {
+#game-area .reset button i {
     font-size: 20px;
 }
 
@@ -70,21 +143,21 @@ div.container .reset button i {
     font-size: 45px;
 }
 
-div.container .words-area {
+#game-area .words-area {
     width: 150%;
     font-size: 35px;
     color: #FFFFFF;
 }
 
-.word {
+#game-area .word {
     float: left;
     padding: 5px 25px;
 }
-.word:nth-child(1) {
+#game-area .word:nth-child(1) {
     background: rgba(0,0,0,0.6);
     border-radius: 10px;
 }
-.score {
+#game-area .score {
     float: left;
     margin-right: 10px;
 }
