@@ -4,8 +4,8 @@ block content
     .container
         #user-area
             form#login-form(method='POST' action='/login')
-                input#login-email(type="text" placeholder="Email..." name="email")
-                input#login-password(type="password" placeholder="Password..." name="password")
+                input#login-email(type="text" placeholder="Email..." autocomplete="off" name="email")
+                input#login-password(type="password" placeholder="Password..." autocomplete="off" name="password")
                 a.button-cancel(href="/") Cancel
                 button.button-login(type="submit") Login
 

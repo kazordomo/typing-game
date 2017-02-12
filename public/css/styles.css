@@ -18,7 +18,7 @@ a {
     color: #FFFFFF;
 }
 
-input[type="text"], input[type="password"], button {
+input[type="text"], input[type="password"], input[type="email"], button {
     border: none;
     outline: none;
 }
@@ -60,6 +60,7 @@ div.wrapper {
     font-size: 25px;
     text-decoration: none;
     border-radius: 10px;
+    transition: background ease-in-out .15s;
 }
 
 #front-page a:hover {
@@ -86,7 +87,7 @@ div.wrapper {
     margin: 0 auto;
 }
 
-#user-area input[type="text"], #user-area input[type="password"] {
+#user-area input[type="text"], #user-area input[type="password"], #user-area input[type="email"] {
     width: 100%;
     padding: 20px 30px;
     margin-bottom: 20px;
