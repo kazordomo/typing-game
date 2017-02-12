@@ -13,7 +13,12 @@ ul {
     list-style: none;
 }
 
-input[type="text"], #register input[type="password"], button {
+a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+input[type="text"], input[type="password"], button {
     border: none;
     outline: none;
 }
@@ -61,15 +66,27 @@ div.wrapper {
     background: #634A62;
 }
 
-/*  REGISTER
+#front-page .user-note {
+    color: #FFFFFF;
+    font-style: italic;
+    font-size: 17px;
+}
+
+#front-page .user-note i {
+    margin-right: 10px;
+    font-size: 20px;
+    font-style: italic;
+}
+
+/*  REGISTER/LOGIN
 ------------------------------------------------------------ */
-#register {
+#user-area {
     max-width: 100%;
     width: 500px;
     margin: 0 auto;
 }
 
-#register input[type="text"], #register input[type="password"] {
+#user-area input[type="text"], #user-area input[type="password"] {
     width: 100%;
     padding: 20px 30px;
     margin-bottom: 20px;
@@ -80,11 +97,10 @@ div.wrapper {
     font-weight: 700;
 }
 
-#register button {
+#user-area button, #user-area a {
     float: right;
     width: 25%;
     padding: 15px 5px;
-    background: #FF9705;
     color: #FFFFFF;
     border-radius: 10px;
     font-size: 20px;
@@ -92,8 +108,20 @@ div.wrapper {
     cursor: pointer;
 }
 
-/*  LOGIN
------------------------------------------------------------- */
+#user-area .button-register {
+    background: #FF9705;
+}
+
+#user-area .button-login {
+    background: #27C42A;
+}
+
+#user-area .button-cancel {
+    display: block;
+    float: left;
+    background: #DE1D1D;
+    text-align: center;
+}
 
 /*  GAME
 ------------------------------------------------------------ */
