@@ -1,0 +1,9 @@
+extends layout
+
+.container
+    form#login-form(method='POST' action='/game')
+        input#login-email(type="text" placeholder="Email" name="email" required)
+        input#login-username(type="text" placeholder="Name" name="username" required)
+        input#login-password(type="password" placeholder="Password" name="password" required)
+        input#login-password2(type="password" placeholder="Reenter password" name="password2" required)
+

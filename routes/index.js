@@ -35,8 +35,7 @@ router.post('/login', (req, res, next) => {
             } else {
                 //give user a session. _id is the id mongo gave the user collection when created
                 req.session.userId = user._id;
-                //CHANGE THE ROUTE
-                return res.redirect('/profile');
+                return res.redirect('/game');
             }
         });
     } else {
@@ -72,8 +71,7 @@ router.post('register', (req, res, next) => {
             } else {
                 //when registered -> logged in
                 res.session.userId = user._id;
-                //CHANGE ROUTE
-                return res.redirect('/profile');
+                return res.redirect('/game');
             }
         });
     } else {
