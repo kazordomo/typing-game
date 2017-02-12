@@ -2,4 +2,6 @@ extends layout
 
 block content
     .container
-        p(style="color: white;")= message
+        #error
+            i(class="fa fa-exclamation-circle" aria-hidden="true")
+            h1.error-message= message

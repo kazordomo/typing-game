@@ -152,7 +152,7 @@ div.wrapper {
 
 #refresh {
     float: right;
-    background: #EBD088;
+    background: #E8A5DF;
 }
 
 #typing-area {
@@ -189,4 +189,15 @@ div.wrapper {
 #game-area .score {
     float: left;
     margin-right: 10px;
+}
+
+/*  ERROR
+------------------------------------------------------------ */
+#error {
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#error i {
+    font-size: 80px;
 }
