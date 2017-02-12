@@ -1,20 +1,21 @@
 extends layout
 
-.container
-    .game-area
-        .wrapper.clearfix
-            .reset
-                span#time-counter
-                button#refresh
-                    i(class="fa fa-refresh" aria-hidden="true")
-            form#typing-form
-                input#typing-area(type="text" autocomplete="off" autofocus)
-        .words-area
-            span.word
-            span.word
-            span.word
-            span.word
-            span.word
-            span.score
-            span.score
-            span.score
+block content
+    .container
+        .game-area
+            .wrapper.clearfix
+                .reset
+                    span#time-counter
+                    button#refresh
+                        i(class="fa fa-refresh" aria-hidden="true")
+                form
+                    input#typing-area(type="text" autocomplete="off" autofocus)
+            .words-area
+                span.word
+                span.word
+                span.word
+                span.word
+                span.word
+                span.score
+                span.score
+                span.score

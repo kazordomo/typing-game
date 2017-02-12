@@ -56,4 +56,4 @@ UserSchema.pre('save', (next) => {
 
 // Add the scehma to mongo
 let User = mongoose.model('User', UserSchema);
-modle.exports = User;
+module.exports = User;

@@ -1,12 +1,13 @@
-const express = reuiqre('express');
+const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 //the index.js file is called automatically from the folder.
 const mid = require('../middleware');
 
 // GET /login
+//user the middleware exported from middleware/index.js
 router.get('/login', mid.loggedOut, (req, res, next) => {
-    return res.render('login', {title: 'Log in'});
+    return res.render('login', { title: 'Login' });
 });
 
 // GET /logout
@@ -46,10 +47,17 @@ router.post('/login', (req, res, next) => {
     }
 });
 
+// GET /register
+router.get('/register', mid.loggedOut, (req, res, next) => {
+    return res.render('register', { title: 'Register' });
+});
+
 // POST /register
+//the view action is set to register, which handles the register and then redirects
+//to the game view when done.
 router.post('register', (req, res, next) => {
-    //check for null values
-    if(req.body.email, req.body.name, req.body.password, req.body.confirmPassword) {
+    //check for null values, using the name="" from the view
+    if(req.body.email && req.body.name && req.body.password && req.body.confirmPassword) {
         //confirm password
         if(req.body.password !== req.body.confirmPassword) {
             let err = new Error('Passwords do not match');
@@ -81,9 +89,14 @@ router.post('register', (req, res, next) => {
     }
 });
 
-//GET /
+// GET /
 router.get('/', (req, res, next) => {
-    return res.render('index', { title: 'Type' });
+    return res.render('index', { title: 'Welcome' });
+});
+
+// GET /game
+router.get('/game', (req, res, next) => {
+   return res.render('game', { title: 'Gamezone' });
 });
 
 module.exports = router;

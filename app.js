@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo')(session);
 const express = require('express');
 const app = express();
 
@@ -11,14 +11,14 @@ mongoose.connect("mongodb://localhost:27017/typing-game");
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 
-// ----------------- OVERKILL? ------------------
+// ----------------- COOKIES OR SESSION? ------------------
 
-// use sessions for tracking user logins
+// use sessions for tracking user login
 app.use(session({
     secret: 'typethesecret',
     resave: true,
     saveUninitialized: false,
-    //stoure our sessions in our db
+    //store our sessions in our db
     store: new MongoStore({
         mongooseConnection: db
     })
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
     next();
 });
 
-// ----------------------------------------------
+// --------------------------------------------------------
 
 //parse incoming requests
 app.use(bodyParser.json());
@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // serve static files from /public folder
 app.use(express.static(__dirname + '/public'));
 
-// view enging setup
+// view engine setup
 app.set('view engine', 'pug');
 //login/register and main view
 app.set('views', __dirname + '/views');
