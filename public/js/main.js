@@ -23,7 +23,23 @@ let en_words = [
     "lamp",
     "clock",
     "and",
-    "know"
+    "know",
+    "mountain",
+    "fish",
+    "ask",
+    "fool",
+    "mobile",
+    "television",
+    "star",
+    "paper",
+    "bag",
+    "doll",
+    "mouse",
+    "crush",
+    "more",
+    "five",
+    "glitch",
+    "journey"
 ];
 
 let getElementId = (element) =>  {
@@ -39,6 +55,7 @@ let typingArea = getElementId('typing-area');
 let showScore = getElementClass('score');
 let word = getElementClass('word');
 let timeCounter = getElementId('time-counter');
+let submitScore = getElementId('submit-score');
 
 let counter = 0;
 let correct = 0;
@@ -90,6 +107,7 @@ let startTimer = (duration, element) => {
             showScore[0].style.color = "#27C42A";
             showScore[1].style.color = "#DE1D1D";
             typingArea.style.border = '3px solid transparent';
+            submitScore.value = correct;
         } else
             element.innerHTML = timer;
     }, 1000);

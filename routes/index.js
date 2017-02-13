@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const TopToday = require('../models/top-score-today');
+const TopAll = require('../models/top-score-all');
 //the index.js file is called automatically from the folder.
 const mid = require('../middleware');
 
@@ -99,6 +101,18 @@ router.get('/', (req, res, next) => {
 // GET /game
 router.get('/game', (req, res, next) => {
    return res.render('game', { title: 'Gamezone' });
+});
+
+// GET /score
+//get all the scores and show them in view.
+router.get('/topscore', (req, res, next) => {
+
+});
+
+// POST /score
+//post the score with help of the score-model.
+router.post('/topscore', (req, res, next) => {
+
 });
 
 module.exports = router;
