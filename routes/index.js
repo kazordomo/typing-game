@@ -38,7 +38,8 @@ router.post('/login', (req, res, next) => {
             } else {
                 //give user a session. _id is the id mongo gave the user collection when created
                 req.session.userId = user._id;
-                return res.redirect('/game');
+                // return res.redirect('game');
+                return res.render('game', { name: user.name });
             }
         });
     } else {
@@ -83,7 +84,8 @@ router.post('/register', (req, res, next) => {
             } else {
                 //when they register, they are automatically logged in.
                 req.session.userId = user._id;
-                return res.redirect('/game');
+                // return res.redirect('game');
+                return res.render('game', { name: user.name });
             }
         });
     } else {
@@ -100,16 +102,18 @@ router.get('/', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
-    //TODO: make "continue as guest" work. the score shouold be sent to /game as well
-    User.findById(req.session.userId)
-        .exec(function(error, user) {
-            if (error) {
-                return next(error);
-            } else {
-                //the second argument is sent to the view
-                return res.render('game', { title: 'Gamezone', name: user.name });
-            }
-        });
+    //should not be byId.
+    // User.findById(req.session.userId)
+    //     .exec(function(error, user) {
+    //         if (error) {
+    //             return next(error);
+    //         } else {
+    //             //the second argument is sent to the view
+    //             return res.render('game', { title: 'Gamezone', name: user.name });
+    //         }
+    //     });
+
+    return res.render('game', { title: 'Gamezone' });
 });
 
 // GET /score
