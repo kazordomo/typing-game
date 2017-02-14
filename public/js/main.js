@@ -56,6 +56,7 @@ let showScore = getElementClass('score');
 let word = getElementClass('word');
 let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
+let scoreForm = getElementId('score-form');
 
 let counter = 0;
 let correct = 0;
@@ -108,10 +109,21 @@ let startTimer = (duration, element) => {
             showScore[1].style.color = "#DE1D1D";
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
+            //TODO: only submit IF top-score-today/all
+            scoreForm.submit();
         } else
             element.innerHTML = timer;
     }, 1000);
 };
+
+function submitIfFormComplete()
+{
+    // Check the select has something selected
+    if (document.getElementById('selectOne').selectedIndex > 0)
+    {
+        document.getElementById('formID').submit();
+    }
+}
 
 //check if the word that is typed is correct
 let spellChecker = () => {

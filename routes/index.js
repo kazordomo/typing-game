@@ -51,7 +51,7 @@ router.post('/login', (req, res, next) => {
 
 // GET /register
 router.get('/register', mid.loggedOut, (req, res, next) => {
-    return res.render('register', { title: 'SIgn Up' });
+    return res.render('register', { title: 'Sign Up' });
 });
 
 // POST /register
@@ -100,7 +100,16 @@ router.get('/', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
-   return res.render('game', { title: 'Gamezone' });
+    //TODO: make "continue as guest" work. the score shouold be sent to /game as well
+    User.findById(req.session.userId)
+        .exec(function(error, user) {
+            if (error) {
+                return next(error);
+            } else {
+                //the second argument is sent to the view
+                return res.render('game', { title: 'Gamezone', name: user.name });
+            }
+        });
 });
 
 // GET /score
@@ -112,7 +121,7 @@ router.get('/topscore', (req, res, next) => {
 // POST /score
 //post the score with help of the score-model.
 router.post('/topscore', (req, res, next) => {
-
+    console.log("SUBMITING");
 });
 
 module.exports = router;
