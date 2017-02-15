@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
-let TopAllSchema = new mongoose.Schema({
+let ScoreSchema = new mongoose.Schema({
     score: Number,
+    name: String,
     date: { type: Date, default: Date.now }
 });
 
 //add the schema to mongo
-let TopAll = mongoose.model('TopAll', TopAllSchema);
-module.exports = TopAll;
+let Score = mongoose.model('Score', ScoreSchema);
+module.exports = Score;

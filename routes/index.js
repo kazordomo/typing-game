@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
-const TopToday = require('../models/top-score-today');
-const TopAll = require('../models/top-score-all');
+const Score = require('../models/score');
 //the index.js file is called automatically from the folder.
 const mid = require('../middleware');
 
@@ -77,7 +76,7 @@ router.post('/register', (req, res, next) => {
             password: req.body.password
         };
 
-        // use schema's 'create' method to insert document intro Mongo
+        // use schema's 'create' method to insert document into Mongo
         User.create(userData, (error, user) => {
             if (error) {
                 return next(error);
@@ -102,30 +101,32 @@ router.get('/', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
-    //should not be byId.
-    // User.findById(req.session.userId)
-    //     .exec(function(error, user) {
-    //         if (error) {
-    //             return next(error);
-    //         } else {
-    //             //the second argument is sent to the view
-    //             return res.render('game', { title: 'Gamezone', name: user.name });
-    //         }
-    //     });
-
     return res.render('game', { title: 'Gamezone' });
-});
-
-// GET /score
-//get all the scores and show them in view.
-router.get('/topscore', (req, res, next) => {
-
 });
 
 // POST /score
 //post the score with help of the score-model.
-router.post('/topscore', (req, res, next) => {
-    console.log("SUBMITING");
+router.post('/leaderboard', (req, res, next) => {
+    User.findById(req.session.userId)
+        .exec(function(error, user) {
+            if (error) {
+                return next(error);
+            } else {
+                let scoreData = {
+                    score: req.body.submitscore,
+                    name: user.name,
+                    date: Date.now()
+                };
+
+                Score.create(scoreData, (error) => {
+                    if (error) {
+                        return next(error);
+                    } else {
+                        res.redirect('game');
+                    }
+                });
+            }
+        });
 });
 
 module.exports = router;
