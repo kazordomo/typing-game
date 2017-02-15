@@ -5,7 +5,7 @@ block content
         #user-area
             form#register-form(method='POST' action='/register')
                 input#register-email(type="email" placeholder="Email..." autocomplete="off" name="email")
-                input#register-name(type="text" placeholder="Name..." autocomplete="off" name="name")
+                input#register-name(type="text" placeholder="Name..." maxlength="10" autocomplete="off" name="name")
                 input#register-password(type="password" placeholder="Password..." name="password")
                 input#register-password2(type="password" placeholder="Reenter password..." name="confirmPassword")
                 a.button-cancel(href="/") Cancel
