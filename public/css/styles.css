@@ -200,17 +200,13 @@ div.wrapper {
     font-size: 20px;
 }
 
-.leaderboard th {
-
-}
-
-.leaderboard td:first-child {
-    width: 9%;
-}
-.leaderboard td {
-    width: 30%;
-    padding: 5px 0px;
-}
+/*.leaderboard li:first-child {*/
+    /*width: 9%;*/
+/*}*/
+/*.leaderboard li {*/
+    /*width: 30%;*/
+    /*padding: 5px 0px;*/
+/*}*/
 
 /*  ERROR
 ------------------------------------------------------------ */

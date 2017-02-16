@@ -23,24 +23,9 @@ block content
             form#score-form(method="POST" action="/leaderboard")
                 input#submit-score(type="hidden" value="" name="submitscore")
 
-            table.leaderboard
-                tr
-                    th
-                    th Player
-                    th Score
-                    th Date
-                tr
-                    td 1
-                    td HEJHEJHEJJ
-                    td 109 w/m
-                    td 2017-02-15
-                tr
-                    td 2
-                    td HEJ
-                    td 92 w/m
-                    td 2017-02-15
-                tr
-                    td 3
-                    td HEJ
-                    td 91 w/m
-                    td 2017-02-15
+            ul.leaderboard
+                each score in scores
+                    li
+                    li= score.name
+                    li= score.score
+                    li= score.date

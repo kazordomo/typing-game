@@ -100,8 +100,20 @@ router.get('/', (req, res, next) => {
 });
 
 // GET /game
+
+//find a better way to do this pl0x
+//find a way to update without db reload. backend and frontend
+let scoreResult = [];
+Score.find({}).exec(function(error, result, next) {
+    if (error) {
+        return next(error);
+    } else {
+        scoreResult = result;
+        console.log(scoreResult);
+    }
+});
 router.get('/game', (req, res, next) => {
-    return res.render('game', { title: 'Gamezone' });
+    return res.render('game', { title: 'Gamezone', scores: scoreResult });
 });
 
 // POST /score
@@ -122,7 +134,7 @@ router.post('/leaderboard', (req, res, next) => {
                     if (error) {
                         return next(error);
                     } else {
-                        res.redirect('game');
+                        return res.render('game', { title: 'Gamezone', scores: scoreResult });
                     }
                 });
             }
