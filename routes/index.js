@@ -135,7 +135,7 @@ router.post('/leaderboard', (req, res, next) => {
                     if (error) {
                         return next(error);
                     } else {
-                        // return res.render('game', { title: 'Gamezone', scores: scoreResult });
+
                     }
                 });
             }

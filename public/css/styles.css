@@ -18,6 +18,18 @@ a {
     color: #FFFFFF;
 }
 
+.btn {
+    width: 25%;
+    padding: 15px 5px;
+    color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 input[type="text"], input[type="password"], input[type="email"], button {
     border: none;
     outline: none;
@@ -100,13 +112,6 @@ div.wrapper {
 
 #user-area button, #user-area a {
     float: right;
-    width: 25%;
-    padding: 15px 5px;
-    color: #FFFFFF;
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
 }
 
 #user-area .button-register {
@@ -206,6 +211,14 @@ div.wrapper {
 
 .leaderboard td {
     padding-bottom: 5px;
+}
+
+.logout {
+    position: absolute;
+    top: 25px;
+    right: 45px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 /*  ERROR

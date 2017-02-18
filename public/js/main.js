@@ -191,7 +191,7 @@ typingArea.onkeydown = (e) => {
         if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
             keystrokes++;
             if(timer === 0) {
-                startTimer(15, timeCounter);
+                startTimer(5, timeCounter);
             }
             if(e.keyCode === 8) {
                 character--;

@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
 
 let ScoreSchema = new mongoose.Schema({
     score: Number,
