@@ -223,6 +223,7 @@ div.wrapper {
     right: 20px;
     font-size: 25px;
     color: #2E2B30;
+    cursor: pointer;
 }
 
 .leaderboard {
