@@ -157,7 +157,7 @@ div.wrapper {
 
 #refresh {
     float: right;
-    background: #E8A5DF;
+    background: #EED5F7;
 }
 
 #typing-area {
@@ -207,6 +207,7 @@ div.wrapper {
 
 .leaderboard th {
     padding-bottom: 15px;
+    text-transform: uppercase;
 }
 
 .leaderboard td {

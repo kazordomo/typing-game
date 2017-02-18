@@ -38,8 +38,9 @@ router.post('/login', (req, res, next) => {
             } else {
                 //give user a session. _id is the id mongo gave the user collection when created
                 req.session.userId = user._id;
-                // return res.redirect('game');
-                return res.render('game', { name: user.name });
+                console.log(user._id);
+                return res.redirect('game');
+                // return res.render('game', { user: req.session.userId });
             }
         });
     } else {
@@ -84,8 +85,7 @@ router.post('/register', (req, res, next) => {
             } else {
                 //when they register, they are automatically logged in.
                 req.session.userId = user._id;
-                // return res.redirect('game');
-                return res.render('game', { name: user.name });
+                return res.render('game');
             }
         });
     } else {
@@ -107,7 +107,7 @@ router.get('/game', (req, res, next) => {
             return next(error);
         else
             //TODO: pass in id to check if user or guest
-            res.render('game', { title: 'Gamezone', scores: data });
+            res.render('game', { title: 'Gamezone', scores: data, user: req.session });
     });
 });
 

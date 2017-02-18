@@ -2,8 +2,9 @@ extends layout
 
 block content
 
-    a.logout(href="logout")
-        <i class="fa fa-user-times" aria-hidden="true"></i>  Logout
+    if user.userId
+        a.logout(href="logout")
+            <i class="fa fa-user-times" aria-hidden="true"></i>  Logout
     .container
         #game-area
             .wrapper.clearfix
@@ -29,9 +30,9 @@ block content
             table.leaderboard
                     tr
                         th
-                        th Player
-                        th Score
-                        th Date
+                        th PLAYER
+                        th WPM
+                        th DATE
                     each score in scores
                         tr
                             td
