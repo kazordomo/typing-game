@@ -101,19 +101,13 @@ router.get('/', (req, res, next) => {
 });
 
 // GET /game
-
-//find a better way to do this pl0x
-//find a way to update without db reload. backend and frontend
-let scoreResult = [];
-Score.find({}).exec(function(error, result, next) {
-    if (error) {
-        return next(error);
-    } else {
-        scoreResult = result;
-    }
-});
 router.get('/game', (req, res, next) => {
-    return res.render('game', { title: 'Gamezone', scores: scoreResult });
+    Score.find({}, (error, data) => {
+        if(error)
+            return next(error);
+        else
+            res.render('game', { title: 'Gamezone', scores: data });
+    });
 });
 
 // POST /score
@@ -135,7 +129,10 @@ router.post('/leaderboard', (req, res, next) => {
                     if (error) {
                         return next(error);
                     } else {
-
+                        Score.find({}, (error, data) => {
+                            if(error)
+                                return next(error);
+                        });
                     }
                 });
             }
