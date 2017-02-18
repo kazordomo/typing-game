@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 let ScoreSchema = new mongoose.Schema({
     score: Number,
     name: String,
-    date: { type: Date, default: Date.now }
+    date: String
 });
 
 //add the schema to mongo

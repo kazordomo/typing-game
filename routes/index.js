@@ -1,4 +1,5 @@
 const express = require('express');
+const moment = require('moment');
 const router = express.Router();
 const User = require('../models/user');
 const Score = require('../models/score');
@@ -109,7 +110,6 @@ Score.find({}).exec(function(error, result, next) {
         return next(error);
     } else {
         scoreResult = result;
-        console.log(scoreResult);
     }
 });
 router.get('/game', (req, res, next) => {
@@ -119,6 +119,8 @@ router.get('/game', (req, res, next) => {
 // POST /score
 //post the score with help of the score-model.
 router.post('/leaderboard', (req, res, next) => {
+    let formatedDate = moment(Date.now()).format('YYYY-DD-MM');
+    console.log(typeof formatedDate);
     User.findById(req.session.userId)
         .exec(function(error, user) {
             if (error) {
@@ -127,14 +129,14 @@ router.post('/leaderboard', (req, res, next) => {
                 let scoreData = {
                     score: req.body.submitscore,
                     name: user.name,
-                    date: Date.now()
+                    date: formatedDate
                 };
 
                 Score.create(scoreData, (error) => {
                     if (error) {
                         return next(error);
                     } else {
-                        return res.render('game', { title: 'Gamezone', scores: scoreResult });
+                        // return res.render('game', { title: 'Gamezone', scores: scoreResult });
                     }
                 });
             }
