@@ -54,9 +54,12 @@ let refresh = getElementId('refresh');
 let typingArea = getElementId('typing-area');
 let showScore = getElementClass('score');
 let word = getElementClass('word');
+let leaderboard = getElementClass('leaderboard-wrapper')[0];
+let fade = getElementClass('fade')[0];
 let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
 let scoreForm = getElementId('score-form');
+let closeTable = getElementId('close-table');
 
 let counter = 0;
 let correct = 0;
@@ -82,6 +85,12 @@ word[1].innerHTML = words[counter + 1];
 word[2].innerHTML = words[counter + 2];
 word[3].innerHTML = words[counter + 3];
 word[4].innerHTML = words[counter + 4];
+
+closeTable.addEventListener('click', function() {
+    leaderboard.style.display = 'none';
+    fade.style.display = 'none';
+
+});
 
 //store global to make it clearable
 let start;
@@ -115,15 +124,6 @@ let startTimer = (duration, element) => {
             element.innerHTML = timer;
     }, 1000);
 };
-
-function submitIfFormComplete()
-{
-    // Check the select has something selected
-    if (document.getElementById('selectOne').selectedIndex > 0)
-    {
-        document.getElementById('formID').submit();
-    }
-}
 
 //check if the word that is typed is correct
 let spellChecker = () => {

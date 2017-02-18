@@ -2,6 +2,7 @@ extends layout
 
 block content
 
+    .fade
     if user.userId
         a.logout(href="logout")
             <i class="fa fa-user-times" aria-hidden="true"></i>  Logout
@@ -27,15 +28,11 @@ block content
             form#score-form(method="POST" action="/leaderboard")
                 input#submit-score(type="hidden" value="" name="submitscore")
 
-            table.leaderboard
-                    tr
-                        th
-                        th PLAYER
-                        th WPM
-                        th DATE
-                    each score in scores
-                        tr
-                            td
-                            td #{score.name}
-                            td #{score.score}
-                            td #{score.date}
+    .leaderboard-wrapper
+        span#close-table <i class="fa fa-times" aria-hidden="true"></i>
+        .leaderboard
+            h1 LEADERBOARD
+            - var pos = 0;
+            each score in scores
+                - pos++;
+                div #{pos}. #{score.name}(#{score.score} wpm)

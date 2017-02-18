@@ -3,7 +3,6 @@ const moment = require('moment');
 const router = express.Router();
 const User = require('../models/user');
 const Score = require('../models/score');
-//the index.js file is called automatically from the folder.
 const mid = require('../middleware');
 
 // GET /logout
