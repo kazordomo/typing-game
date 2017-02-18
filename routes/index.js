@@ -40,7 +40,6 @@ router.post('/login', (req, res, next) => {
                 req.session.userId = user._id;
                 console.log(user._id);
                 return res.redirect('game');
-                // return res.render('game', { user: req.session.userId });
             }
         });
     } else {
@@ -106,7 +105,6 @@ router.get('/game', (req, res, next) => {
         if(error)
             return next(error);
         else
-            //TODO: pass in id to check if user or guest
             res.render('game', { title: 'Gamezone', scores: data, user: req.session });
     });
 });
