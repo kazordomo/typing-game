@@ -106,6 +106,7 @@ router.get('/game', (req, res, next) => {
         if(error)
             return next(error);
         else
+            //TODO: pass in id to check if user or guest
             res.render('game', { title: 'Gamezone', scores: data });
     });
 });
@@ -113,30 +114,30 @@ router.get('/game', (req, res, next) => {
 // POST /score
 //post the score with help of the score-model.
 router.post('/leaderboard', (req, res, next) => {
-    let formatedDate = moment(Date.now()).format('YYYY-DD-MM');
-    User.findById(req.session.userId)
-        .exec(function(error, user) {
-            if (error) {
-                return next(error);
-            } else {
-                let scoreData = {
-                    score: req.body.submitscore,
-                    name: user.name,
-                    date: formatedDate
-                };
+    if(req.session.userId) {
+        let formatedDate = moment(Date.now()).format('YYYY-DD-MM');
+        User.findById(req.session.userId)
+            .exec(function(error, user) {
+                if (error) {
+                    return next(error);
+                } else {
+                    let scoreData = {
+                        score: req.body.submitscore,
+                        name: user.name,
+                        date: formatedDate
+                    };
 
-                Score.create(scoreData, (error) => {
-                    if (error) {
-                        return next(error);
-                    } else {
-                        Score.find({}, (error, data) => {
-                            if(error)
-                                return next(error);
-                        });
-                    }
-                });
-            }
-        });
+                    Score.create(scoreData, (error) => {
+                        if (error) {
+                            return next(error);
+                        } else {
+                            //need a way to redirect to 'game' when user press enter
+                            return res.redirect('game');
+                        }
+                    });
+                }
+            });
+    }
 });
 
 module.exports = router;
