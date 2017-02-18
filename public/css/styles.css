@@ -196,22 +196,46 @@ div.wrapper {
     margin-right: 10px;
 }
 
+.fade {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.7);
+}
+
+.leaderboard-wrapper {
+    position: fixed;
+    z-index: 100;
+    top: 10%;
+    right: 10%;
+    bottom: 10%;
+    left: 10%;
+    background: #E8CFE4;
+    border-radius: 10px;
+}
+
+#close-table {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 25px;
+    color: #2E2B30;
+    cursor: pointer;
+}
+
 .leaderboard {
-    width: 800px;
-    margin: 0 auto;
-    margin-top: 200px;
-    color: #FFFFFF;
+    width: 100%;
+    margin: 50px;
+    color: #2E2B30;
     text-align: left;
     font-size: 20px;
 }
 
-.leaderboard th {
-    padding-bottom: 15px;
-    text-transform: uppercase;
-}
-
-.leaderboard td {
-    padding-bottom: 5px;
+.leaderboard div {
+    margin-bottom: 5px;
 }
 
 .logout {
