@@ -120,7 +120,6 @@ router.get('/game', (req, res, next) => {
 //post the score with help of the score-model.
 router.post('/leaderboard', (req, res, next) => {
     let formatedDate = moment(Date.now()).format('YYYY-DD-MM');
-    console.log(typeof formatedDate);
     User.findById(req.session.userId)
         .exec(function(error, user) {
             if (error) {

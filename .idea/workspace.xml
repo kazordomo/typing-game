@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="60744eec-e234-48cf-ab01-76b9dfbec5ad" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/score.js" afterPath="$PROJECT_DIR$/models/score.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/styles.css" afterPath="$PROJECT_DIR$/public/css/styles.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/game.pug" afterPath="$PROJECT_DIR$/views/game.pug" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -50,18 +50,18 @@
           <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/routes/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="489">
-                  <caret line="122" column="37" lean-forward="true" selection-start-line="122" selection-start-column="37" selection-end-line="122" selection-end-column="37" />
+                <state relative-caret-position="472">
+                  <caret line="121" column="63" lean-forward="true" selection-start-line="121" selection-start-column="63" selection-end-line="121" selection-end-column="63" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="score.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="score.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/models/score.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="102">
-                  <caret line="6" column="16" lean-forward="true" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+                <state relative-caret-position="187">
+                  <caret line="11" column="23" lean-forward="true" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
                   <folding />
                 </state>
               </provider>
@@ -70,8 +70,8 @@
           <file leaf-file-name="game.pug" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/views/game.pug">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="493">
-                  <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+                <state relative-caret-position="595">
+                  <caret line="35" column="45" lean-forward="true" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
                   <folding />
                 </state>
               </provider>
@@ -125,11 +125,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
+          <file leaf-file-name="styles.css" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/public/css/styles.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="793">
-                  <caret line="199" column="20" lean-forward="false" selection-start-line="199" selection-start-column="20" selection-end-line="199" selection-end-column="20" />
+                <state relative-caret-position="689">
+                  <caret line="207" column="24" lean-forward="false" selection-start-line="207" selection-start-column="24" selection-end-line="207" selection-end-column="24" />
                   <folding />
                 </state>
               </provider>
@@ -189,10 +189,10 @@
         <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/public/js/main.js" />
         <option value="$PROJECT_DIR$/views/register.pug" />
+        <option value="$PROJECT_DIR$/models/score.js" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/views/game.pug" />
         <option value="$PROJECT_DIR$/public/css/styles.css" />
-        <option value="$PROJECT_DIR$/routes/index.js" />
-        <option value="$PROJECT_DIR$/models/score.js" />
       </list>
     </option>
   </component>
@@ -440,16 +440,16 @@
       <workItem from="1486909930135" duration="52000" />
       <workItem from="1486910653313" duration="16802000" />
       <workItem from="1487103948905" duration="3768000" />
-      <workItem from="1487182885843" duration="12774000" />
+      <workItem from="1487182885843" duration="13542000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="106431000" />
+    <option name="totallyTimeSpent" value="107199000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14960937" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -458,7 +458,7 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.287902" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.287902" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -804,34 +804,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/styles.css">
+    <entry file="file://$PROJECT_DIR$/models/score.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="793">
-          <caret line="199" column="20" lean-forward="false" selection-start-line="199" selection-start-column="20" selection-end-line="199" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/game.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="35" lean-forward="false" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+        <state relative-caret-position="187">
+          <caret line="11" column="23" lean-forward="true" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="122" column="37" lean-forward="true" selection-start-line="122" selection-start-column="37" selection-end-line="122" selection-end-column="37" />
+        <state relative-caret-position="472">
+          <caret line="121" column="63" lean-forward="true" selection-start-line="121" selection-start-column="63" selection-end-line="121" selection-end-column="63" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/score.js">
+    <entry file="file://$PROJECT_DIR$/views/game.pug">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="16" lean-forward="true" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        <state relative-caret-position="595">
+          <caret line="35" column="45" lean-forward="true" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="689">
+          <caret line="207" column="24" lean-forward="false" selection-start-line="207" selection-start-column="24" selection-end-line="207" selection-end-column="24" />
           <folding />
         </state>
       </provider>

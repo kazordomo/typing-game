@@ -23,9 +23,15 @@ block content
             form#score-form(method="POST" action="/leaderboard")
                 input#submit-score(type="hidden" value="" name="submitscore")
 
-            ul.leaderboard
-                each score in scores
-                    li
-                    li= score.name
-                    li= score.score
-                    li= score.date
+            table.leaderboard
+                    tr
+                        th
+                        th Player
+                        th Score
+                        th Date
+                    each score in scores
+                        tr
+                            td
+                            td #{score.name}
+                            td #{score.score}
+                            td #{score.date}
