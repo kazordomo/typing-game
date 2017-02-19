@@ -59,7 +59,8 @@ let fade = getElementClass('fade')[0];
 let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
 let scoreForm = getElementId('score-form');
-let closeTable = getElementId('close-table');
+let openLeaderboard = getElementId('open-leaderboard');
+let closeLeaderboard = getElementId('close-leaderboard');
 
 let counter = 0;
 let correct = 0;
@@ -86,7 +87,12 @@ word[2].innerHTML = words[counter + 2];
 word[3].innerHTML = words[counter + 3];
 word[4].innerHTML = words[counter + 4];
 
-closeTable.addEventListener('click', function() {
+openLeaderboard.addEventListener('click', function() {
+    leaderboard.style.display = 'block';
+    fade.style.display = 'block';
+});
+
+closeLeaderboard.addEventListener('click', function() {
     leaderboard.style.display = 'none';
     fade.style.display = 'none';
 

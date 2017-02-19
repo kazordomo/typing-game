@@ -197,6 +197,7 @@ div.wrapper {
 }
 
 .fade {
+    display: none;
     position: fixed;
     z-index: 99;
     top: 0;
@@ -207,6 +208,7 @@ div.wrapper {
 }
 
 .leaderboard-wrapper {
+    display: none;
     position: fixed;
     z-index: 100;
     top: 10%;
@@ -217,7 +219,14 @@ div.wrapper {
     border-radius: 10px;
 }
 
-#close-table {
+#open-leaderboard {
+    margin-top: 150px;
+    color: #FFFFFF;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#close-leaderboard {
     position: absolute;
     top: 15px;
     right: 20px;

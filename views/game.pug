@@ -28,8 +28,11 @@ block content
             form#score-form(method="POST" action="/leaderboard")
                 input#submit-score(type="hidden" value="" name="submitscore")
 
+            div#open-leaderboard
+                <i class="fa fa-list-ol" aria-hidden="true"></i> Leaderboard
+
     .leaderboard-wrapper
-        span#close-table <i class="fa fa-times" aria-hidden="true"></i>
+        span#close-leaderboard <i class="fa fa-times" aria-hidden="true"></i>
         .leaderboard
             h1 LEADERBOARD
             - var pos = 0;
