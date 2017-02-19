@@ -207,18 +207,6 @@ div.wrapper {
     background: rgba(0,0,0,0.7);
 }
 
-.leaderboard-wrapper {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    top: 10%;
-    right: 10%;
-    bottom: 10%;
-    left: 10%;
-    background: #E8CFE4;
-    border-radius: 10px;
-}
-
 #open-leaderboard {
     margin-top: 150px;
     color: #FFFFFF;
@@ -235,16 +223,43 @@ div.wrapper {
     cursor: pointer;
 }
 
-.leaderboard {
-    width: 100%;
-    margin: 50px;
-    color: #2E2B30;
-    text-align: left;
-    font-size: 20px;
+.leaderboard-wrapper {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    top: 10%;
+    right: 20%;
+    bottom: 10%;
+    left: 20%;
+    background: #45A88C;
+    /*background: url('../images/test-br.jpg');*/
+    /*background-size: cover;*/
+    border-radius: 10px;
 }
 
-.leaderboard div {
-    margin-bottom: 5px;
+.leaderboard {
+    width: 100%;
+    padding: 25px 100px;
+    color: #2E2B30;
+    font-size: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: 700;
+}
+
+.leaderboard .top-today {
+    float: left;
+    width: 50%;
+}
+
+.leaderboard .top-all {
+    float: right;
+    width: 50%;
+}
+
+.leaderboard div.user-score {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .logout {

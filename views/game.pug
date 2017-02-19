@@ -35,7 +35,17 @@ block content
         span#close-leaderboard <i class="fa fa-times" aria-hidden="true"></i>
         .leaderboard
             h1 LEADERBOARD
-            - var pos = 0;
-            each score in scores
-                - pos++;
-                div #{pos}. #{score.name}(#{score.score} wpm)
+
+            div.top-today
+                h3.top-today-title Top Today
+                - var pos = 0;
+                each score in scores
+                    - pos++;
+                    div.user-score #{pos}. #{score.name} (#{score.score} wpm)
+
+            div.top-all
+                h3.top-all-title Top All
+                - var pos = 0;
+                    each score in scores
+                        - pos++;
+                        div.user-score #{pos}. #{score.name} (#{score.score} wpm)
