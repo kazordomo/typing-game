@@ -199,6 +199,9 @@ typingArea.onkeydown = (e) => {
             if(timer === 0) {
                 startTimer(5, timeCounter);
             }
+            // if(e.keyCode === 8 && e.keyCode === 18) {
+            //     character = 0;
+            // }
             if(e.keyCode === 8) {
                 character--;
                 if(word[0].innerHTML.charAt(character- 1) == typingArea.value.charAt(character - 1)){
@@ -217,6 +220,8 @@ typingArea.onkeydown = (e) => {
 
 typingArea.onkeyup = (e) => {
     if(timer > 0) {
+        if(typingArea.value == '')
+            character = 0;
         if(e.keyCode !== 32) {
             if (word[0].innerHTML.charAt(character - 1) != typingArea.value.charAt(character - 1)) {
                 typingArea.style.border = '3px solid #DE1D1D';
