@@ -199,9 +199,6 @@ typingArea.onkeydown = (e) => {
             if(timer === 0) {
                 startTimer(5, timeCounter);
             }
-            // if(e.keyCode === 8 && e.keyCode === 18) {
-            //     character = 0;
-            // }
             if(e.keyCode === 8) {
                 character--;
                 if(word[0].innerHTML.charAt(character- 1) == typingArea.value.charAt(character - 1)){
@@ -233,3 +230,17 @@ typingArea.onkeyup = (e) => {
         }
     }
 };
+
+//TODO: get the http working................
+
+// scoreForm.addEventListener('onsubmit', function() {
+//     // e.preventDefault();
+//     console.log("HTJA");
+//     // let http = new XMLHttpRequest();
+//     // http.onreadystatechange = function() {
+//     //     if (this.readyState == 4 && this.status == 200) {
+//     //         console.log("works");
+//     //     }
+//     // };
+//
+// });

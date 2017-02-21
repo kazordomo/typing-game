@@ -108,6 +108,7 @@ router.get('/game', (req, res, next) => {
     });
 });
 
+//TODO: add ajax to post without reloading the page
 // POST /score
 //post the score with help of the score-model.
 router.post('/leaderboard', (req, res, next) => {
@@ -128,12 +129,14 @@ router.post('/leaderboard', (req, res, next) => {
                         if (error) {
                             return next(error);
                         } else {
-                            //need a way to redirect to 'game' when user press enter
-                            return res.redirect('game');
+                            //need a way to redirect to 'game' first when the user presses enter
+                            // return res.redirect('game');
                         }
                     });
                 }
             });
+    } else {
+        res.redirect('game');
     }
 });
 
