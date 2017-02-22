@@ -61,6 +61,7 @@ let submitScore = getElementId('submit-score');
 let scoreForm = getElementId('score-form');
 let openLeaderboard = getElementId('open-leaderboard');
 let closeLeaderboard = getElementId('close-leaderboard');
+let submitButton = getElementId('submit-button');
 
 let counter = 0;
 let correct = 0;
@@ -125,7 +126,12 @@ let startTimer = (duration, element) => {
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
             //TODO: only submit IF top-score-today/all
-            scoreForm.submit();
+            scoreForm.addEventListener('submit', function() {
+                console.log("FUNKAR!!");
+            });
+            //TODO: hide button in view
+            //this is needed to invoke the submit. .submit() do not work.
+            submitButton.click();
         } else
             element.innerHTML = timer;
     }, 1000);
@@ -230,17 +236,3 @@ typingArea.onkeyup = (e) => {
         }
     }
 };
-
-//TODO: get the http working................
-
-// scoreForm.addEventListener('onsubmit', function() {
-//     // e.preventDefault();
-//     console.log("HTJA");
-//     // let http = new XMLHttpRequest();
-//     // http.onreadystatechange = function() {
-//     //     if (this.readyState == 4 && this.status == 200) {
-//     //         console.log("works");
-//     //     }
-//     // };
-//
-// });
