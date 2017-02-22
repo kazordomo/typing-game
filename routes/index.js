@@ -100,11 +100,11 @@ router.get('/', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
-    Score.find({}, (error, data) => {
+    Score.find().sort({ score: -1 }).limit(10).exec(function(error, doc) {
         if(error)
-            return next(error);
+            return next(error)
         else
-            res.render('game', { title: 'Gamezone', scores: data, user: req.session });
+            res.render('game', { title: 'Gamezone', scores: doc, user: req.session });
     });
 });
 
