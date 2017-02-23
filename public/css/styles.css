@@ -262,6 +262,13 @@ div.wrapper {
     margin-bottom: 10px;
 }
 
+#submit-button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+}
+
 .logout {
     position: absolute;
     top: 25px;

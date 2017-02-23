@@ -126,7 +126,8 @@ let startTimer = (duration, element) => {
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
             //TODO: only submit IF top-score-today/all
-            scoreForm.addEventListener('submit', function() {
+            scoreForm.addEventListener('submit', function(e) {
+                e.preventDefault();
                 console.log("FUNKAR!!");
             });
             //TODO: hide button in view
