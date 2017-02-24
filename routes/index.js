@@ -5,6 +5,10 @@ const User = require('../models/user');
 const Score = require('../models/score');
 const mid = require('../middleware');
 
+// let formatedDate = moment(Date.now()).format('YYYY-DD-MM');
+let today = moment().startOf('day');
+let tomorrow = moment(today).add(1, 'days');
+
 // GET /logout
 router.get('/logout', (req, res, next) => {
     if (req.session) {
@@ -98,6 +102,8 @@ router.get('/', (req, res, next) => {
     return res.render('index', { title: 'Welcome' });
 });
 
+console.log(Score.find( {"date": {"$gte": today.toDate(), "$lt": tomorrow.toDate()}}));
+
 // GET /game
 router.get('/game', (req, res, next) => {
     Score.find().sort({ score: -1 }).limit(10).exec(function(error, doc) {
@@ -113,7 +119,6 @@ router.get('/game', (req, res, next) => {
 //post the score with help of the score-model.
 router.post('/leaderboard', (req, res, next) => {
     if(req.session.userId) {
-        let formatedDate = moment(Date.now()).format('YYYY-DD-MM');
         User.findById(req.session.userId)
             .exec(function(error, user) {
                 if (error) {
@@ -122,7 +127,7 @@ router.post('/leaderboard', (req, res, next) => {
                     let scoreData = {
                         score: req.body.submitscore,
                         name: user.name,
-                        date: formatedDate
+                        date: today
                     };
 
                     Score.create(scoreData, (error) => {
