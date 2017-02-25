@@ -103,46 +103,21 @@ router.get('/', (req, res, next) => {
     return res.render('index', { title: 'Welcome' });
 });
 
-// //WE NEED TO GET THIS TOGHETER AND RENDER THE VIEW WHEN BOTH HAVE LOADED THERE INVIDIUALY VALUES
-// Score.find( {date: {"$gte": today.toDate(), "$lt": tomorrow.toDate()}}).sort({ score: -1 }).limit(10).exec(function(error, doc) {});
-// Score.find().sort({ score: -1 }).limit(10).exec(function(error, doc) {
-//     console.log(doc);
-//     if(error)
-//         return next(error);
-//     else
-//     res.render('game', { title: 'Gamezone', scores: doc, user: req.session });
-// });
-
-// let tempArr = [
-//     {
-//         score: 1,
-//         date: today
-//     },
-//     {
-//         score: 5,
-//         date: today
-//     },
-//     {
-//         score: 2,
-//         date: tomorrow
-//     },
-// ];
-// console.log(tempArr);
-
 // GET /game
 router.get('/game', (req, res, next) => {
-    let topToday = [];
-    let topAll = [];
+    let score = {};
 
     Score.find({}, (error, doc) => {
-        topToday = _.filter(doc, function(d) {
+        score.topToday = _.filter(doc, function(d) {
             return d.date == today.toDate();
         });
-        topAll = _.sortBy(doc, 'score');
+        score.topAll = _.sortBy(doc, 'score');
+        console.log(score);
         if(error)
             return next(error);
         else {
-            res.render('game', { title: 'Gamezone', scores: topToday, user: req.session });
+            //we send in the object for topToday and topAll. user is for keeping track if logged in or not.
+            res.render('game', { title: 'Gamezone', topToday: score.topToday, topAll: score.topAll, user: req.session });
         }
     });
 });
@@ -162,6 +137,7 @@ router.post('/leaderboard', (req, res, next) => {
                         name: user.name,
                         date: today.toDate()
                     };
+                    console.log(scoreData);
 
                     Score.create(scoreData, (error) => {
                         if (error) {

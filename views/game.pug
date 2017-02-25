@@ -39,13 +39,13 @@ block content
             div.top-today
                 h3.top-today-title Top Today
                 - var pos = 0;
-                each score in scores
+                each tp in topToday
                     - pos++;
-                    div.user-score #{pos}. #{score.name} (#{score.score} wpm)
+                    div.user-score #{pos}. #{tp.name} (#{tp.score} wpm)
 
             div.top-all
                 h3.top-all-title Top All
                 - var pos = 0;
-                    each score in scores
+                    each ta in topAll
                         - pos++;
-                        div.user-score #{pos}. #{score.name} (#{score.score} wpm)
+                        div.user-score #{pos}. #{ta.name} (#{ta.score} wpm)
