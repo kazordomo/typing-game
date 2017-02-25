@@ -1,5 +1,6 @@
 const express = require('express');
 const moment = require('moment');
+const _ = require('lodash');
 const router = express.Router();
 const User = require('../models/user');
 const Score = require('../models/score');
@@ -102,15 +103,47 @@ router.get('/', (req, res, next) => {
     return res.render('index', { title: 'Welcome' });
 });
 
-console.log(Score.find( {"date": {"$gte": today.toDate(), "$lt": tomorrow.toDate()}}));
+// //WE NEED TO GET THIS TOGHETER AND RENDER THE VIEW WHEN BOTH HAVE LOADED THERE INVIDIUALY VALUES
+// Score.find( {date: {"$gte": today.toDate(), "$lt": tomorrow.toDate()}}).sort({ score: -1 }).limit(10).exec(function(error, doc) {});
+// Score.find().sort({ score: -1 }).limit(10).exec(function(error, doc) {
+//     console.log(doc);
+//     if(error)
+//         return next(error);
+//     else
+//     res.render('game', { title: 'Gamezone', scores: doc, user: req.session });
+// });
+
+// let tempArr = [
+//     {
+//         score: 1,
+//         date: today
+//     },
+//     {
+//         score: 5,
+//         date: today
+//     },
+//     {
+//         score: 2,
+//         date: tomorrow
+//     },
+// ];
+// console.log(tempArr);
 
 // GET /game
 router.get('/game', (req, res, next) => {
-    Score.find().sort({ score: -1 }).limit(10).exec(function(error, doc) {
+    let topToday = [];
+    let topAll = [];
+
+    Score.find({}, (error, doc) => {
+        topToday = _.filter(doc, function(d) {
+            return d.date == today.toDate();
+        });
+        topAll = _.sortBy(doc, 'score');
         if(error)
-            return next(error)
-        else
-            res.render('game', { title: 'Gamezone', scores: doc, user: req.session });
+            return next(error);
+        else {
+            res.render('game', { title: 'Gamezone', scores: topToday, user: req.session });
+        }
     });
 });
 
@@ -127,7 +160,7 @@ router.post('/leaderboard', (req, res, next) => {
                     let scoreData = {
                         score: req.body.submitscore,
                         name: user.name,
-                        date: today
+                        date: today.toDate()
                     };
 
                     Score.create(scoreData, (error) => {

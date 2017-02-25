@@ -126,10 +126,10 @@ let startTimer = (duration, element) => {
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
             //TODO: only submit IF top-score-today/all
-            scoreForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                console.log("FUNKAR!!");
-            });
+            // scoreForm.addEventListener('submit', function(e) {
+            //     e.preventDefault();
+            //     console.log("FUNKAR!!");
+            // });
             //TODO: hide button in view
             //this is needed to invoke the submit. .submit() do not work.
             submitButton.click();
