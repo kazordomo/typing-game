@@ -111,8 +111,13 @@ router.get('/game', (req, res, next) => {
         score.topToday = _.filter(doc, function(d) {
             return d.date == today.toDate();
         });
-        score.topAll = _.sortBy(doc, 'score');
-        console.log(score);
+
+        score.topToday = _.orderBy(score.topToday, 'score', 'desc');
+        score.topAll = _.orderBy(doc, 'score', 'desc');
+
+        score.topToday = score.topToday.slice(0, 10);
+        score.topAll = score.topAll.slice(0, 10);
+
         if(error)
             return next(error);
         else {
@@ -124,7 +129,6 @@ router.get('/game', (req, res, next) => {
 
 //TODO: add ajax to post without reloading the page
 // POST /score
-//post the score with help of the score-model.
 router.post('/leaderboard', (req, res, next) => {
     if(req.session.userId) {
         User.findById(req.session.userId)
@@ -137,7 +141,6 @@ router.post('/leaderboard', (req, res, next) => {
                         name: user.name,
                         date: today.toDate()
                     };
-                    console.log(scoreData);
 
                     Score.create(scoreData, (error) => {
                         if (error) {
