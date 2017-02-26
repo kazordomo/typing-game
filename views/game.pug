@@ -7,6 +7,7 @@ block content
         a.logout(href="logout")
             <i class="fa fa-user-times" aria-hidden="true"></i>  Logout
     .container
+        h1#hejsan(style="color: #FFFFFF;")
         #game-area
             .wrapper.clearfix
                 .reset
@@ -25,7 +26,7 @@ block content
                 span.score
                 span.score
 
-            form#score-form(method="POST" action="/leaderboard")
+            form#score-form(method="POST" action="/products")
                 input#submit-score(type="hidden" value="" name="submitscore")
                 button#submit-button(type="submit")
 

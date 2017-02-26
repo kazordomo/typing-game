@@ -72,11 +72,28 @@ let character = 0;
 let errorChar = 0;
 let timer = 0;
 
-function sendData(url, data) {
+// function sendData(url, data) {
+//     let xhr = new XMLHttpRequest();
+//     xhr.onreadystatechange = function() {
+//         if (this.readyState == 4 && this.status == 200) {
+//             console.log("READY FROM CLIENT");
+//         }
+//     }
+//     xhr.open('GET', url, true);
+//     xhr.send();
+// }
+
+function sendData(url) {
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.send(data);
-    console.log("sending data");
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            let hej = this.responseText;
+            console.log(hej);
+        }
+    }
+    xhr.open('GET', url, true);
+    xhr.send(null);
 }
 
 //shuffle the words
@@ -89,6 +106,7 @@ let shuffle = (arr) => {
 };
 
 words = shuffle(words);
+//TODO: create a loop
 word[0].innerHTML = words[counter];
 word[1].innerHTML = words[counter + 1];
 word[2].innerHTML = words[counter + 2];
@@ -133,12 +151,11 @@ let startTimer = (duration, element) => {
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
             //TODO: only submit IF top-score-today/all
-            scoreForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                console.log("FUNKAR!!");
+            // scoreForm.addEventListener('submit', function(e) {
+            //     e.preventDefault();
                 //should send the other information as well.
-                sendData('http://localhost:3000/leaderboard', submitScore.value);
-            });
+                // sendData('http://localhost:3000/test');
+            // });
             //TODO: hide button in view
             //this is needed to invoke the submit. .submit() do not work.
             submitButton.click();
@@ -159,6 +176,7 @@ let spellChecker = () => {
     }
     typingArea.value = '';
     character = 0;
+    //TODO: create a loop
     word[0].innerHTML = words[counter];
     word[1].innerHTML = words[counter + 1];
     word[2].innerHTML = words[counter + 2];
@@ -182,6 +200,7 @@ let resetAll = () => {
     misses = 0;
     keystrokes = 0;
     character = 0;
+    //TODO: create a loop
     word[0].innerHTML = words[counter];
     word[1].innerHTML = words[counter + 1];
     word[2].innerHTML = words[counter + 2];
@@ -246,3 +265,48 @@ typingArea.onkeyup = (e) => {
         }
     }
 };
+
+/*  AJAX
+------------------------------------------------------------ */
+
+$(function() {
+    // GET/READ
+    //TODO: populate the view with the values we get from the server. Perhaps even append as element to table-body
+    $('#submit-button').on('click', function() {
+        $.ajax({
+            url: '/products',
+            contentType: 'application/json',
+            success: function(response) {
+                console.log(response);
+
+                let hejsan = $('#hejsan');
+                hejsan.html('');
+                response.forEach(function(product) {
+                    hejsan.html(product.score);
+                });
+            }
+        })
+    });
+
+    // CREATE/POST
+    $('#score-form').on('submit', function(event) {
+        event.preventDefault();
+
+        let scoreInput = $('#submit-score');
+
+        $.ajax({
+            url: '/products',
+            method: 'POST',
+            contentType: 'application/json',
+            //parse score to int to prevent it to covert to a string.
+            data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
+            success: function(response) {
+                console.log(response);
+                console.log(JSON.stringify({ score: scoreInput.val() }));
+                scoreInput.val(null);
+                //to get the newly created score to the leaderboard
+                // $('#submit-button').click();
+            }
+        })
+    })
+});

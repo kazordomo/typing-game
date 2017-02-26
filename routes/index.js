@@ -121,6 +121,7 @@ router.get('/game', (req, res, next) => {
             return next(error);
         else {
             //we send in the object for topToday and topAll. user is for keeping track if logged in or not.
+            //TODO: make it a res.send. we don't want to reload the page, as with a render
             res.render('game', { title: 'Gamezone', topToday: score.topToday, topAll: score.topAll, user: req.session });
         }
     });
@@ -128,7 +129,7 @@ router.get('/game', (req, res, next) => {
 
 //TODO: add ajax to post without reloading the page
 // POST /score
-router.post('/leaderboard', (req, res, next) => {
+router.post('/game', (req, res, next) => {
     if(req.session.userId) {
         User.findById(req.session.userId)
             .exec(function(error, user) {
@@ -136,7 +137,7 @@ router.post('/leaderboard', (req, res, next) => {
                     return next(error);
                 } else {
                     let scoreData = {
-                        score: req.body.submitscore,
+                        score: post_data,
                         name: user.name,
                         date: today.toDate()
                     };
@@ -154,6 +155,33 @@ router.post('/leaderboard', (req, res, next) => {
     } else {
         res.redirect('game');
     }
+});
+
+//TEST
+
+var products = [
+    {
+        score: 1
+    },
+    {
+        score: 4
+    }
+];
+
+router.get('/products', (req, res) => {
+    res.send(products);
+});
+
+router.post('/products', (req, res) => {
+    //check to see if the bodyparser works
+    let scoreValue = req.body.score;
+    console.log(scoreValue);
+
+    products.push({
+        score: scoreValue
+    });
+    res.send('Successfully created');
+
 });
 
 module.exports = router;
