@@ -72,6 +72,13 @@ let character = 0;
 let errorChar = 0;
 let timer = 0;
 
+function sendData(url, data) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.send(data);
+    console.log("sending data");
+}
+
 //shuffle the words
 let shuffle = (arr) => {
     for (let i = arr.length; i; i--) {
@@ -126,10 +133,12 @@ let startTimer = (duration, element) => {
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
             //TODO: only submit IF top-score-today/all
-            // scoreForm.addEventListener('submit', function(e) {
-            //     e.preventDefault();
-            //     console.log("FUNKAR!!");
-            // });
+            scoreForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                console.log("FUNKAR!!");
+                //should send the other information as well.
+                sendData('http://localhost:3000/leaderboard', submitScore.value);
+            });
             //TODO: hide button in view
             //this is needed to invoke the submit. .submit() do not work.
             submitButton.click();
