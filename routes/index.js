@@ -128,7 +128,7 @@ router.get('/game', (req, res, next) => {
 
 //TODO: add ajax to post without reloading the page
 // POST /score
-router.post('/leaderboard', (req, res, next) => {
+router.post('/game', (req, res, next) => {
     if(req.session.userId) {
         User.findById(req.session.userId)
             .exec(function(error, user) {
@@ -146,7 +146,7 @@ router.post('/leaderboard', (req, res, next) => {
                             return next(error);
                         } else {
                             //need a way to redirect to 'game' first when the user presses enter
-                            // return res.redirect('game');
+                            return res.redirect('game');
                         }
                     });
                 }
