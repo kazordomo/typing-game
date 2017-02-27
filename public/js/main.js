@@ -272,40 +272,40 @@ typingArea.onkeyup = (e) => {
 $(function() {
     // GET/READ
     //TODO: populate the view with the values we get from the server. Perhaps even append as element to table-body
-    $('#submit-button').on('click', function() {
+    $('#submit-button').on('click', (function() {
         $.ajax({
-            url: '/products',
+            url: '/leaderboard',
             contentType: 'application/json',
             success: function(response) {
                 console.log(response);
 
-                let hejsan = $('#hejsan');
-                hejsan.html('');
-                response.forEach(function(product) {
-                    hejsan.html(product.score);
+                response.topToday.forEach(function(topToday) {
+                    $('.list').first().append("<div class='user-score'>" + topToday.score + "</div>");
                 });
             }
         })
-    });
+    }));
 
     // CREATE/POST
     $('#score-form').on('submit', function(event) {
         event.preventDefault();
 
+        // div.user-score #{pos}. #{tp.name} (#{tp.score} wpm)
+
         let scoreInput = $('#submit-score');
 
         $.ajax({
-            url: '/products',
+            url: '/leaderboard',
             method: 'POST',
             contentType: 'application/json',
             //parse score to int to prevent it to covert to a string.
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
             success: function(response) {
-                console.log(response);
-                console.log(JSON.stringify({ score: scoreInput.val() }));
                 scoreInput.val(null);
                 //to get the newly created score to the leaderboard
-                // $('#submit-button').click();
+                setTimeout(function() {
+                    submitButton.click();
+                },2000);
             }
         })
     })

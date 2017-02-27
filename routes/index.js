@@ -130,6 +130,7 @@ router.get('/game', (req, res, next) => {
 //TODO: add ajax to post without reloading the page
 // POST /score
 router.post('/game', (req, res, next) => {
+
     if(req.session.userId) {
         User.findById(req.session.userId)
             .exec(function(error, user) {
@@ -158,29 +159,60 @@ router.post('/game', (req, res, next) => {
 });
 
 //TEST
+router.get('/leaderboard', (req, res) => {
 
-var products = [
-    {
-        score: 1
-    },
-    {
-        score: 4
-    }
-];
+    let score = {};
 
-router.get('/products', (req, res) => {
-    res.send(products);
+    Score.find({}, (error, doc) => {
+        score.topToday = _.filter(doc, function(d) {
+            return d.date == today.toDate();
+        });
+
+        score.topToday = _.orderBy(score.topToday, 'score', 'desc');
+        score.topAll = _.orderBy(doc, 'score', 'desc');
+
+        score.topToday = score.topToday.slice(0, 10);
+        score.topAll = score.topAll.slice(0, 10);
+
+        if(error)
+            return next(error);
+        else {
+            //we send in the object for topToday and topAll. user is for keeping track if logged in or not.
+            //TODO: make it a res.send. we don't want to reload the page, as with a render
+            res.send({topToday: score.topToday, topAll: score.topAll});
+        }
+    });
 });
 
-router.post('/products', (req, res) => {
-    //check to see if the bodyparser works
-    let scoreValue = req.body.score;
-    console.log(scoreValue);
+router.post('/leaderboard', (req, res) => {
 
-    products.push({
-        score: scoreValue
-    });
-    res.send('Successfully created');
+    let score = req.body.score;
+
+    if(req.session.userId) {
+        User.findById(req.session.userId)
+            .exec(function(error, user) {
+                if (error) {
+                    return next(error);
+                } else {
+                    let scoreData = {
+                        score: score,
+                        name: user.name,
+                        date: today.toDate()
+                    };
+
+                    Score.create(scoreData, (error) => {
+                        if (error) {
+                            return next(error);
+                        } else {
+                            //need a way to redirect to 'game' first when the user presses enter
+                            // return res.redirect('game');
+                        }
+                    });
+                }
+            });
+    } else {
+        res.redirect('game');
+    }
 
 });
 
