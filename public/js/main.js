@@ -235,3 +235,43 @@ typingArea.onkeyup = (e) => {
         }
     }
 };
+
+/* AJAX
+ ------------------------------------------------------------*/
+
+$('#score-form').on('submit', function(event) {
+    event.preventDefault();
+
+    let scoreInput = $('#submit-score');
+
+    $.ajax({
+        url: '/game',
+        method: 'POST',
+        contentType: 'application/json',
+        //parse score to int to prevent it to covert to a string.
+        data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
+        success: function(response) {
+            console.log(response);
+            scoreInput.val(null);
+            // addTest(response);
+        }
+    })
+})
+
+//TODO: get the score.topToday/score.topAll and add to the view
+let addTest = (score) => {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -106,6 +106,7 @@ router.get('/', (req, res, next) => {
 router.get('/game', (req, res, next) => {
     let score = {};
 
+    //TODO: remove this if code below works
     Score.find({}, (error, doc) => {
         score.topToday = _.filter(doc, function(d) {
             return d.date == today.toDate();
@@ -129,6 +130,9 @@ router.get('/game', (req, res, next) => {
 //TODO: add ajax to post without reloading the page
 // POST /score
 router.post('/game', (req, res, next) => {
+
+    let submitScore = req.body.score;
+
     if(req.session.userId) {
         User.findById(req.session.userId)
             .exec(function(error, user) {
@@ -136,7 +140,7 @@ router.post('/game', (req, res, next) => {
                     return next(error);
                 } else {
                     let scoreData = {
-                        score: req.body.submitscore,
+                        score: submitScore,
                         name: user.name,
                         date: today.toDate()
                     };
@@ -145,8 +149,22 @@ router.post('/game', (req, res, next) => {
                         if (error) {
                             return next(error);
                         } else {
+                            let score = {};
+                            Score.find({}, (error, doc) => {
+                                score.topToday = _.filter(doc, function (d) {
+                                    return d.date == today.toDate();
+                                });
+
+                                score.topToday = _.orderBy(score.topToday, 'score', 'desc');
+                                score.topAll = _.orderBy(doc, 'score', 'desc');
+
+                                score.topToday = score.topToday.slice(0, 10);
+                                score.topAll = score.topAll.slice(0, 10);
+
+                                res.send(score);
+                            });
                             //need a way to redirect to 'game' first when the user presses enter
-                            return res.redirect('game');
+                            // return res.redirect('game');
                         }
                     });
                 }
