@@ -104,33 +104,13 @@ router.get('/', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
-    let score = {};
-
-    //TODO: remove this if code below works
-    Score.find({}, (error, doc) => {
-        score.topToday = _.filter(doc, function(d) {
-            return d.date == today.toDate();
-        });
-
-        score.topToday = _.orderBy(score.topToday, 'score', 'desc');
-        score.topAll = _.orderBy(doc, 'score', 'desc');
-
-        score.topToday = score.topToday.slice(0, 10);
-        score.topAll = score.topAll.slice(0, 10);
-
-        if(error)
-            return next(error);
-        else {
-            //we send in the object for topToday and topAll. user is for keeping track if logged in or not.
-            res.render('game', { title: 'Gamezone', score: score, user: req.session });
-            // res.render('game', { title: 'Gamezone', topToday: score.topToday, topAll: score.topAll, user: req.session });
-        }
-    });
+    //user is for keeping track if logged in or not.
+    res.render('game', {title: 'GameZone', user: req.session});
 });
 
 //TODO: add ajax to post without reloading the page
 // POST /score
-router.post('/game', (req, res, next) => {
+router.post('/leaderboard', (req, res, next) => {
 
     let submitScore = req.body.score;
 
@@ -164,8 +144,6 @@ router.post('/game', (req, res, next) => {
 
                                 res.send(score);
                             });
-                            //need a way to redirect to 'game' first when the user presses enter
-                            // return res.redirect('game');
                         }
                     });
                 }
@@ -173,6 +151,29 @@ router.post('/game', (req, res, next) => {
     } else {
         res.redirect('game');
     }
+});
+
+router.get('/leaderboard', (req, res, next) => {
+
+    //TODO: we don't need to have logic in here. remove it and just send the score collection.
+    let score = {};
+    Score.find({}, (error, doc) => {
+        score.topToday = _.filter(doc, function (d) {
+            return d.date == today.toDate();
+        });
+
+        score.topToday = _.orderBy(score.topToday, 'score', 'desc');
+        score.topAll = _.orderBy(doc, 'score', 'desc');
+
+        score.topToday = score.topToday.slice(0, 10);
+        score.topAll = score.topAll.slice(0, 10);
+
+        if (error)
+            return next(error);
+        else {
+            res.send(score);
+        }
+    });
 });
 
 module.exports = router;

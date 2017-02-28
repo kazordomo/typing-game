@@ -240,22 +240,30 @@ typingArea.onkeyup = (e) => {
  ------------------------------------------------------------*/
 let userTodayScore = getElementClass('top-today-score');
 let userAllScore = getElementClass('top-all-score');
-let addTest = (score) => {
-    debugger;
-    let todayPos = 1;
-    for(let i = 0; i <= score.topToday.length - 1; i++) {
-        console.log(userTodayScore[i]);
-        userTodayScore[i].innerHTML = (todayPos + '. ' + score.topToday[i].name + ' ' + score.topToday[i].score + ' (wpm)');
-        todayPos++;
+let addToView = (score) => {
+    for(let i = 0; i < score.topToday.length; i++) {
+        userTodayScore[i].innerHTML = score.topToday[i].score;
     }
-    let allPos = 1;
-    for(let j = 0; j <= score.topAll.length - 1; j++) {
-        userAllScore[j].innerHTML = (allPos + '. ' + score.topAll[j].name + ' ' + score.topAll[j].score + ' (wpm)');
-        allPos++;
+    for(let i = 0; i < score.topToday.length; i++) {
+        userAllScore[i].innerHTML = score.topAll[i].score;
     }
 };
 
 $(document).ready(function() {
+
+    /**
+     * - the get request populates the leaderboard when the page is loaded.
+     * - the post request post the score and gets back the top 10 of today/all
+     *   from the server-side. it then populates the view with the same function as get.
+     */
+
+    $.ajax({
+        url: '/leaderboard',
+        contentType: 'application/json',
+        success: function(response) {
+            addToView(response);
+        }
+    });
 
     $('#score-form').on('submit', function(event) {
         event.preventDefault();
@@ -263,14 +271,13 @@ $(document).ready(function() {
         let scoreInput = $('#submit-score');
 
         $.ajax({
-            url: '/game',
+            url: '/leaderboard',
             method: 'POST',
             contentType: 'application/json',
             //parse score to int to prevent it to covert to a string.
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
             success: function(response) {
-                console.log(response);
-                addTest(response);
+                addToView(response);
                 scoreInput.val(null);
             }
         });
