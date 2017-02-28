@@ -238,30 +238,45 @@ typingArea.onkeyup = (e) => {
 
 /* AJAX
  ------------------------------------------------------------*/
-
-$('#score-form').on('submit', function(event) {
-    event.preventDefault();
-
-    let scoreInput = $('#submit-score');
-
-    $.ajax({
-        url: '/game',
-        method: 'POST',
-        contentType: 'application/json',
-        //parse score to int to prevent it to covert to a string.
-        data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
-        success: function(response) {
-            console.log(response);
-            scoreInput.val(null);
-            // addTest(response);
-        }
-    })
-})
-
-//TODO: get the score.topToday/score.topAll and add to the view
+let userTodayScore = getElementClass('top-today-score');
+let userAllScore = getElementClass('top-all-score');
 let addTest = (score) => {
+    debugger;
+    let todayPos = 1;
+    for(let i = 0; i <= score.topToday.length - 1; i++) {
+        console.log(userTodayScore[i]);
+        userTodayScore[i].innerHTML = (todayPos + '. ' + score.topToday[i].name + ' ' + score.topToday[i].score + ' (wpm)');
+        todayPos++;
+    }
+    let allPos = 1;
+    for(let j = 0; j <= score.topAll.length - 1; j++) {
+        userAllScore[j].innerHTML = (allPos + '. ' + score.topAll[j].name + ' ' + score.topAll[j].score + ' (wpm)');
+        allPos++;
+    }
+};
 
-}
+$(document).ready(function() {
+
+    $('#score-form').on('submit', function(event) {
+        event.preventDefault();
+
+        let scoreInput = $('#submit-score');
+
+        $.ajax({
+            url: '/game',
+            method: 'POST',
+            contentType: 'application/json',
+            //parse score to int to prevent it to covert to a string.
+            data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
+            success: function(response) {
+                console.log(response);
+                addTest(response);
+                scoreInput.val(null);
+            }
+        });
+    });
+
+});
 
 
 

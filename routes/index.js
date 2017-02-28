@@ -122,7 +122,8 @@ router.get('/game', (req, res, next) => {
             return next(error);
         else {
             //we send in the object for topToday and topAll. user is for keeping track if logged in or not.
-            res.render('game', { title: 'Gamezone', topToday: score.topToday, topAll: score.topAll, user: req.session });
+            res.render('game', { title: 'Gamezone', score: score, user: req.session });
+            // res.render('game', { title: 'Gamezone', topToday: score.topToday, topAll: score.topAll, user: req.session });
         }
     });
 });
