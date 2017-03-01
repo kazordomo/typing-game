@@ -24,8 +24,8 @@ app.use(session({
     })
 }));
 
-app.use((req, res, next) => {
-   //store the userId. the view can access the currentUser
+app.use(function (req, res, next) {
+    // store the userId. all the views can access the currentUser.
     res.locals.currentUser = req.session.userId;
     next();
 });

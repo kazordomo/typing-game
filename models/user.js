@@ -47,7 +47,6 @@ UserSchema.statics.authenticate = (email, password, callback) => {
 UserSchema.pre('save', function(next) {
     //user object and ts data
     let user = this;
-    console.log(user);
     //replace the plain text pass with the hash
     bcrypt.hash(user.password, 10, (err, hash) => {
         if (err) {

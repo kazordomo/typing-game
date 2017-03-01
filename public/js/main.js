@@ -194,6 +194,8 @@ document.onkeydown = (e) => {
     }
 };
 
+let newArr = [];
+
 typingArea.onkeydown = (e) => {
     //instead of space, reset the typing area
     typingArea.value=typingArea.value.replace(/\s+/g,'');
@@ -202,11 +204,11 @@ typingArea.onkeydown = (e) => {
         if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
             keystrokes++;
             if(timer === 0) {
-                startTimer(5, timeCounter);
+                startTimer(60, timeCounter);
             }
             if(e.keyCode === 8) {
                 character--;
-                if(word[0].innerHTML.charAt(character- 1) == typingArea.value.charAt(character - 1)){
+                if(word[0].innerHTML.charAt(character - 1) == typingArea.value.charAt(character - 1)){
                     typingArea.style.border = '3px solid transparent';
                 }
             } else {
@@ -227,11 +229,12 @@ typingArea.onkeyup = (e) => {
         if(e.keyCode !== 32) {
             if (word[0].innerHTML.charAt(character - 1) != typingArea.value.charAt(character - 1)) {
                 typingArea.style.border = '3px solid #DE1D1D';
-                errorChar = character - 1;
             }
-            else if(word[0].innerHTML.charAt(errorChar) == typingArea.value.charAt(errorChar)){
-                typingArea.style.border = '3px solid transparent';
-            }
+            // else if(word[0].innerHTML.charAt(newArr[0]) == typingArea.value.charAt(character - 1)) {
+            //     typingArea.style.border = '3px solid transparent';
+            //     newArr = [];
+            //     console.log(newArr[0]);
+            // }
         }
     }
 };
@@ -242,10 +245,10 @@ let userTodayScore = getElementClass('top-today-score');
 let userAllScore = getElementClass('top-all-score');
 let addToView = (score) => {
     for(let i = 0; i < score.topToday.length; i++) {
-        userTodayScore[i].innerHTML = score.topToday[i].score;
+        userTodayScore[i].innerHTML = (i + 1) + '. ' + score.topToday[i].name + ' ' + score.topToday[i].score + ' (wpm)';
     }
-    for(let i = 0; i < score.topToday.length; i++) {
-        userAllScore[i].innerHTML = score.topAll[i].score;
+    for(let i = 0; i < score.topAll.length; i++) {
+        userAllScore[i].innerHTML = (i + 1) + '. ' + score.topAll[i].name + ' ' + score.topAll[i].score + ' (wpm)';
     }
 };
 

@@ -6,9 +6,15 @@ const User = require('../models/user');
 const Score = require('../models/score');
 const mid = require('../middleware');
 
-// let formatedDate = moment(Date.now()).format('YYYY-DD-MM');
 let today = moment().startOf('day');
-let tomorrow = moment(today).add(1, 'days');
+
+// GET /
+router.get('/', (req, res, next) => {
+    if(req.session.userId)
+        return res.redirect('game');
+    else
+        return res.render('index', { title: 'Welcome' });
+});
 
 // GET /logout
 router.get('/logout', (req, res, next) => {
@@ -87,7 +93,7 @@ router.post('/register', (req, res, next) => {
             } else {
                 //when they register, they are automatically logged in.
                 req.session.userId = user._id;
-                return res.render('game');
+                return res.redirect('game');
             }
         });
     } else {
@@ -95,11 +101,6 @@ router.post('/register', (req, res, next) => {
         err.status = 400;
         return next(err);
     }
-});
-
-// GET /
-router.get('/', (req, res, next) => {
-    return res.render('index', { title: 'Welcome' });
 });
 
 // GET /game
