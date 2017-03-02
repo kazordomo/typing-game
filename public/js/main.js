@@ -278,7 +278,7 @@ let keyPress = {
             if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
                 keystrokes++;
                 if(timer === 0) {
-                    startTimer(5, timeCounter);
+                    startTimer(25, timeCounter);
                 }
                 if(e.keyCode === 8) {
                     character--;
@@ -360,8 +360,11 @@ $(document).ready(function() {
             //parse score to int to prevent it to covert to a string.
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
             success: function(response) {
-                addToView(response);
-                scoreInput.val(null);
+                //only send if player is logged in
+                if(response.user) {
+                    addToView(response);
+                    scoreInput.val(null);
+                }
             }
         });
     });

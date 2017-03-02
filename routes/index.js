@@ -143,6 +143,8 @@ router.post('/leaderboard', (req, res, next) => {
                                 score.topToday = score.topToday.slice(0, 10);
                                 score.topAll = score.topAll.slice(0, 10);
 
+                                score.user = req.session.userId;
+
                                 res.send(score);
                             });
                         }
