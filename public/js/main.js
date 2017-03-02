@@ -39,6 +39,88 @@ let en_words = [
     "more",
     "five",
     "glitch",
+    "journey",
+    "hello",
+    "no",
+    "maybe",
+    "fruits",
+    "fingers",
+    "cloud",
+    "computer",
+    "foot",
+    "monitor",
+    "food",
+    "go",
+    "mum",
+    "shallow",
+    "cup",
+    "of",
+    "tea",
+    "race",
+    "bottle",
+    "finger",
+    "arm",
+    "stomach",
+    "lamp",
+    "clock",
+    "and",
+    "know",
+    "mountain",
+    "fish",
+    "ask",
+    "fool",
+    "mobile",
+    "television",
+    "star",
+    "paper",
+    "bag",
+    "doll",
+    "mouse",
+    "crush",
+    "more",
+    "five",
+    "glitch",
+    "journey",
+    "hello",
+    "no",
+    "maybe",
+    "fruits",
+    "fingers",
+    "cloud",
+    "computer",
+    "foot",
+    "monitor",
+    "food",
+    "go",
+    "mum",
+    "shallow",
+    "cup",
+    "of",
+    "tea",
+    "race",
+    "bottle",
+    "finger",
+    "arm",
+    "stomach",
+    "lamp",
+    "clock",
+    "and",
+    "know",
+    "mountain",
+    "fish",
+    "ask",
+    "fool",
+    "mobile",
+    "television",
+    "star",
+    "paper",
+    "bag",
+    "doll",
+    "mouse",
+    "crush",
+    "more",
+    "five",
+    "glitch",
     "journey"
 ];
 
@@ -58,7 +140,6 @@ let leaderboard = getElementClass('leaderboard-wrapper')[0];
 let fade = getElementClass('fade')[0];
 let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
-let scoreForm = getElementId('score-form');
 let openLeaderboard = getElementId('open-leaderboard');
 let closeLeaderboard = getElementId('close-leaderboard');
 let submitButton = getElementId('submit-button');
@@ -68,8 +149,6 @@ let correct = 0;
 let misses = 0;
 let keystrokes = 0;
 let character = 0;
-//used to store the falsy character
-let errorChar = 0;
 let timer = 0;
 
 //shuffle the words
@@ -125,10 +204,6 @@ let startTimer = (duration, element) => {
             showScore[1].style.color = "#DE1D1D";
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
-            //TODO: ajax
-            // scoreForm.addEventListener('submit', function(e) {
-            //     e.preventDefault();
-            // });
             //this is needed to invoke the submit. .submit() do not work.
             submitButton.click();
         } else
@@ -187,7 +262,7 @@ refresh.addEventListener("click", resetAll);
 
 //reset game with "enter"
 document.onkeydown = (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode == 13 && leaderboard.style.display != 'block') {
         resetAll();
         //prevent page reload
         e.preventDefault();
@@ -203,7 +278,7 @@ let keyPress = {
             if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
                 keystrokes++;
                 if(timer === 0) {
-                    startTimer(60, timeCounter);
+                    startTimer(5, timeCounter);
                 }
                 if(e.keyCode === 8) {
                     character--;
