@@ -194,49 +194,54 @@ document.onkeydown = (e) => {
     }
 };
 
-let newArr = [];
+let keyPress = {
+    down: (e) => {
+        //instead of space, reset the typing area
+        typingArea.value=typingArea.value.replace(/\s+/g,'');
 
-typingArea.onkeydown = (e) => {
-    //instead of space, reset the typing area
-    typingArea.value=typingArea.value.replace(/\s+/g,'');
-
-    if(timer > 0 || timer === 0) {
-        if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
-            keystrokes++;
-            if(timer === 0) {
-                startTimer(60, timeCounter);
-            }
-            if(e.keyCode === 8) {
-                character--;
-                if(word[0].innerHTML.charAt(character - 1) == typingArea.value.charAt(character - 1)){
-                    typingArea.style.border = '3px solid transparent';
+        if(timer > 0 || timer === 0) {
+            if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
+                keystrokes++;
+                if(timer === 0) {
+                    startTimer(60, timeCounter);
                 }
-            } else {
-                if(e.keyCode === 32){
-                    spellChecker();
+                if(e.keyCode === 8) {
+                    character--;
+                    if(word[0].innerHTML.slice(0, character) == typingArea.value.slice(0, character)){
+                        typingArea.style.border = '3px solid transparent';
+                    }
                 } else {
-                    character++;
+                    if(e.keyCode === 32){
+                        spellChecker();
+                    } else {
+                        character++;
+                    }
+                }
+            }
+        }
+    },
+    up: (e) => {
+        if(timer > 0) {
+            if(typingArea.value == '')
+                character = 0;
+            if(e.keyCode !== 32) {
+                if (word[0].innerHTML.slice(0, character) != typingArea.value.slice(0, character)) {
+                    typingArea.style.border = '3px solid #DE1D1D';
+                }
+                else if(word[0].innerHTML.slice(0, character) == typingArea.value.slice(0, character)){
+                    typingArea.style.border = '3px solid transparent';
                 }
             }
         }
     }
 };
 
+typingArea.onkeydown = (e) => {
+    keyPress.down(e);
+};
+
 typingArea.onkeyup = (e) => {
-    if(timer > 0) {
-        if(typingArea.value == '')
-            character = 0;
-        if(e.keyCode !== 32) {
-            if (word[0].innerHTML.charAt(character - 1) != typingArea.value.charAt(character - 1)) {
-                typingArea.style.border = '3px solid #DE1D1D';
-            }
-            // else if(word[0].innerHTML.charAt(newArr[0]) == typingArea.value.charAt(character - 1)) {
-            //     typingArea.style.border = '3px solid transparent';
-            //     newArr = [];
-            //     console.log(newArr[0]);
-            // }
-        }
-    }
+    keyPress.up(e);
 };
 
 /* AJAX
