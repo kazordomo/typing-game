@@ -122,17 +122,17 @@ div.wrapper {
 }
 
 #user-area .button-register {
-    background: #FF9705;
+    background: #2b90d9;
 }
 
 #user-area .button-login {
-    background: #27C42A;
+    background: #228740;
 }
 
 #user-area .button-cancel {
     display: block;
     float: left;
-    background: #DE1D1D;
+    background: #912929;
     text-align: center;
 }
 
