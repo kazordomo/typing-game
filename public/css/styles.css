@@ -226,7 +226,7 @@ div.wrapper {
     top: 15px;
     right: 20px;
     font-size: 25px;
-    color: #2E2B30;
+    color: #FFFFFF;
     cursor: pointer;
 }
 
@@ -238,14 +238,14 @@ div.wrapper {
     right: 25%;
     bottom: 10%;
     left: 25%;
-    background: #45A88C;
+    background: rgba(51, 45, 64, 0.97);
     border-radius: 10px;
 }
 
 .leaderboard {
     width: 100%;
     padding: 25px 100px;
-    color: #2E2B30;
+    color: #FFFFFF;
     font-size: 20px;
     box-sizing: border-box;
     font-weight: 700;
