@@ -8,13 +8,12 @@ block content
             <i class="fa fa-user-times" aria-hidden="true"></i>  Logout
     .container
         #game-area
-            .wrapper.clearfix
-                .reset
-                    span#time-counter
-                    button#refresh
-                        i(class="fa fa-refresh" aria-hidden="true")
-                form
-                    input#typing-area(type="text" autocomplete="off" autofocus)
+            .reset
+                span#time-counter
+                button#refresh
+                    i(class="fa fa-refresh" aria-hidden="true")
+            form.clearfix
+                input#typing-area(type="text" autocomplete="off" autofocus)
             .words-area
                 span.word
                 span.word
@@ -42,6 +41,6 @@ block content
                     div.user-score.top-today-score
 
             div.top-all
-                h3.top-all-title Top Today
+                h3.top-all-title Top All
                 - for(i = 0; i < 10; i++)
                     div.user-score.top-all-score

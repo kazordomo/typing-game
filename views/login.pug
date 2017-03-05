@@ -3,9 +3,10 @@ extends layout
 block content
     .container
         #user-area
-            form#login-form(method='POST' action='/login')
-                input#login-email(type="text" placeholder="Email..." autocomplete="off" name="email")
-                input#login-password(type="password" placeholder="Password..." autocomplete="off" name="password")
-                a.btn.button-cancel(href="/") Cancel
-                button.btn.button-login(type="submit") Login
+            .wrapper
+                form#login-form(method='POST' action='/login')
+                    input#login-email.user-form(type="text" placeholder="Email..." autocomplete="off" name="email")
+                    input#login-password.user-form(type="password" placeholder="Password..." autocomplete="off" name="password")
+                    a.btn.button-cancel(href="/") Cancel
+                    button.btn.button-login(type="submit") Login
 

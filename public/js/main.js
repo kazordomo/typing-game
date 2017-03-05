@@ -151,32 +151,33 @@ let keystrokes = 0;
 let character = 0;
 let timer = 0;
 
+//TODO: rename array and add element insead of "word". also make more then just for words
+let initWords = (arr) => {
+    for(let i = 0; i < word.length; i++) {
+        word[i].innerHTML = arr[counter + i];
+    }
+};
+
 //shuffle the words
 let shuffle = (arr) => {
     for (let i = arr.length; i; i--) {
         let j = Math.floor(Math.random() * i);
         [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
     }
+    initWords(arr);
     return arr;
 };
-
 words = shuffle(words);
-word[0].innerHTML = words[counter];
-word[1].innerHTML = words[counter + 1];
-word[2].innerHTML = words[counter + 2];
-word[3].innerHTML = words[counter + 3];
-word[4].innerHTML = words[counter + 4];
 
-openLeaderboard.addEventListener('click', function() {
-    leaderboard.style.display = 'block';
-    fade.style.display = 'block';
-});
-
-closeLeaderboard.addEventListener('click', function() {
-    leaderboard.style.display = 'none';
-    fade.style.display = 'none';
-
-});
+//TODO: make this viable with the TODO above.
+let toggleLeaderboard = (mode, property) => {
+    mode.addEventListener('click', () => {
+        leaderboard.style.display = property;
+        fade.style.display = property;
+    });
+};
+toggleLeaderboard(openLeaderboard, 'block');
+toggleLeaderboard(closeLeaderboard, 'none');
 
 //store global to make it clearable
 let start;
@@ -188,6 +189,7 @@ let startTimer = (duration, element) => {
         if(timer === 0) {
             clearInterval(start);
             // resets
+            element.style.color = '#FFFFFF';
             element.innerHTML = "GAME!";
             typingArea.disabled = true;
             typingArea.value = 'Press ENTER to restart';
@@ -206,8 +208,14 @@ let startTimer = (duration, element) => {
             submitScore.value = correct;
             //this is needed to invoke the submit. .submit() do not work.
             submitButton.click();
-        } else
+        } else {
+            if (timer <= 5) {
+                element.style.color = '#FF1C1C';
+            } else if (timer <= 10) {
+                element.style.color = '#E8C21A';
+            }
             element.innerHTML = timer;
+        }
     }, 1000);
 };
 
@@ -223,11 +231,7 @@ let spellChecker = () => {
     }
     typingArea.value = '';
     character = 0;
-    word[0].innerHTML = words[counter];
-    word[1].innerHTML = words[counter + 1];
-    word[2].innerHTML = words[counter + 2];
-    word[3].innerHTML = words[counter + 3];
-    word[4].innerHTML = words[counter + 4];
+    initWords(words);
 };
 
 let resetAll = () => {
@@ -235,6 +239,7 @@ let resetAll = () => {
     shuffle(words);
     typingArea.disabled = false;
     typingArea.value = '';
+    //CREAE A FUNCION THAT HANDLE THE LOOP. CHECK TOGGLELEADERBOARD
     for(let i = 0; i < showScore.length; i++) {
         showScore[i].style.display = 'none';
     }
@@ -246,11 +251,7 @@ let resetAll = () => {
     misses = 0;
     keystrokes = 0;
     character = 0;
-    word[0].innerHTML = words[counter];
-    word[1].innerHTML = words[counter + 1];
-    word[2].innerHTML = words[counter + 2];
-    word[3].innerHTML = words[counter + 3];
-    word[4].innerHTML = words[counter + 4];
+    initWords(words);
     typingArea.focus();
     timeCounter.innerHTML = '';
     typingArea.style.border = '3px solid transparent';
@@ -278,7 +279,7 @@ let keyPress = {
             if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
                 keystrokes++;
                 if(timer === 0) {
-                    startTimer(25, timeCounter);
+                    startTimer(5, timeCounter);
                 }
                 if(e.keyCode === 8) {
                     character--;
