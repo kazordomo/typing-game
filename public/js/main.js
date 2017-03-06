@@ -131,6 +131,8 @@ let getElementClass = (elements) => {
     return document.getElementsByClassName(elements);
 };
 
+//VARIABLES
+
 let words = en_words;
 let refresh = getElementId('refresh');
 let typingArea = getElementId('typing-area');
@@ -151,10 +153,9 @@ let keystrokes = 0;
 let character = 0;
 let timer = 0;
 
-//TODO: rename array and add element insead of "word". also make more then just for words
-let initWords = (arr) => {
-    for(let i = 0; i < word.length; i++) {
-        word[i].innerHTML = arr[counter + i];
+let initWords = (arr, element) => {
+    for(let i = 0; i < element.length; i++) {
+        element[i].innerHTML = arr[counter + i];
     }
 };
 
@@ -164,18 +165,24 @@ let shuffle = (arr) => {
         let j = Math.floor(Math.random() * i);
         [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
     }
-    initWords(arr);
+    initWords(arr, word);
     return arr;
 };
-words = shuffle(words);
 
-//TODO: make this viable with the TODO above.
 let toggleLeaderboard = (mode, property) => {
     mode.addEventListener('click', () => {
         leaderboard.style.display = property;
         fade.style.display = property;
     });
 };
+
+let multipleCss = (classGroup, style) => {
+    for(let i = 0; i < classGroup.length; i++) {
+        classGroup[i].style.display = style;
+    }
+};
+
+words = shuffle(words);
 toggleLeaderboard(openLeaderboard, 'block');
 toggleLeaderboard(closeLeaderboard, 'none');
 
@@ -193,12 +200,8 @@ let startTimer = (duration, element) => {
             element.innerHTML = "GAME!";
             typingArea.disabled = true;
             typingArea.value = 'Press ENTER to restart';
-            for (let i = 0; i < word.length; i++) {
-                word[i].style.display = 'none';
-            }
-            for(let i = 0; i < showScore.length; i++) {
-                showScore[i].style.display = 'block';
-            }
+            multipleCss(showScore, 'block');
+            multipleCss(word, 'none');
             showScore[0].innerHTML = correct + ' correct words!';
             showScore[1].innerHTML = misses + (misses == 1 ? ' wrong word. ' : ' wrong words. ');
             showScore[2].innerHTML = keystrokes + ' total keystrokes.';
@@ -231,7 +234,7 @@ let spellChecker = () => {
     }
     typingArea.value = '';
     character = 0;
-    initWords(words);
+    initWords(words, word);
 };
 
 let resetAll = () => {
@@ -239,27 +242,19 @@ let resetAll = () => {
     shuffle(words);
     typingArea.disabled = false;
     typingArea.value = '';
-    //CREAE A FUNCION THAT HANDLE THE LOOP. CHECK TOGGLELEADERBOARD
-    for(let i = 0; i < showScore.length; i++) {
-        showScore[i].style.display = 'none';
-    }
-    for(let i = 0; i < word.length; i++) {
-        word[i].style.display = 'block';
-    }
+    multipleCss(showScore, 'none');
+    multipleCss(word, 'block');
     counter = 0;
     correct = 0;
     misses = 0;
     keystrokes = 0;
     character = 0;
-    initWords(words);
+    initWords(words, word);
     typingArea.focus();
     timeCounter.innerHTML = '';
     typingArea.style.border = '3px solid transparent';
     timer = 0;
 };
-
-//reset stats and timer when refresh is clicked
-refresh.addEventListener("click", resetAll);
 
 //reset game with "enter"
 document.onkeydown = (e) => {
@@ -319,6 +314,9 @@ typingArea.onkeydown = (e) => {
 typingArea.onkeyup = (e) => {
     keyPress.up(e);
 };
+
+//reset stats and timer when refresh is clicked
+refresh.addEventListener("click", resetAll);
 
 /* AJAX
  ------------------------------------------------------------*/
