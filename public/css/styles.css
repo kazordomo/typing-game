@@ -2,10 +2,11 @@
 ------------------------------------------------------------ */
 
 body {
-    background: url('../images/rain-colors.jpg');
-    background-size: cover;
+    background-color: #30A9DE;
     font-family: 'Droid Serif', serif;
     color: #FFFFFF;
+    margin: 0;
+    padding: 0;
 }
 
 ul {
@@ -47,7 +48,8 @@ input[type="text"], input[type="password"], input[type="email"], button {
 
 div.container {
     width: 725px;
-    margin: 200px auto 0px auto;
+    margin: 0 auto;
+    padding-top: 200px;
 }
 
 div.wrapper {
@@ -64,7 +66,7 @@ div.wrapper {
     width: 100%;
     margin-bottom: 20px;
     padding: 20px 10px;
-    background: #755273;
+    background-color: #1D47A1;
     text-align: center;
     font-size: 25px;
     border-radius: 10px;
@@ -98,8 +100,8 @@ div.wrapper {
     width: 100%;
     padding: 20px 30px;
     margin-bottom: 20px;
-    background: rgba(117, 82, 115, 0.7);
-    color: #FFFFFF;
+    background-color: #FFFFFF;
+    color: #2A2C30;
     border-radius: 10px;
     font-size: 22px;
     font-weight: 700;
@@ -110,22 +112,41 @@ div.wrapper {
 }
 
 #user-area .button-register {
-    background: #2b90d9;
+    background: #1D47A1;
 }
 
 #user-area .button-login {
-    background: #228740;
+    background: #0DD442;
 }
 
 #user-area .button-cancel {
     display: block;
     float: left;
-    background: #912929;
+    background: #E53A40;
     text-align: center;
 }
 
 /*  GAME
 ------------------------------------------------------------ */
+.menu-wrapper {
+    position: absolute;
+    width: 100%;
+}
+
+.menu-wrapper .menu-area {
+    float: right;
+    width: 25%;
+    padding: 15px;
+}
+
+.menu-wrapper .menu-area .user-profile {
+    float: right;
+}
+
+.menu-wrapper .menu-area .user-profile i {
+    font-size: 40px;
+}
+
 #game-area {
     width: 650px;
     margin: 0 auto;
@@ -151,7 +172,7 @@ div.wrapper {
 
 #refresh {
     float: right;
-    background: #EED5F7;
+    background: #EFDC05;
 }
 
 #typing-area {

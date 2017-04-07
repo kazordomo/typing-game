@@ -146,6 +146,11 @@ let openLeaderboard = getElementId('open-leaderboard');
 let closeLeaderboard = getElementId('close-leaderboard');
 let submitButton = getElementId('submit-button');
 
+let yellowColor = '#EFDC05';
+let redColor = '#E53A40';
+let blueColor = '#30A9DE';
+let greenColor = '#0DD442';
+
 let counter = 0;
 let correct = 0;
 let misses = 0;
@@ -205,17 +210,17 @@ let startTimer = (duration, element) => {
             showScore[0].innerHTML = correct + ' correct words!';
             showScore[1].innerHTML = misses + (misses == 1 ? ' wrong word. ' : ' wrong words. ');
             showScore[2].innerHTML = keystrokes + ' total keystrokes.';
-            showScore[0].style.color = "#27C42A";
-            showScore[1].style.color = "#DE1D1D";
+            showScore[0].style.color = greenColor;
+            showScore[1].style.color = redColor;
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
             //this is needed to invoke the submit. .submit() do not work.
             submitButton.click();
         } else {
             if (timer <= 5) {
-                element.style.color = '#FF1C1C';
+                element.style.color = redColor;
             } else if (timer <= 10) {
-                element.style.color = '#E8C21A';
+                element.style.color = yellowColor;
             }
             element.innerHTML = timer;
         }
@@ -230,7 +235,7 @@ let spellChecker = () => {
     } else {
         misses++;
         counter++;
-        typingArea.style.border = '3px solid #DE1D1D';
+        typingArea.style.border = '3px solid ' + redColor;
     }
     typingArea.value = '';
     character = 0;
@@ -297,7 +302,7 @@ let keyPress = {
                 character = 0;
             if(e.keyCode !== 32) {
                 if (word[0].innerHTML.slice(0, character) != typingArea.value.slice(0, character)) {
-                    typingArea.style.border = '3px solid #DE1D1D';
+                    typingArea.style.border = '3px solid ' + redColor;
                 }
                 else if(word[0].innerHTML.slice(0, character) == typingArea.value.slice(0, character)){
                     typingArea.style.border = '3px solid transparent';
