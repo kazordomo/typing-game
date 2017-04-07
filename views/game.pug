@@ -8,9 +8,14 @@ block content
             <i class="fa fa-user-times" aria-hidden="true"></i>  Logout
 
     .menu-wrapper
-        .menu-area
+        .menu-user
             a.user-profile(href="profile")
                 i(class="fa fa-user-circle-o" aria-hidden="true")
+                span Profile
+        .menu-general
+            #open-leaderboard.leaderboard
+                i(class="fa fa-list-ol" aria-hidden="true")
+                span Leaderboard
 
     .container
         #game-area
@@ -34,8 +39,8 @@ block content
                 input#submit-score(type="hidden" value="" name="submitscore")
                 button#submit-button(type="submit")
 
-            div#open-leaderboard
-                <i class="fa fa-list-ol" aria-hidden="true"></i> Leaderboard
+            //div#open-leaderboard
+            //    <i class="fa fa-list-ol" aria-hidden="true"></i> Leaderboard
     .leaderboard-wrapper
         span#close-leaderboard <i class="fa fa-times" aria-hidden="true"></i>
         .leaderboard

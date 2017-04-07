@@ -52,6 +52,10 @@ div.container {
     padding-top: 200px;
 }
 
+div.container.profile {
+    padding-top: 50px;
+}
+
 div.wrapper {
     max-width: 100%;
     width: 500px;
@@ -129,23 +133,21 @@ div.wrapper {
 /*  GAME
 ------------------------------------------------------------ */
 .menu-wrapper {
-    position: absolute;
-    width: 100%;
+    position: fixed;
+    width: 20%;
+    padding: 20px;
 }
 
-.menu-wrapper .menu-area {
-    float: right;
-    width: 25%;
-    padding: 15px;
+.menu-wrapper i {
+    font-size: 30px;
 }
 
-.menu-wrapper .menu-area .user-profile {
-    float: right;
-    
+.menu-wrapper div {
+    margin-bottom: 20px;
 }
 
-.menu-wrapper .menu-area .user-profile i {
-    font-size: 40px;
+.menu-wrapper div span {
+    margin-left: 20px;
 }
 
 #game-area {
@@ -221,8 +223,8 @@ div.wrapper {
 }
 
 #open-leaderboard {
-    margin-top: 150px;
-    font-size: 22px;
+    /*margin-top: 150px;*/
+    /*font-size: 22px;*/
     cursor: pointer;
 }
 
@@ -246,12 +248,12 @@ div.wrapper {
     border-radius: 10px;
 }
 
-.leaderboard {
-    padding: 25px 100px;
-    font-size: 20px;
-    box-sizing: border-box;
-    font-weight: 700;
-}
+/*.leaderboard {*/
+    /*padding: 25px 100px;*/
+    /*font-size: 20px;*/
+    /*box-sizing: border-box;*/
+    /*font-weight: 700;*/
+/*}*/
 
 .leaderboard h1 {
     margin-bottom: 50px;
