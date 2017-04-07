@@ -109,6 +109,10 @@ router.get('/game', (req, res, next) => {
     res.render('game', {title: 'GameZone', user: req.session});
 });
 
+router.get('/profile', (req, res, next) => {
+    res.render('profile', {title: 'Profile'});
+});
+
 //TODO: add ajax to post without reloading the page
 // POST /score
 router.post('/leaderboard', (req, res, next) => {
