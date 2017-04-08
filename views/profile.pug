@@ -3,5 +3,27 @@ extends layout
 block content
 
     .container.profile
-        h1 HEJ
-        | correct words, wrong words, top scores, times on highscore, wpm generally
+        #user-profile
+
+            .row.user-promo.clearfix
+                .col.col-40
+                    .picture
+                .col.col-60
+                    .info
+
+            .row.user-stats.clearfix
+                .col.col-50
+                    h3 Top 5 Score
+                    ul
+                        li 1. 102   (2017-04-08)
+                        li 2. 93    (2017-04-08)
+                        li 3. 91    (2017-04-08)
+                        li 4. 85    (2017-04-08)
+                        li 5. 82    (2017-04-08)
+                .col.col-50
+                    .overall
+                        h3 Overall
+                        div Best yet: 102
+                        div Overall wpm: 90
+                        div Correct words: 1021
+                        div Wrong words: 102
