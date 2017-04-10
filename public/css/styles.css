@@ -2,7 +2,8 @@
 ------------------------------------------------------------ */
 
 body {
-    background-color: #30A9DE;
+    /*background-color: #30A9DE;*/
+    background-color: #1D47A1;
     font-family: 'Droid Serif', serif;
     color: #FFFFFF;
     margin: 0;
@@ -52,10 +53,6 @@ div.container {
     padding-top: 200px;
 }
 
-div.container.profile {
-    padding-top: 50px;
-}
-
 div.wrapper {
     max-width: 100%;
     width: 500px;
@@ -64,12 +61,17 @@ div.wrapper {
 
 div.row {
     width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+    margin-bottom: 10px;
+    /*remove*/
+    height: 250px;
+    /*box-sizing: border-box;*/
 }
 
 div.row .col {
     float: left;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 div.row .col-60 {
@@ -80,8 +82,14 @@ div.row .col-50 {
     width: 50%;
 }
 
+div.row .col-50:first-child {
+    width: 48%;
+    margin-right: 2%;
+}
+
 div.row .col-40 {
-    width: 40%;
+    width: 38%;
+    margin-right: 2%;
 }
 
 /*  INDEX/FRONT PAGE
@@ -92,7 +100,8 @@ div.row .col-40 {
     width: 100%;
     margin-bottom: 20px;
     padding: 20px 10px;
-    background-color: #1D47A1;
+    /*background-color: #1D47A1;*/
+    background-color: #30A9DE;
     text-align: center;
     font-size: 25px;
     border-radius: 10px;
@@ -138,7 +147,7 @@ div.row .col-40 {
 }
 
 #user-area .button-register {
-    background: #1D47A1;
+    background-color: #1D47A1;
 }
 
 #user-area .button-login {
@@ -154,22 +163,25 @@ div.row .col-40 {
 
 /*  GAME
 ------------------------------------------------------------ */
-.menu-wrapper {
-    position: fixed;
-    width: 20%;
+.menu-area {
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+}
+
+.menu-area .menu-wrapper {
+    float: right;
+    width: 25%;
     padding: 20px;
 }
 
-.menu-wrapper i {
+.menu-area .menu-wrapper i {
     font-size: 30px;
+    cursor: pointer;
 }
 
-.menu-wrapper div {
-    margin-bottom: 20px;
-}
-
-.menu-wrapper div span {
-    margin-left: 20px;
+.menu-area #open-user-profile {
+    float: right;
 }
 
 #game-area {
@@ -245,9 +257,8 @@ div.row .col-40 {
 }
 
 #open-leaderboard {
-    /*margin-top: 150px;*/
-    /*font-size: 22px;*/
-    cursor: pointer;
+    float: right;
+    margin-right: 30px;
 }
 
 #close-leaderboard {
@@ -258,17 +269,17 @@ div.row .col-40 {
     cursor: pointer;
 }
 
-.leaderboard-wrapper {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    top: 10%;
-    right: 25%;
-    bottom: 10%;
-    left: 25%;
-    background: rgba(51, 45, 64, 0.97);
-    border-radius: 10px;
-}
+/*.leaderboard-wrapper {*/
+    /*display: none;*/
+    /*position: fixed;*/
+    /*z-index: 100;*/
+    /*top: 10%;*/
+    /*right: 25%;*/
+    /*bottom: 10%;*/
+    /*left: 25%;*/
+    /*background: rgba(51, 45, 64, 0.97);*/
+    /*border-radius: 10px;*/
+/*}*/
 
 /*.leaderboard {*/
     /*padding: 25px 100px;*/
@@ -277,25 +288,25 @@ div.row .col-40 {
     /*font-weight: 700;*/
 /*}*/
 
-.leaderboard h1 {
-    margin-bottom: 50px;
-    text-align: center;
-}
+/*.leaderboard h1 {*/
+    /*margin-bottom: 50px;*/
+    /*text-align: center;*/
+/*}*/
 
-.leaderboard .top-today {
-    float: left;
-    max-width: 50%;
-}
+/*.leaderboard .top-today {*/
+    /*float: left;*/
+    /*max-width: 50%;*/
+/*}*/
 
-.leaderboard .top-all {
-    float: right;
-    max-width: 50%;
-}
+/*.leaderboard .top-all {*/
+    /*float: right;*/
+    /*max-width: 50%;*/
+/*}*/
 
-.leaderboard div.user-score {
-    /*width: 100%;*/
-    margin-bottom: 10px;
-}
+/*.leaderboard div.user-score {*/
+    /*!*width: 100%;*!*/
+    /*margin-bottom: 10px;*/
+/*}*/
 
 #submit-button {
     position: absolute;
@@ -304,28 +315,119 @@ div.row .col-40 {
     background: transparent;
 }
 
-.logout {
-    position: absolute;
-    top: 25px;
-    right: 45px;
-    font-size: 20px;
-    cursor: pointer;
-}
+/*.logout {*/
+    /*position: absolute;*/
+    /*top: 25px;*/
+    /*right: 45px;*/
+    /*font-size: 20px;*/
+    /*cursor: pointer;*/
+/*}*/
 
-/*  GAME
+/*  USER PROFILE
 ------------------------------------------------------------ */
-#user-profile .user-promo .picture {
-    height: 250px;
-    background: green;
+#user-and-stats {
+    position: fixed;
+    width: 0;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow-x: hidden;
+    /*background-color: #1D47A1;*/
+    background-color: #30A9DE;
+    transition: all .7s cubic-bezier(0.175, 0.885, 0.320, 1.275);
 }
 
-#user-profile .user-promo .info {
-    height: 250px;
-    background: pink;
+div.container.user-and-stats {
+    width: 675px;
+    padding-top: 75px;
 }
 
-#user-profile .user-stats {
+#user-and-stats .user-and-stats-menu {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    /*margin-bottom: 5px;*/
+}
 
+
+#user-and-stats .user-and-stats-menu div {
+    float: left;
+    /*margin-right: 5px;*/
+    padding: 5px 15px;
+    background: rgba(0,0,0,0.8);
+    font-weight: 700;
+    align-self: flex-end;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+    /*border-radius: 5px;*/
+}
+
+#user-and-stats .user-and-stats-menu div:first-child {
+    border-top-left-radius: 5px;
+}
+
+#user-and-stats .user-and-stats-menu div:nth-child(2) {
+    border-top-right-radius: 5px;
+}
+
+#user-and-stats .user-and-stats-menu div.active {
+    font-size: 25px;
+    border: 1px solid #ffffff;
+    border-bottom: none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+#user-and-stats .slider-main-frame .slider {
+    width: 1350px;
+    transition: all .7s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+
+#user-and-stats .slider-main-frame {
+    margin-top: 40px;
+    overflow: hidden;
+}
+
+.user-profile {
+    float: left;
+    width: 50%;
+}
+
+.leaderboard {
+    float: left;
+    width: 50%;
+    background-color: rgba(0,0,0,0.2);
+    /*background-color: #EFDC05;*/
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+}
+
+.leaderboard .user-score {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.user-profile .picture {
+    background: url(../images/Zak.jpg);
+    background-size: cover;
+    height: 100%;
+    border-top-left-radius: 0px !important;
+}
+
+.user-profile .information {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 100%;
+}
+
+.user-profile .stats {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.user-profile .top-five {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 

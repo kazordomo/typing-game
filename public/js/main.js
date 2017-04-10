@@ -138,17 +138,24 @@ let refresh = getElementId('refresh');
 let typingArea = getElementId('typing-area');
 let showScore = getElementClass('score');
 let word = getElementClass('word');
-let leaderboard = getElementClass('leaderboard-wrapper')[0];
-let fade = getElementClass('fade')[0];
 let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
 let openLeaderboard = getElementId('open-leaderboard');
 let closeLeaderboard = getElementId('close-leaderboard');
 let submitButton = getElementId('submit-button');
+let userAndStats = getElementId('user-and-stats');
+let openUserProfile = getElementId('open-user-profile');
+
+let leaderboard = getElementClass('leaderboard-wrapper')[0];
+let fade = getElementClass('fade')[0];
+let userProfile = getElementClass('user-profile')[0];
+let slider = getElementClass('slider')[0];
+let goToLeaderboard = getElementClass('go-to-leaderboard')[0];
+let goToUser = getElementClass('go-to-user')[0];
 
 let yellowColor = '#EFDC05';
 let redColor = '#E53A40';
-let blueColor = '#30A9DE';
+// let blueColor = '#30A9DE';
 let greenColor = '#0DD442';
 
 let counter = 0;
@@ -157,6 +164,25 @@ let misses = 0;
 let keystrokes = 0;
 let character = 0;
 let timer = 0;
+
+//avoid errors by hiding this logic if the player enters as guest
+if(openUserProfile) {
+    openUserProfile.addEventListener('click', function() {
+        if(userAndStats.style.width != '100%') {
+            openUserProfile.className = 'fa fa-times';
+            userAndStats.style.width = '100%';
+        } else {
+            openUserProfile.className = 'fa fa-user-circle-o';
+            userAndStats.style.width = '0';
+        }
+    });
+}
+
+//CREATE A FUNCTION/CLASS TO REUSE
+goToLeaderboard.addEventListener('click', function() {
+    slider.style.marginLeft = '-675px';
+    goToLeaderboard.className += ' active';
+});
 
 let initWords = (arr, element) => {
     for(let i = 0; i < element.length; i++) {
@@ -174,12 +200,12 @@ let shuffle = (arr) => {
     return arr;
 };
 
-let toggleLeaderboard = (mode, property) => {
-    mode.addEventListener('click', () => {
-        leaderboard.style.display = property;
-        fade.style.display = property;
-    });
-};
+// let toggleLeaderboard = (mode, property) => {
+//     mode.addEventListener('click', () => {
+//         leaderboard.style.display = property;
+//         fade.style.display = property;
+//     });
+// };
 
 let multipleCss = (classGroup, style) => {
     for(let i = 0; i < classGroup.length; i++) {
@@ -188,8 +214,8 @@ let multipleCss = (classGroup, style) => {
 };
 
 words = shuffle(words);
-toggleLeaderboard(openLeaderboard, 'block');
-toggleLeaderboard(closeLeaderboard, 'none');
+// toggleLeaderboard(openLeaderboard, 'block');
+// toggleLeaderboard(closeLeaderboard, 'none');
 
 //store global to make it clearable
 let start;
@@ -263,7 +289,7 @@ let resetAll = () => {
 
 //reset game with "enter"
 document.onkeydown = (e) => {
-    if (e.keyCode == 13 && leaderboard.style.display != 'block') {
+    if (e.keyCode == 13) {
         resetAll();
         //prevent page reload
         e.preventDefault();

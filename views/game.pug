@@ -3,17 +3,41 @@ extends layout
 block content
 
     .fade
-    if user.userId
-        a.logout(href="logout")
-            <i class="fa fa-user-times" aria-hidden="true"></i>  Logout
 
-    .menu-wrapper
-        .menu-user
-            a.user-profile(href="profile")
-                i(class="fa fa-user-circle-o" aria-hidden="true")
-        .menu-general
-            #open-leaderboard.leaderboard
+    .menu-area
+        .menu-wrapper
+            //if user.userId
+            i(class="fa fa-user-circle-o" id="open-user-profile" aria-hidden="true")
+            #open-leaderboard
                 i(class="fa fa-list-ol" aria-hidden="true")
+            //a.logout(href="logout")
+            //    i(class="fa fa-user-times" aria-hidden="true")
+    #user-and-stats
+        .container.user-and-stats
+            .user-and-stats-menu.clearfix
+                .go-to-user User
+                .go-to-leaderboard Leaderboard
+            .slider-main-frame
+                .slider
+                    .user-profile
+                        .row.clearfix
+                            .col.col-40.picture
+                            .col.col-60.information
+                        .row
+                            .col.col-50.stats
+                            .col.col-50.top-five
+                    .leaderboard
+                        .row
+                            .col.col-50.top-today
+                                h3.top-today-title Top Today
+                                - for(i = 0; i < 10; i++)
+                                    div.user-score.top-today-score
+
+                            .col.col-50.top-all
+                                h3.top-all-title Top All
+                                - for(i = 0; i < 10; i++)
+                                    div.user-score.top-all-score
+
 
     .container
         #game-area
@@ -39,17 +63,17 @@ block content
 
             //div#open-leaderboard
             //    <i class="fa fa-list-ol" aria-hidden="true"></i> Leaderboard
-    .leaderboard-wrapper
-        span#close-leaderboard <i class="fa fa-times" aria-hidden="true"></i>
-        .leaderboard
-            h1 LEADERBOARD
+    //.leaderboard-wrapper
+    //    span#close-leaderboard <i class="fa fa-times" aria-hidden="true"></i>
+    //    .leaderboard
+    //        h1 LEADERBOARD
+    //
+    div.top-today(style="display:none")
+        h3.top-today-title Top Today
+        - for(i = 0; i < 10; i++)
+            div.user-score.top-today-score
 
-            div.top-today
-                h3.top-today-title Top Today
-                - for(i = 0; i < 10; i++)
-                    div.user-score.top-today-score
-
-            div.top-all
-                h3.top-all-title Top All
-                - for(i = 0; i < 10; i++)
-                    div.user-score.top-all-score
+    div.top-all(style="display:none")
+        h3.top-all-title Top All
+        - for(i = 0; i < 10; i++)
+            div.user-score.top-all-score
