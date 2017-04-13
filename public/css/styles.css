@@ -48,6 +48,8 @@ input[type="text"], input[type="password"], input[type="email"], button {
 }
 
 div.container {
+    max-width: 80%;
+    /*width: 1200px;*/
     width: 725px;
     margin: 0 auto;
     padding-top: 200px;
@@ -147,7 +149,7 @@ div.row .col-40 {
 }
 
 #user-area .button-register {
-    background-color: #1D47A1;
+    background-color: #30A9DE;
 }
 
 #user-area .button-login {
@@ -381,7 +383,7 @@ div.container.user-and-stats {
 
 #user-and-stats .slider-main-frame .slider {
     width: 1350px;
-    transition: all .7s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    transition: all .4s cubic-bezier(0.600, -0.280, 0.735, 0.045);
 }
 
 #user-and-stats .slider-main-frame {
@@ -401,6 +403,7 @@ div.container.user-and-stats {
     /*background-color: #EFDC05;*/
     border-radius: 5px;
     border-top-left-radius: 0px;
+    text-align: center;
 }
 
 .leaderboard .user-score {

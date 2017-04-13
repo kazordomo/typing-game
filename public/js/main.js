@@ -140,14 +140,15 @@ let showScore = getElementClass('score');
 let word = getElementClass('word');
 let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
-let openLeaderboard = getElementId('open-leaderboard');
 let closeLeaderboard = getElementId('close-leaderboard');
 let submitButton = getElementId('submit-button');
 let userAndStats = getElementId('user-and-stats');
+let openLeaderboard = getElementId('open-leaderboard');
 let openUserProfile = getElementId('open-user-profile');
 
 let leaderboard = getElementClass('leaderboard-wrapper')[0];
 let fade = getElementClass('fade')[0];
+let userAndStatsMenu = getElementClass('user-and-stats-menu');
 let userProfile = getElementClass('user-profile')[0];
 let slider = getElementClass('slider')[0];
 let goToLeaderboard = getElementClass('go-to-leaderboard')[0];
@@ -165,24 +166,50 @@ let keystrokes = 0;
 let character = 0;
 let timer = 0;
 
-//avoid errors by hiding this logic if the player enters as guest
-if(openUserProfile) {
-    openUserProfile.addEventListener('click', function() {
+/*  MENU SECTION
+------------------------------------------------------------*/
+
+let openMenu = (element) => {
+    element.addEventListener('click', function() {
         if(userAndStats.style.width != '100%') {
-            openUserProfile.className = 'fa fa-times';
+            element.className = 'fa fa-times';
             userAndStats.style.width = '100%';
         } else {
-            openUserProfile.className = 'fa fa-user-circle-o';
+            element.className = 'fa fa-user-circle-o';
             userAndStats.style.width = '0';
         }
     });
 }
 
-//CREATE A FUNCTION/CLASS TO REUSE
-goToLeaderboard.addEventListener('click', function() {
-    slider.style.marginLeft = '-675px';
-    goToLeaderboard.className += ' active';
-});
+// CREATE A MORE FLEXIBLE FUNCTION
+let goTo = (element) => {
+
+    let moveLength = '-675px';
+    element.addEventListener('click', () => {
+        if(element == goToLeaderboard) {
+            slider.style.marginLeft = moveLength;
+        } else {
+            slider.style.marginLeft = '0px';
+        }
+
+        for(let i = 0; element.parentNode.childNodes.length > i; i++)
+            element.parentNode.childNodes[i].classList.remove('active');
+
+        element.classList.add('active');
+    });
+}
+
+goTo(goToUser);
+goTo(goToLeaderboard);
+
+//avoid errors by hiding this logic if the player enters as guest
+if(openUserProfile) {
+    openMenu(openUserProfile);
+}
+openMenu(openLeaderboard);
+
+/*  END OF MENU SECTION
+ ------------------------------------------------------------*/
 
 let initWords = (arr, element) => {
     for(let i = 0; i < element.length; i++) {
