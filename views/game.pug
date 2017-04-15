@@ -6,7 +6,7 @@ block content
 
     .menu-area
         .menu-wrapper
-            //if user.userId
+            //if user.session
             i(class="fa fa-user-circle-o" id="open-user-profile" aria-hidden="true")
             #open-leaderboard(style="display:none")
                 i(class="fa fa-list-ol" aria-hidden="true")
@@ -23,6 +23,8 @@ block content
                         .row.clearfix
                             .col.col-40.picture
                             .col.col-60.information
+                                div= user.name
+                                div= user.email
                         .row
                             .col.col-50.stats
                             .col.col-50.top-five

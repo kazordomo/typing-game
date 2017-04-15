@@ -169,13 +169,18 @@ let timer = 0;
 /*  MENU SECTION
 ------------------------------------------------------------*/
 
+//TODO: If player is logged in, show user icon and have leaderboard avaible within the menu.
+//TODO: If player is guest, show leaderboard icon and open leaderboard directly.
+
 let openMenu = (element) => {
+    let elementClass = element.className;
     element.addEventListener('click', function() {
+        console.log(element.className);
         if(userAndStats.style.width != '100%') {
             element.className = 'fa fa-times';
             userAndStats.style.width = '100%';
         } else {
-            element.className = 'fa fa-user-circle-o';
+            element.className = elementClass;
             userAndStats.style.width = '0';
         }
     });
@@ -205,8 +210,11 @@ goTo(goToLeaderboard);
 //avoid errors by hiding this logic if the player enters as guest
 if(openUserProfile) {
     openMenu(openUserProfile);
+    goToUser.classList.add('active');
+} else {
+    openMenu(openLeaderboard);
+    goToLeaderboard.classList.add('active');
 }
-openMenu(openLeaderboard);
 
 /*  END OF MENU SECTION
  ------------------------------------------------------------*/

@@ -105,8 +105,22 @@ router.post('/register', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
+    User.findById(req.session.userId).exec((error, user) => {
+        if(error) {
+            return next(error);
+        } else {
+            let userData = {
+                name: user.name,
+                email: user.email,
+                session: req.session.userId
+            }
+            console.log(user);
+            console.log(userData);
+            res.render('game', {title: 'GameZone', user: userData});
+        }
+    });
     //user is for keeping track if logged in or not.
-    res.render('game', {title: 'GameZone', user: req.session});
+    // res.render('game', {title: 'GameZone', user: userData});
 });
 
 //TODO: add ajax to post without reloading the page
