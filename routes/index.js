@@ -105,22 +105,23 @@ router.post('/register', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
-    User.findById(req.session.userId).exec((error, user) => {
-        if(error) {
-            return next(error);
-        } else {
-            let userData = {
-                name: user.name,
-                email: user.email,
-                session: req.session.userId
+    if(req.session.userId) {
+        User.findById(req.session.userId).exec((error, user) => {
+            if(error) {
+                return next(error);
+            } else {
+                let userData = {
+                    name: user.name,
+                    email: user.email,
+                    session: req.session.userId
+                }
+                res.render('game', {title: 'GameZone', user: userData});
             }
-            console.log(user);
-            console.log(userData);
-            res.render('game', {title: 'GameZone', user: userData});
-        }
-    });
-    //user is for keeping track if logged in or not.
-    // res.render('game', {title: 'GameZone', user: userData});
+        });
+    } else {
+        //user is for keeping track if logged in or not.
+        res.render('game', {title: 'GameZone'});
+    }
 });
 
 //TODO: add ajax to post without reloading the page
@@ -168,6 +169,12 @@ router.post('/leaderboard', (req, res, next) => {
     } else {
         res.redirect('game');
     }
+});
+
+router.get('/userScore', (req, res, next) => {
+    User.find({}, (error, doc) => {
+        res.send(doc);
+    });
 });
 
 router.get('/leaderboard', (req, res, next) => {
