@@ -370,32 +370,41 @@ let addToView = (score) => {
 };
 
 $(document).ready(function() {
-
     /**
      * - the get request populates the leaderboard when the page is loaded.
      * - the post request post the score and gets back the top 10 of today/all
      *   from the server-side. it then populates the view with the same function as get.
      */
 
-    //create a function
+    let topToday = getElementClass('topToday')[0];
+    let topAll = getElementClass('topAll')[0];
     let information = getElementClass('information')[0];
-    let createName = document.createElement('div');
-    let createEmail = document.createElement('div');
-    let createWpm = document.createElement('div');
+    let createName = document.createElement("div");
+    let createEmail = document.createElement("div");
+    let createWpm = document.createElement("div");
+
+    let initTopList = (list, className) => {
+        for(let i = 0; i < list.length; i++) {
+            //define here so that we get a unique div each loop
+            let div = document.createElement("div");
+            div.innerHTML = list[i].score;
+            className.appendChild(div);
+        }
+    };
 
     $.ajax({
         url: '/score',
         contentType: 'application/json',
         success: function(response) {
             // addToView(response);
-            console.log("SENT");
+            initTopList(response.topAll, topAll);
+            initTopList(response.topToday, topToday);
             information.appendChild(createName);
             information.appendChild(createEmail);
             information.appendChild(createWpm);
             createName.innerHTML = response.name.toUpperCase();
             createEmail.innerHTML = response.email.toUpperCase();
             createWpm.innerHTML = response.wpm.toUpperCase();
-            console.log(response);
         }
     });
 
@@ -412,6 +421,15 @@ $(document).ready(function() {
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
             success: function(response) {
                 console.log(response);
+                //we need to init 10 divs to the toplists before posting to them, to prevent undefined
+                for(let i = 0; i < response.topAll.length; i++) {
+                    let div = topAll.children[i];
+                    div.innerHTML = response.topAll[i].score;
+                }
+                for(let i = 0; i < response.topToday.length; i++) {
+                    let div = topToday.children[i];
+                    div.innerHTML = response.topToday[i].score;
+                }
                 createWpm.innerHTML = response.wpm;
                 // addToView(response);
                 scoreInput.val(null);

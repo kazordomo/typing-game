@@ -295,7 +295,7 @@ div.row .col-40 {
 }
 
 div.container.user-and-stats {
-    width: 1200px;
+    min-width: 1200px;
     padding-top: 75px;
 }
 
