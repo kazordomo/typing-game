@@ -15,30 +15,13 @@ block content
     #user-and-stats
         .container.user-and-stats
             .user-and-stats-menu.clearfix
-                .go-to-user User
-                .go-to-leaderboard Leaderboard
-            .slider-main-frame
-                .slider
-                    .user-profile
-                        .row.clearfix
-                            .col.col-40.picture
-                            .col.col-60.information
-                                div= user.name
-                                div= user.email
-                        .row
-                            .col.col-50.stats
-                            .col.col-50.top-five
-                    .leaderboard
-                        .row
-                            .col.col-50.top-today
-                                h3.top-today-title Top Today
-                                - for(i = 0; i < 10; i++)
-                                    div.user-score.top-today-score
-
-                            .col.col-50.top-all
-                                h3.top-all-title Top All
-                                - for(i = 0; i < 10; i++)
-                                    div.user-score.top-all-score
+            .profile-section
+                .col.col-50.avatar
+                .col.col-50.information
+                .col.col-100.topFive
+            .leaderboard-section
+                .col.col-50.topToday
+                .col.col-50.topAll
 
 
     .container
@@ -59,7 +42,7 @@ block content
                 span.score
                 span.score
 
-            form#score-form(method="POST" action="/leaderboard")
+            form#score-form(method="POST" action="/score")
                 input#submit-score(type="hidden" value="" name="submitscore")
                 button#submit-button(type="submit")
 

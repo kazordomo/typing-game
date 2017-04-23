@@ -146,10 +146,6 @@ let userAndStats = getElementId('user-and-stats');
 let openLeaderboard = getElementId('open-leaderboard');
 let openUserProfile = getElementId('open-user-profile');
 
-let leaderboard = getElementClass('leaderboard-wrapper')[0];
-let fade = getElementClass('fade')[0];
-let userAndStatsMenu = getElementClass('user-and-stats-menu');
-let userProfile = getElementClass('user-profile')[0];
 let slider = getElementClass('slider')[0];
 let goToLeaderboard = getElementClass('go-to-leaderboard')[0];
 let goToUser = getElementClass('go-to-user')[0];
@@ -175,7 +171,6 @@ let timer = 0;
 let openMenu = (element) => {
     let elementClass = element.className;
     element.addEventListener('click', function() {
-        console.log(element.className);
         if(userAndStats.style.width != '100%') {
             element.className = 'fa fa-times';
             userAndStats.style.width = '100%';
@@ -186,34 +181,11 @@ let openMenu = (element) => {
     });
 }
 
-// CREATE A MORE FLEXIBLE FUNCTION
-let goTo = (element) => {
-
-    let moveLength = '-675px';
-    element.addEventListener('click', () => {
-        if(element == goToLeaderboard) {
-            slider.style.marginLeft = moveLength;
-        } else {
-            slider.style.marginLeft = '0px';
-        }
-
-        for(let i = 0; element.parentNode.childNodes.length > i; i++)
-            element.parentNode.childNodes[i].classList.remove('active');
-
-        element.classList.add('active');
-    });
-}
-
-goTo(goToUser);
-goTo(goToLeaderboard);
-
 //avoid errors by hiding this logic if the player enters as guest
 if(openUserProfile) {
     openMenu(openUserProfile);
-    goToUser.classList.add('active');
 } else {
-    openMenu(openLeaderboard);
-    goToLeaderboard.classList.add('active');
+    // openMenu(openLeaderboard);
 }
 
 /*  END OF MENU SECTION
@@ -405,11 +377,25 @@ $(document).ready(function() {
      *   from the server-side. it then populates the view with the same function as get.
      */
 
+    //create a function
+    let information = getElementClass('information')[0];
+    let createName = document.createElement('div');
+    let createEmail = document.createElement('div');
+    let createWpm = document.createElement('div');
+
     $.ajax({
-        url: '/leaderboard',
+        url: '/score',
         contentType: 'application/json',
         success: function(response) {
-            addToView(response);
+            // addToView(response);
+            console.log("SENT");
+            information.appendChild(createName);
+            information.appendChild(createEmail);
+            information.appendChild(createWpm);
+            createName.innerHTML = response.name.toUpperCase();
+            createEmail.innerHTML = response.email.toUpperCase();
+            createWpm.innerHTML = response.wpm.toUpperCase();
+            console.log(response);
         }
     });
 
@@ -419,17 +405,16 @@ $(document).ready(function() {
         let scoreInput = $('#submit-score');
 
         $.ajax({
-            url: '/leaderboard',
+            url: '/score',
             method: 'POST',
             contentType: 'application/json',
             //parse score to int to prevent it to covert to a string.
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
             success: function(response) {
-                //only send if player is logged in
-                if(response.user) {
-                    addToView(response);
-                    scoreInput.val(null);
-                }
+                console.log(response);
+                createWpm.innerHTML = response.wpm;
+                // addToView(response);
+                scoreInput.val(null);
             }
         });
     });

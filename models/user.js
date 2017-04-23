@@ -18,6 +18,9 @@ let UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    gamesPlayed: {
+        type: Number
     }
 });
 

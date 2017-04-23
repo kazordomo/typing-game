@@ -83,7 +83,8 @@ router.post('/register', (req, res, next) => {
         let userData = {
             email: req.body.email,
             name: req.body.name,
-            password: req.body.password
+            password: req.body.password,
+            gamesPlayed: 0
         };
 
         // use schema's 'create' method to insert document into Mongo
@@ -105,97 +106,62 @@ router.post('/register', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
-    if(req.session.userId) {
-        User.findById(req.session.userId).exec((error, user) => {
-            if(error) {
-                return next(error);
-            } else {
-                let userData = {
-                    name: user.name,
-                    email: user.email,
-                    session: req.session.userId
-                }
-                res.render('game', {title: 'GameZone', user: userData});
-            }
-        });
-    } else {
-        //user is for keeping track if logged in or not.
-        res.render('game', {title: 'GameZone'});
-    }
+    res.render('game', {title: 'GameZone'});
 });
 
-//TODO: add ajax to post without reloading the page
-// POST /score
-router.post('/leaderboard', (req, res, next) => {
-
-    let submitScore = req.body.score;
-
-    if(req.session.userId) {
-        User.findById(req.session.userId)
-            .exec(function(error, user) {
-                if (error) {
-                    return next(error);
-                } else {
-                    let scoreData = {
-                        score: submitScore,
-                        name: user.name,
-                        date: today.toDate()
-                    };
-
-                    Score.create(scoreData, (error) => {
-                        if (error) {
-                            return next(error);
-                        } else {
-                            let score = {};
-                            Score.find({}, (error, doc) => {
-                                score.topToday = _.filter(doc, function (d) {
-                                    return d.date == today.toDate();
-                                });
-
-                                score.topToday = _.orderBy(score.topToday, 'score', 'desc');
-                                score.topAll = _.orderBy(doc, 'score', 'desc');
-
-                                score.topToday = score.topToday.slice(0, 10);
-                                score.topAll = score.topAll.slice(0, 10);
-
-                                score.user = req.session.userId;
-
-                                res.send(score);
-                            });
-                        }
-                    });
-                }
-            });
-    } else {
-        res.redirect('game');
-    }
-});
-
-router.get('/userScore', (req, res, next) => {
-    User.find({}, (error, doc) => {
-        res.send(doc);
-    });
-});
-
-router.get('/leaderboard', (req, res, next) => {
-
-    //TODO: we don't need to have logic in here. remove it and just send the score collection.
-    let score = {};
+router.get('/score', (req, res, next) => {
     Score.find({}, (error, doc) => {
+        let userScore = _.filter(doc, function(d) {
+            return d.userId == req.session.userId;
+        });
+        let score = {};
         score.topToday = _.filter(doc, function (d) {
             return d.date == today.toDate();
         });
 
-        score.topToday = _.orderBy(score.topToday, 'score', 'desc');
-        score.topAll = _.orderBy(doc, 'score', 'desc');
+        let totalScore = 0;
+        for(let i = 0; i < userScore.length; i++) {
+            totalScore += userScore[i].score;
+        };
 
-        score.topToday = score.topToday.slice(0, 10);
-        score.topAll = score.topAll.slice(0, 10);
+        score.topToday = _.orderBy(doc, 'score', 'desc').slice(0, 10);
+        score.topAll = _.orderBy(doc, 'score', 'desc').slice(0, 10);
+        score.userTopFive = _.orderBy(userScore, 'score', 'desc').slice(0, 5);
+        score.wpm = (Math.round(totalScore / userScore.length) + ' Words Per Minute');
 
-        if (error)
+        User.findById(req.session.userId, (error, user) => {
+            if(error)
+                return next(error);
+            else {
+                score.name = user.name;
+                score.email = user.email;
+                user.gamesPlayed++;
+                user.save((error) => {
+                    if(error)
+                        return next(error);
+                    else {
+                        score.gamesPlayed = user.gamesPlayed;
+                        res.send(score);
+                    }
+                });
+            }
+        });
+    });
+});
+
+router.post('/score', (req, res, next) => {
+
+    let scoreData = {
+        score: req.body.score,
+        userId: req.session.userId,
+        date: today.toDate()
+    };
+
+    Score.create(scoreData, (error) => {
+        if(error)
             return next(error);
         else {
-            res.send(score);
+            res.redirect('/score');
         }
     });
 });
