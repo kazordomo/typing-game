@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 let ScoreSchema = new mongoose.Schema({
     score: Number,
     userId: String,
-    date: Date
+    name: String,
+    date: String
 });
 
 //add the schema to mongo

@@ -145,6 +145,9 @@ let submitButton = getElementId('submit-button');
 let userAndStats = getElementId('user-and-stats');
 let openLeaderboard = getElementId('open-leaderboard');
 let openUserProfile = getElementId('open-user-profile');
+let topAllTitle = getElementClass('top-all-title')[0];
+let topTodayTitle = getElementClass('top-today-title')[0];
+let leaderBoardSlider = getElementClass('leaderboard-slider')[0];
 
 let slider = getElementClass('slider')[0];
 let goToLeaderboard = getElementClass('go-to-leaderboard')[0];
@@ -164,22 +167,33 @@ let timer = 0;
 
 /*  MENU SECTION
 ------------------------------------------------------------*/
-
-//TODO: If player is logged in, show user icon and have leaderboard avaible within the menu.
-//TODO: If player is guest, show leaderboard icon and open leaderboard directly.
-
+//onLoad?
+userAndStats.style.marginLeft = '-100%';
+leaderBoardSlider.style.marginLeft = '0%';
 let openMenu = (element) => {
     let elementClass = element.className;
     element.addEventListener('click', function() {
-        if(userAndStats.style.width != '100%') {
-            element.className = 'fa fa-times';
-            userAndStats.style.width = '100%';
-        } else {
+        if(userAndStats.style.marginLeft != '-100%') {
             element.className = elementClass;
-            userAndStats.style.width = '0';
+            userAndStats.style.marginLeft = '-100%';
+        } else {
+            element.className = 'fa fa-times';
+            userAndStats.style.marginLeft = '0%';
         }
     });
 }
+
+topAllTitle.addEventListener('click', function() {
+    leaderBoardSlider.style.marginLeft = '0%';
+    topTodayTitle.classList.remove('active');
+    topAllTitle.classList.add('active');
+});
+topTodayTitle.addEventListener('click', function() {
+    leaderBoardSlider.style.marginLeft = '-100%';
+    topAllTitle.classList.remove('active');
+    topTodayTitle.classList.add('active');
+});
+
 
 //avoid errors by hiding this logic if the player enters as guest
 if(openUserProfile) {
@@ -358,37 +372,40 @@ refresh.addEventListener("click", resetAll);
 
 /* AJAX
  ------------------------------------------------------------*/
-let userTodayScore = getElementClass('top-today-score');
-let userAllScore = getElementClass('top-all-score');
-let addToView = (score) => {
-    for(let i = 0; i < score.topToday.length; i++) {
-        userTodayScore[i].innerHTML = (i + 1) + '. ' + score.topToday[i].name + ' ' + score.topToday[i].score + ' (wpm)';
-    }
-    for(let i = 0; i < score.topAll.length; i++) {
-        userAllScore[i].innerHTML = (i + 1) + '. ' + score.topAll[i].name + ' ' + score.topAll[i].score + ' (wpm)';
-    }
-};
-
 $(document).ready(function() {
-    /**
-     * - the get request populates the leaderboard when the page is loaded.
-     * - the post request post the score and gets back the top 10 of today/all
-     *   from the server-side. it then populates the view with the same function as get.
-     */
 
     let topToday = getElementClass('topToday')[0];
     let topAll = getElementClass('topAll')[0];
     let information = getElementClass('information')[0];
-    let createName = document.createElement("div");
-    let createEmail = document.createElement("div");
+    let topFive = getElementClass('topFive-table')[0];
+    let userName = getElementClass('user-name')[0];
     let createWpm = document.createElement("div");
+    let createGamesPlayed = document.createElement("div");
+    let createSkillLevel = document.createElement("div");
+    let userScore = getElementId('userScore');
+    let leaderboardScore = getElementId('leaderboardScore');
+    let topTodayScore = getElementId('top-today-score');
 
-    let initTopList = (list, className) => {
+    let initTopList = (list, table) => {
+        // leaderboardScore.appendChild(createTr);
         for(let i = 0; i < list.length; i++) {
-            //define here so that we get a unique div each loop
-            let div = document.createElement("div");
-            div.innerHTML = list[i].score;
-            className.appendChild(div);
+            //create element inside the loop to get a unique element each loop
+            let createTr = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+
+            table.appendChild(createTr);
+            createTr.appendChild(td1);
+            createTr.appendChild(td2);
+            createTr.appendChild(td3);
+            createTr.appendChild(td4);
+
+            td1.innerHTML = (i + 1) + ': ';
+            td2.innerHTML = list[i].name;
+            td3.innerHTML = list[i].score;
+            td4.innerHTML = list[i].date;
         }
     };
 
@@ -397,14 +414,18 @@ $(document).ready(function() {
         contentType: 'application/json',
         success: function(response) {
             // addToView(response);
-            initTopList(response.topAll, topAll);
-            initTopList(response.topToday, topToday);
-            information.appendChild(createName);
-            information.appendChild(createEmail);
+            initTopList(response.topAll, leaderboardScore);
+            initTopList(response.topToday, topTodayScore);
+            initTopList(response.userTopFive, userScore);
+            // initTopList(response.topToday, topToday);
             information.appendChild(createWpm);
-            createName.innerHTML = response.name.toUpperCase();
-            createEmail.innerHTML = response.email.toUpperCase();
-            createWpm.innerHTML = response.wpm.toUpperCase();
+            information.appendChild(createGamesPlayed);
+            information.appendChild(createSkillLevel);
+            userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
+            // createWpm.style.position = 'relative';
+            createWpm.innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
+            createGamesPlayed.innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
+            createSkillLevel.innerHTML = 'GOOD AS F**K';
         }
     });
 
@@ -421,16 +442,7 @@ $(document).ready(function() {
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
             success: function(response) {
                 console.log(response);
-                //we need to init 10 divs to the toplists before posting to them, to prevent undefined
-                for(let i = 0; i < response.topAll.length; i++) {
-                    let div = topAll.children[i];
-                    div.innerHTML = response.topAll[i].score;
-                }
-                for(let i = 0; i < response.topToday.length; i++) {
-                    let div = topToday.children[i];
-                    div.innerHTML = response.topToday[i].score;
-                }
-                createWpm.innerHTML = response.wpm;
+                createWpm.innerHTML = response.userWpm;
                 // addToView(response);
                 scoreInput.val(null);
             }

@@ -61,37 +61,13 @@ div.wrapper {
     margin: 0 auto;
 }
 
-div.row {
+div.title {
+    font-size: 30px;
+    padding: 20px 0px;
+}
+
+div.title-wrapper {
     width: 100%;
-    margin-bottom: 10px;
-    /*remove*/
-    height: 250px;
-    /*box-sizing: border-box;*/
-}
-
-div.row .col {
-    float: left;
-    padding: 20px;
-    box-sizing: border-box;
-    border-radius: 5px;
-}
-
-div.row .col-60 {
-    width: 60%;
-}
-
-div.row .col-50 {
-    width: 50%;
-}
-
-div.row .col-50:first-child {
-    width: 48%;
-    margin-right: 2%;
-}
-
-div.row .col-40 {
-    width: 38%;
-    margin-right: 2%;
 }
 
 /*  INDEX/FRONT PAGE
@@ -282,14 +258,15 @@ div.row .col-40 {
 ------------------------------------------------------------ */
 #user-and-stats {
     position: fixed;
-    width: 0;
+    width: 100%;
     height: 100%;
+    margin-left: -100%;
     left: 0;
     top: 0;
     overflow-x: hidden;
     /*background-color: #1D47A1;*/
     background-color: #30A9DE;
-    transition: all .7s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    transition: all .8s cubic-bezier(0.175, 0.885, 0.320, 1.275);
     font-size: 20px;
     font-weight: 700;
 }
@@ -297,16 +274,24 @@ div.row .col-40 {
 div.container.user-and-stats {
     min-width: 1200px;
     padding-top: 75px;
+    position: absolute;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+}
+
+#user-and-stats .row {
+
 }
 
 #user-and-stats .col {
-    padding: 20px;
     box-sizing: border-box;
 }
 
 #user-and-stats .col-50 {
     float: left;
     width: 50%;
+    padding: 0px 20px;
 }
 
 #user-and-stats .col-100 {
@@ -324,15 +309,8 @@ div.container.user-and-stats {
     float: left;
     width: 48%;
     margin-right: 1%;
-    background-color: pink;
+    /*background-color: pink;*/
     height: 500px;
-    border-radius: 5px;
-}
-
-.profile-section .avatar {
-    background: url(../images/Zak.jpg);
-    background-size: cover;
-    height: 250px;
     border-radius: 5px;
 }
 
@@ -340,13 +318,105 @@ div.container.user-and-stats {
     height: 50px;
 }
 
+.profile-section .information .wpm-info {
+    margin-left: 15px;
+}
+
+.wpm-info-text {
+    opacity: 0;
+    position: absolute;
+    margin: 12px 0px 0px 2px;
+    z-index: -1;
+    padding: 10px;
+    transition: all .5s ease-in-out;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    background-color: rgba(0,0,0,0.3);
+    font-size: 15px;
+}
+
+.profile-section .information .wpm-info:hover .wpm-info-text {
+    opacity: 1;
+    z-index: 999;
+}
+
 .leaderboard-section {
+    position: relative;
     float: left;
     width: 48%;
     margin-left: 1%;
-    background-color: red;
-    height: 500px;
     border-radius: 5px;
+    height: 500px;
+    overflow: hidden;
+}
+
+.leaderboard-section .title-wrapper {
+    display: flex;
+    align-items: baseline;
+}
+
+.leaderboard-section .title-wrapper .active {
+    font-size: 30px;
+}
+
+.leaderboard-section .top-all-title {
+    font-size: 18px;
+    padding: 20px;
+    /*background-color: red;*/
+    transition: all .5s ease-in-out;
+    border: 3px solid #ffffff;
+    border-top-left-radius: 5px;
+    border-bottom: none;
+}
+
+.leaderboard-section .top-today-title {
+    /*background-color: pink;*/
+    font-size: 18px;
+    padding: 20px;
+    transition: all .5s ease-in-out;
+    border: 3px solid #ffffff;
+    border-top-right-radius: 5px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.leaderboard-section .leaderboard-slider {
+    position: absolute;
+    width: 200%;
+    transition: all .8s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+}
+
+.leaderboard-section .leaderboard-slider table {
+    float: left;
+    width: 50%;
+}
+
+.leaderboard-section .topScore {
+    margin-bottom: 19px;
+}
+
+table {
+    width: 100%;
+    text-align: left;
+    font-size: 20px;
+    border-collapse: collapse;
+}
+
+table tr th {
+    width: 30%;
+    padding: 0px 10px 10px 10px;
+}
+table tr th:first-child {
+    width: 10%;
+}
+
+table tr:nth-child(even) {
+    background-color: #E53A40;
+}
+
+table tr td {
+    padding: 5px 10px;
+    /*border-radius: 3px;*/
 }
 
 /*  ERROR

@@ -16,12 +16,43 @@ block content
         .container.user-and-stats
             .user-and-stats-menu.clearfix
             .profile-section
-                .col.col-50.avatar
-                .col.col-50.information
-                .col.col-100.topFive
+                .row
+                    div.user-name.title
+                .row
+                    .col.col-50.information
+                    .col.col-50.avatar
+                        //div KAZORDOMO
+                        //div 100 WPM
+                        //div GOOD AS F**K
+                        //div 102 GAMES PLAYED
+                .row
+                    .col.col-100.topFive
+                        table#userScore
+                            tr
+                                th
+                                th Score
+                                th Date
             .leaderboard-section
-                .col.col-50.topToday
-                .col.col-50.topAll
+                .row
+                    .title LEADERBOARD
+                    //.title-wrapper
+                    //    .top-all-title.leaderboard-title.active TOP ALL
+                    //    .top-today-title.leaderboard-title TOP TODAY
+                .row
+                    .col.col-100
+                        .leaderboard-slider
+                            table#leaderboardScore
+                                tr
+                                    th
+                                    th Name
+                                    th Score
+                                    th Date
+                            table#top-today-score
+                                tr
+                                    th
+                                    th Name
+                                    th Score
+                                    th Date
 
 
     .container
