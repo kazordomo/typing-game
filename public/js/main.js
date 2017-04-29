@@ -152,6 +152,7 @@ let leaderBoardSlider = getElementClass('leaderboard-slider')[0];
 let slider = getElementClass('slider')[0];
 let goToLeaderboard = getElementClass('go-to-leaderboard')[0];
 let goToUser = getElementClass('go-to-user')[0];
+let toggleLeaderBoard = getElementClass('toggle-leaderboard');
 
 let yellowColor = '#EFDC05';
 let redColor = '#E53A40';
@@ -183,15 +184,15 @@ let openMenu = (element) => {
     });
 }
 
-topAllTitle.addEventListener('click', function() {
+toggleLeaderBoard[0].addEventListener('click', () => {
     leaderBoardSlider.style.marginLeft = '0%';
-    topTodayTitle.classList.remove('active');
-    topAllTitle.classList.add('active');
+    toggleLeaderBoard[0].classList.add('unactive');
+    toggleLeaderBoard[1].classList.remove('unactive');
 });
-topTodayTitle.addEventListener('click', function() {
+toggleLeaderBoard[1].addEventListener('click', () => {
     leaderBoardSlider.style.marginLeft = '-100%';
-    topAllTitle.classList.remove('active');
-    topTodayTitle.classList.add('active');
+    toggleLeaderBoard[1].classList.add('unactive');
+    toggleLeaderBoard[0].classList.remove('unactive');
 });
 
 
@@ -326,7 +327,7 @@ let keyPress = {
             if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
                 keystrokes++;
                 if(timer === 0) {
-                    startTimer(5, timeCounter);
+                    startTimer(10, timeCounter);
                 }
                 if(e.keyCode === 8) {
                     character--;
@@ -381,7 +382,8 @@ $(document).ready(function() {
     let userName = getElementClass('user-name')[0];
     let createWpm = document.createElement("div");
     let createGamesPlayed = document.createElement("div");
-    let createSkillLevel = document.createElement("div");
+    let createCorrectWords = document.createElement("div");
+    let createWrongWords = document.createElement("div");
     let userScore = getElementId('userScore');
     let leaderboardScore = getElementId('leaderboardScore');
     let topTodayScore = getElementId('top-today-score');
@@ -420,12 +422,14 @@ $(document).ready(function() {
             // initTopList(response.topToday, topToday);
             information.appendChild(createWpm);
             information.appendChild(createGamesPlayed);
-            information.appendChild(createSkillLevel);
+            information.appendChild(createCorrectWords);
+            information.appendChild(createWrongWords);
             userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
             // createWpm.style.position = 'relative';
             createWpm.innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
             createGamesPlayed.innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
-            createSkillLevel.innerHTML = 'GOOD AS F**K';
+            createCorrectWords.innerHTML = '520 CORRECT WORDS';
+            createWrongWords.innerHTML = '102 WRONG WORDS';
         }
     });
 
@@ -442,7 +446,7 @@ $(document).ready(function() {
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
             success: function(response) {
                 console.log(response);
-                createWpm.innerHTML = response.userWpm;
+                createWpm.innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
                 // addToView(response);
                 scoreInput.val(null);
             }

@@ -36,7 +36,7 @@ UserSchema.statics.authenticate = (email, password, callback) => {
             }
             //plain text password, hashed password and a callback function
             bcrypt.compare(password, user.password, (err, result) => {
-                if (result === true) {
+                if (result) {
                     //the callbacks first argument is error. if no error, return error == null
                     return callback(null, user);
                 } else {
@@ -51,6 +51,7 @@ UserSchema.pre('save', function(next) {
     //user object and ts data
     let user = this;
     //replace the plain text pass with the hash
+    //should not hardcode salt
     bcrypt.hash(user.password, 10, (err, hash) => {
         if (err) {
             return next(err);

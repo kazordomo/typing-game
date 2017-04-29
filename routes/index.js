@@ -46,9 +46,9 @@ router.post('/login', (req, res, next) => {
                 err.status = 401;
                 return next(err);
             } else {
-                console.log(user);
                 //give user a session. _id is the id mongo gave the user collection when created
                 req.session.userId = user._id;
+                console.log('req.session: ' + req.session.userId);
                 return res.redirect('game');
             }
         });
@@ -95,7 +95,7 @@ router.post('/register', (req, res, next) => {
             } else {
                 //when they register, they are automatically logged in.
                 req.session.userId = user._id;
-                return res.redirect('game');
+                return res.render('game', {title: 'GameZone'});
             }
         });
     } else {
@@ -166,7 +166,6 @@ router.get('/score', (req, res, next) => {
                             return next(error);
                         else {
                             score.userGamesPlayed = user.gamesPlayed;
-                            console.log(score);
                             res.send(score);
                         }
                     });

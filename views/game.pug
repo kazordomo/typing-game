@@ -20,11 +20,7 @@ block content
                     div.user-name.title
                 .row
                     .col.col-50.information
-                    .col.col-50.avatar
-                        //div KAZORDOMO
-                        //div 100 WPM
-                        //div GOOD AS F**K
-                        //div 102 GAMES PLAYED
+                    .col.col-50
                 .row
                     .col.col-100.topFive
                         table#userScore
@@ -34,7 +30,11 @@ block content
                                 th Date
             .leaderboard-section
                 .row
-                    .title LEADERBOARD
+                    .title-wrapper
+                        i(class="fa fa-arrow-left toggle-leaderboard unactive" aria-hidden="true")
+                        .title LEADERBOARD
+                        i(class="fa fa-arrow-right toggle-leaderboard" aria-hidden="true")
+
                     //.title-wrapper
                     //    .top-all-title.leaderboard-title.active TOP ALL
                     //    .top-today-title.leaderboard-title TOP TODAY
