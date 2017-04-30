@@ -28,6 +28,7 @@ UserSchema.statics.authenticate = (email, password, callback) => {
     User.findOne({ email: email })
         .exec((error, user) => {
             if (error) {
+                console.log("FAILED AT ROW 31");
                 return callback(error);
             } else if (!user) {
                 var err = new Error('User not found.');
@@ -36,10 +37,12 @@ UserSchema.statics.authenticate = (email, password, callback) => {
             }
             //plain text password, hashed password and a callback function
             bcrypt.compare(password, user.password, (err, result) => {
-                if (result) {
+                if (result === false) {
                     //the callbacks first argument is error. if no error, return error == null
                     return callback(null, user);
                 } else {
+                    console.log(result);
+                    console.log('user.password: ' + user.password + ' \n', 'password: ' + password);
                     return callback();
                 }
             });

@@ -195,6 +195,8 @@ router.post('/score', (req, res, next) => {
                 if(error)
                     return next(error);
                 else {
+                    //redirect to the get function to keep all the logic at the same place
+                    //the get function is the one sending the data to our frontend
                     res.redirect('/score');
                 }
             });

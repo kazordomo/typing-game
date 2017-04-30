@@ -140,18 +140,10 @@ let showScore = getElementClass('score');
 let word = getElementClass('word');
 let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
-let closeLeaderboard = getElementId('close-leaderboard');
 let submitButton = getElementId('submit-button');
 let userAndStats = getElementId('user-and-stats');
-let openLeaderboard = getElementId('open-leaderboard');
 let openUserProfile = getElementId('open-user-profile');
-let topAllTitle = getElementClass('top-all-title')[0];
-let topTodayTitle = getElementClass('top-today-title')[0];
 let leaderBoardSlider = getElementClass('leaderboard-slider')[0];
-
-let slider = getElementClass('slider')[0];
-let goToLeaderboard = getElementClass('go-to-leaderboard')[0];
-let goToUser = getElementClass('go-to-user')[0];
 let toggleLeaderBoard = getElementClass('toggle-leaderboard');
 
 let yellowColor = '#EFDC05';
@@ -165,6 +157,7 @@ let misses = 0;
 let keystrokes = 0;
 let character = 0;
 let timer = 0;
+let start = null;
 
 /*  MENU SECTION
 ------------------------------------------------------------*/
@@ -182,7 +175,9 @@ let openMenu = (element) => {
             userAndStats.style.marginLeft = '0%';
         }
     });
-}
+};
+
+openMenu(openUserProfile);
 
 toggleLeaderBoard[0].addEventListener('click', () => {
     leaderBoardSlider.style.marginLeft = '0%';
@@ -194,14 +189,6 @@ toggleLeaderBoard[1].addEventListener('click', () => {
     toggleLeaderBoard[1].classList.add('unactive');
     toggleLeaderBoard[0].classList.remove('unactive');
 });
-
-
-//avoid errors by hiding this logic if the player enters as guest
-if(openUserProfile) {
-    openMenu(openUserProfile);
-} else {
-    // openMenu(openLeaderboard);
-}
 
 /*  END OF MENU SECTION
  ------------------------------------------------------------*/
@@ -222,13 +209,6 @@ let shuffle = (arr) => {
     return arr;
 };
 
-// let toggleLeaderboard = (mode, property) => {
-//     mode.addEventListener('click', () => {
-//         leaderboard.style.display = property;
-//         fade.style.display = property;
-//     });
-// };
-
 let multipleCss = (classGroup, style) => {
     for(let i = 0; i < classGroup.length; i++) {
         classGroup[i].style.display = style;
@@ -236,11 +216,7 @@ let multipleCss = (classGroup, style) => {
 };
 
 words = shuffle(words);
-// toggleLeaderboard(openLeaderboard, 'block');
-// toggleLeaderboard(closeLeaderboard, 'none');
 
-//store global to make it clearable
-let start;
 let startTimer = (duration, element) => {
     timer = duration;
     element.innerHTML = timer;
@@ -281,8 +257,8 @@ let spellChecker = () => {
         counter++;
         correct++;
     } else {
-        misses++;
         counter++;
+        misses++;
         typingArea.style.border = '3px solid ' + redColor;
     }
     typingArea.value = '';
@@ -388,6 +364,8 @@ $(document).ready(function() {
     let leaderboardScore = getElementId('leaderboardScore');
     let topTodayScore = getElementId('top-today-score');
 
+    //let td = document.createElement('td');
+    //then append and add html through index
     let initTopList = (list, table) => {
         // leaderboardScore.appendChild(createTr);
         for(let i = 0; i < list.length; i++) {
@@ -415,17 +393,14 @@ $(document).ready(function() {
         url: '/score',
         contentType: 'application/json',
         success: function(response) {
-            // addToView(response);
             initTopList(response.topAll, leaderboardScore);
             initTopList(response.topToday, topTodayScore);
             initTopList(response.userTopFive, userScore);
-            // initTopList(response.topToday, topToday);
             information.appendChild(createWpm);
             information.appendChild(createGamesPlayed);
             information.appendChild(createCorrectWords);
             information.appendChild(createWrongWords);
             userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
-            // createWpm.style.position = 'relative';
             createWpm.innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
             createGamesPlayed.innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
             createCorrectWords.innerHTML = '520 CORRECT WORDS';
@@ -445,9 +420,11 @@ $(document).ready(function() {
             //parse score to int to prevent it to covert to a string.
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
             success: function(response) {
-                console.log(response);
+                userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
                 createWpm.innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
-                // addToView(response);
+                createGamesPlayed.innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
+                createCorrectWords.innerHTML = '520 CORRECT WORDS';
+                createWrongWords.innerHTML = '102 WRONG WORDS';
                 scoreInput.val(null);
             }
         });
