@@ -96,7 +96,8 @@ router.post('/register', (req, res, next) => {
             } else {
                 //when they register, they are automatically logged in.
                 req.session.userId = user._id;
-                return res.render('game', {title: 'GameZone'});
+                // return res.render('game', {title: 'GameZone'});
+                res.redirect('/game');
             }
         });
     } else {

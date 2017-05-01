@@ -160,6 +160,53 @@ let character = 0;
 let timer = 0;
 let start = null;
 
+/* CHART SECTION
+------------------------------------------------------------*/
+let context = getElementId('words-chart').getContext('2d');
+let context2 = getElementId('wpm-chart').getContext('2d');
+
+//CREATE A CLASS TO INIT THE CHARTS
+
+let chartDataWords = {
+    labels: [
+        'Correct words',
+        'Wrong words'
+    ],
+    datasets: [
+        {
+            data: [0, 0],
+            backgroundColor: [
+                greenColor,
+                redColor,
+            ],
+            borderColor: [
+                "#fff",
+                "#fff"
+            ],
+        }]
+};
+
+let chartDataWpm = {
+    labels: [
+        'Your wpm',
+        'Players wpm'
+    ],
+    datasets: [
+        {
+            data: [0, 0],
+            backgroundColor: [
+                yellowColor,
+                redColor,
+            ],
+            borderColor: [
+                "#fff",
+                "#fff"
+            ],
+        }]
+};
+/* END OF CHART SECTION
+------------------------------------------------------------- */
+
 /*  MENU SECTION
 ------------------------------------------------------------*/
 //onLoad?
@@ -355,7 +402,8 @@ $(document).ready(function() {
 
     let topToday = getElementClass('topToday')[0];
     let topAll = getElementClass('topAll')[0];
-    let information = getElementClass('user-information');
+    let userInformation = getElementClass('user-information')[0];
+    let userChart = getElementClass('user-chart')[0];
     let userName = getElementClass('user-name')[0];
     let userScore = getElementId('user-score');
     let topAllScore = getElementId('top-all-score');
@@ -381,7 +429,7 @@ $(document).ready(function() {
     };
 
     let updateTopList = (list, table) => {
-        for(let i = 0; i < list.length - 1; i++) {
+        for(let i = 0; i < list.length; i++) {
             //i + 1 to avoid tr with th
             let row = table.getElementsByTagName('tr')[i + 1];
             //throws an undefined error. length - 1 wrong?
@@ -397,21 +445,45 @@ $(document).ready(function() {
     let initUserInformation = (response, create) => {
         if(create) {
             for(let i = 0; i < 4; i++) {
-                information[0].appendChild(document.createElement('div'));
+                userInformation.appendChild(document.createElement('div'));
             }
         }
-        let div = information[0].getElementsByTagName('div');
-        div[0].innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
+        let div = userInformation.getElementsByTagName('div');
+        div[0].innerHTML = response.userWpm + ' AVERAGE WPM';
         div[1].innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
         div[2].innerHTML = response.userRightWords + ' TOTAL CORRECT WORDS';
         div[3].innerHTML = response.userWrongWords + ' TOTAL WRONG WORDS';
+
+        chartDataWords.datasets[0].data[0] = response.userRightWords;
+        chartDataWords.datasets[0].data[1] = response.userWrongWords;
+        chartDataWpm.datasets[0].data[0] = response.userWpm;
+        chartDataWpm.datasets[0].data[1] = response.wpm;
+
+        let wordsChart = new Chart(context,{
+            type: 'pie',
+            data: chartDataWords,
+            options: {
+                legend: {
+                    display: false
+                }
+            }
+        });
+
+        let wpmChart = new Chart(context2,{
+            type: 'pie',
+            data: chartDataWpm,
+            options: {
+                legend: {
+                    display: false
+                }
+            }
+        });
     };
 
     $.ajax({
         url: '/score',
         contentType: 'application/json',
         success: function(response) {
-            console.log(response);
             initTopList(response.topAll, topAllScore);
             initTopList(response.topToday, topTodayScore);
             initTopList(response.userTopFive, userScore);

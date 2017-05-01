@@ -18,10 +18,20 @@ block content
                 .row
                     div.user-name.title
                 .row
-                    .col.col-50.user-information
-                    .col.col-50.user-information
+                    .col.col-100.user-information
+                .row.clearfix
+                    .col.col-100.user-chart
+                        .col.col-50
+                            .canvas-wrapper(style="width: 70%; float:left;")
+                                .sub-title WPM COMPARED
+                                canvas(id="wpm-chart")
+                        .col.col-50
+                            .canvas-wrapper(style="width: 70%; float:right;")
+                                .sub-title ACCURACITY
+                                canvas(id="words-chart")
                 .row
                     .col.col-100.user-top-five
+                        .sub-title(style="margin-bottom: 15px") TOP FIVE SCORES
                         table#user-score
                             tr
                                 th
@@ -38,6 +48,7 @@ block content
                     .col.col-100
                         .leaderboard-slider
                             table#top-all-score
+                                //put the titles outside of the table
                                 tr
                                     th
                                     th Name
