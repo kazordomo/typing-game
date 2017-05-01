@@ -140,6 +140,7 @@ let showScore = getElementClass('score');
 let word = getElementClass('word');
 let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
+let submitWrong = getElementId('submit-wrong');
 let submitButton = getElementId('submit-button');
 let userAndStats = getElementId('user-and-stats');
 let openUserProfile = getElementId('open-user-profile');
@@ -153,7 +154,7 @@ let greenColor = '#0DD442';
 
 let counter = 0;
 let correct = 0;
-let misses = 0;
+let wrong = 0;
 let keystrokes = 0;
 let character = 0;
 let timer = 0;
@@ -232,12 +233,13 @@ let startTimer = (duration, element) => {
             multipleCss(showScore, 'block');
             multipleCss(word, 'none');
             showScore[0].innerHTML = correct + ' correct words!';
-            showScore[1].innerHTML = misses + (misses == 1 ? ' wrong word. ' : ' wrong words. ');
+            showScore[1].innerHTML = wrong + (wrong == 1 ? ' wrong word. ' : ' wrong words. ');
             showScore[2].innerHTML = keystrokes + ' total keystrokes.';
             showScore[0].style.color = greenColor;
             showScore[1].style.color = redColor;
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
+            submitWrong.value = wrong;
             //this is needed to invoke the submit. .submit() do not work.
             submitButton.click();
         } else {
@@ -258,7 +260,7 @@ let spellChecker = () => {
         correct++;
     } else {
         counter++;
-        misses++;
+        wrong++;
         typingArea.style.border = '3px solid ' + redColor;
     }
     typingArea.value = '';
@@ -275,7 +277,7 @@ let resetAll = () => {
     multipleCss(word, 'block');
     counter = 0;
     correct = 0;
-    misses = 0;
+    wrong = 0;
     keystrokes = 0;
     character = 0;
     initWords(words, word);
@@ -353,58 +355,68 @@ $(document).ready(function() {
 
     let topToday = getElementClass('topToday')[0];
     let topAll = getElementClass('topAll')[0];
-    let information = getElementClass('information')[0];
-    let topFive = getElementClass('topFive-table')[0];
+    let information = getElementClass('user-information');
     let userName = getElementClass('user-name')[0];
-    let createWpm = document.createElement("div");
-    let createGamesPlayed = document.createElement("div");
-    let createCorrectWords = document.createElement("div");
-    let createWrongWords = document.createElement("div");
-    let userScore = getElementId('userScore');
-    let leaderboardScore = getElementId('leaderboardScore');
+    let userScore = getElementId('user-score');
+    let topAllScore = getElementId('top-all-score');
     let topTodayScore = getElementId('top-today-score');
 
-    //let td = document.createElement('td');
-    //then append and add html through index
     let initTopList = (list, table) => {
-        // leaderboardScore.appendChild(createTr);
         for(let i = 0; i < list.length; i++) {
             //create element inside the loop to get a unique element each loop
             let createTr = document.createElement('tr');
-            let td1 = document.createElement('td');
-            let td2 = document.createElement('td');
-            let td3 = document.createElement('td');
-            let td4 = document.createElement('td');
-
             table.appendChild(createTr);
-            createTr.appendChild(td1);
-            createTr.appendChild(td2);
-            createTr.appendChild(td3);
-            createTr.appendChild(td4);
+            //TODO: remove hardcoded property-length
+            for(let j = 0; j < 4; j++) {
+                createTr.appendChild(document.createElement('td'));
+            }
 
-            td1.innerHTML = (i + 1) + ': ';
-            td2.innerHTML = list[i].name;
-            td3.innerHTML = list[i].score;
-            td4.innerHTML = list[i].date;
+            let td = createTr.getElementsByTagName('td');
+
+            td[0].innerHTML = (i + 1) + ': ';
+            td[1].innerHTML = list[i].name;
+            td[2].innerHTML = list[i].score;
+            td[3].innerHTML = list[i].date;
         }
+    };
+
+    let updateTopList = (list, table) => {
+        for(let i = 0; i < list.length - 1; i++) {
+            //i + 1 to avoid tr with th
+            let row = table.getElementsByTagName('tr')[i + 1];
+            //throws an undefined error. length - 1 wrong?
+            let td = row.getElementsByTagName('td');
+
+            td[0].innerHTML = (i + 1) + ': ';
+            td[1].innerHTML = list[i].name;
+            td[2].innerHTML = list[i].score;
+            td[3].innerHTML = list[i].date;
+        }
+    };
+
+    let initUserInformation = (response, create) => {
+        if(create) {
+            for(let i = 0; i < 4; i++) {
+                information[0].appendChild(document.createElement('div'));
+            }
+        }
+        let div = information[0].getElementsByTagName('div');
+        div[0].innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
+        div[1].innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
+        div[2].innerHTML = response.userRightWords + ' TOTAL CORRECT WORDS';
+        div[3].innerHTML = response.userWrongWords + ' TOTAL WRONG WORDS';
     };
 
     $.ajax({
         url: '/score',
         contentType: 'application/json',
         success: function(response) {
-            initTopList(response.topAll, leaderboardScore);
+            console.log(response);
+            initTopList(response.topAll, topAllScore);
             initTopList(response.topToday, topTodayScore);
             initTopList(response.userTopFive, userScore);
-            information.appendChild(createWpm);
-            information.appendChild(createGamesPlayed);
-            information.appendChild(createCorrectWords);
-            information.appendChild(createWrongWords);
             userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
-            createWpm.innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
-            createGamesPlayed.innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
-            createCorrectWords.innerHTML = '520 CORRECT WORDS';
-            createWrongWords.innerHTML = '102 WRONG WORDS';
+            initUserInformation(response, true);
         }
     });
 
@@ -412,20 +424,22 @@ $(document).ready(function() {
         event.preventDefault();
 
         let scoreInput = $('#submit-score');
+        let wrongInput = $('#submit-wrong');
 
         $.ajax({
             url: '/score',
             method: 'POST',
             contentType: 'application/json',
             //parse score to int to prevent it to covert to a string.
-            data: JSON.stringify({ score: parseInt(scoreInput.val(), 10) }),
+            data: JSON.stringify({ score: parseInt(scoreInput.val(), 10), wrong: parseInt(wrongInput.val(), 10)}),
             success: function(response) {
+                updateTopList(response.topAll, topAllScore);
+                updateTopList(response.topToday, topTodayScore);
+                updateTopList(response.userTopFive, userScore);
                 userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
-                createWpm.innerHTML = response.userWpm + ' AVERAGE WPM' + '<span class="wpm-info"><i class="fa fa-info-circle" aria-hidden="true"></i><span class="wpm-info-text">' + response.wpm + ' wpm is the average among all players' + '</span></span>';
-                createGamesPlayed.innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
-                createCorrectWords.innerHTML = '520 CORRECT WORDS';
-                createWrongWords.innerHTML = '102 WRONG WORDS';
+                initUserInformation(response, false);
                 scoreInput.val(null);
+                wrongInput.val(null);
             }
         });
     });

@@ -85,7 +85,8 @@ router.post('/register', (req, res, next) => {
             email: req.body.email,
             name: req.body.name,
             password: req.body.password,
-            gamesPlayed: 0
+            gamesPlayed: 0,
+            wrongWords: 0
         };
 
         // use schema's 'create' method to insert document into Mongo
@@ -127,7 +128,7 @@ router.get('/score', (req, res, next) => {
             return d.date == today;
         });
 
-        score.topToday = _.orderBy(doc, 'score', 'desc').slice(0, 10);
+        score.topToday = _.orderBy(score.topToday, 'score', 'desc').slice(0, 10);
         score.topAll = _.orderBy(doc, 'score', 'desc').slice(0, 10);
         score.wpm = wpm;
 
@@ -140,6 +141,7 @@ router.get('/score', (req, res, next) => {
                 userTotalScore += userScore[i].score;
             };
 
+            score.userRightWords = userTotalScore;
             score.userTopFive = _.orderBy(userScore, 'score', 'desc').slice(0, 5);
             score.userWpm = Math.round(userTotalScore / userScore.length);
             score.userTitle = '';
@@ -160,12 +162,12 @@ router.get('/score', (req, res, next) => {
                     return next(error);
                 else {
                     score.name = user.name;
-                    user.gamesPlayed++;
                     user.save((error) => {
                         if(error)
                             return next(error);
                         else {
                             score.userGamesPlayed = user.gamesPlayed;
+                            score.userWrongWords = user.wrongWords;
                             res.send(score);
                         }
                     });
@@ -183,22 +185,30 @@ router.post('/score', (req, res, next) => {
         score: req.body.score,
         userId: req.session.userId,
         date: today
-};
+    };
 
     User.findById(req.session.userId, (error, user) => {
         if(error)
             return next(error);
         else {
             scoreData.name = user.name;
+            let wrongWordsValue = user.wrongWords += req.body.wrong;
+            let gamesPlayedValue = user.gamesPlayed + 1;
 
-            Score.create(scoreData, (error) => {
-                if(error)
+            //TODO: do it right pl0x... fetching user twice. not good. not good at all.
+            User.findOneAndUpdate({_id: user._id}, {$set:{wrongWords: wrongWordsValue, gamesPlayed: gamesPlayedValue}}, {new: true}, function(err, doc){
+                if(err){
                     return next(error);
-                else {
-                    //redirect to the get function to keep all the logic at the same place
-                    //the get function is the one sending the data to our frontend
-                    res.redirect('/score');
                 }
+                Score.create(scoreData, (error) => {
+                    if(error)
+                        return next(error);
+                    else {
+                        //redirect to the get function to keep all the logic at the same place
+                        //the get function is the one sending the data to our frontend
+                        res.redirect('/score');
+                    }
+                });
             });
         }
     });

@@ -21,6 +21,9 @@ let UserSchema = new mongoose.Schema({
     },
     gamesPlayed: {
         type: Number
+    },
+    wrongWords: {
+        type: Number
     }
 });
 

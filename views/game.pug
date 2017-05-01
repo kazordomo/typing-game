@@ -5,8 +5,9 @@ block content
     .fade
 
     .menu-area
+        a.logout(href="logout" style="float: right")
+            i(class="fa fa-user-times" aria-hidden="true")
         .menu-wrapper
-            //if user.session
             i(class="fa fa-user-circle-o" id="open-user-profile" aria-hidden="true")
             #open-leaderboard(style="display:none")
                 i(class="fa fa-list-ol" aria-hidden="true")
@@ -17,15 +18,14 @@ block content
                 .row
                     div.user-name.title
                 .row
-                    .col.col-50.information
-                    .col.col-50
-                        a.logout(href="logout" style="float: right")
-                            i(class="fa fa-user-times" aria-hidden="true")
+                    .col.col-50.user-information
+                    .col.col-50.user-information
                 .row
-                    .col.col-100.topFive
-                        table#userScore
+                    .col.col-100.user-top-five
+                        table#user-score
                             tr
                                 th
+                                th Name
                                 th Score
                                 th Date
             .leaderboard-section
@@ -37,7 +37,7 @@ block content
                 .row
                     .col.col-100
                         .leaderboard-slider
-                            table#leaderboardScore
+                            table#top-all-score
                                 tr
                                     th
                                     th Name
@@ -49,7 +49,6 @@ block content
                                     th Name
                                     th Score
                                     th Date
-
 
     .container
         #game-area
@@ -71,21 +70,5 @@ block content
 
             form#score-form(method="POST" action="/score")
                 input#submit-score(type="hidden" value="" name="submitscore")
+                input#submit-wrong(type="hidden" value="" name="submitWrong")
                 button#submit-button(type="submit")
-
-            //div#open-leaderboard
-            //    <i class="fa fa-list-ol" aria-hidden="true"></i> Leaderboard
-    //.leaderboard-wrapper
-    //    span#close-leaderboard <i class="fa fa-times" aria-hidden="true"></i>
-    //    .leaderboard
-    //        h1 LEADERBOARD
-    //
-    div.top-today(style="display:none")
-        h3.top-today-title Top Today
-        - for(i = 0; i < 10; i++)
-            div.user-score.top-today-score
-
-    div.top-all(style="display:none")
-        h3.top-all-title Top All
-        - for(i = 0; i < 10; i++)
-            div.user-score.top-all-score

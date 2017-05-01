@@ -272,6 +272,10 @@ div.title-wrapper {
     font-weight: 700;
 }
 
+.logout {
+    float: left;
+}
+
 div.container.user-and-stats {
     /*min-width: 1200px;*/
     padding-top: 75px;
@@ -279,10 +283,6 @@ div.container.user-and-stats {
     margin: 0 auto;
     right: 0;
     left: 0;
-}
-
-#user-and-stats .row {
-
 }
 
 #user-and-stats .col {
@@ -311,11 +311,11 @@ div.container.user-and-stats {
     border-radius: 5px;
 }
 
-.profile-section .information div {
+.profile-section .user-information div {
     height: 50px;
 }
 
-.profile-section .information .wpm-info {
+.profile-section .user-information .wpm-info {
     margin-left: 15px;
 }
 
@@ -332,7 +332,7 @@ div.container.user-and-stats {
     font-size: 15px;
 }
 
-.profile-section .information .wpm-info:hover .wpm-info-text {
+.profile-section .user-information .wpm-info:hover .wpm-info-text {
     opacity: 1;
     z-index: 999;
 }
@@ -359,19 +359,6 @@ div.container.user-and-stats {
     opacity: 0;
     cursor: auto;
 }
-
-/*.leaderboard-section .go-to-buttons {*/
-    /*font-size: 15px;*/
-/*}*/
-
-/*.leaderboard-section .top-all-title {*/
-    /*float: left;*/
-/*}*/
-
-/*.leaderboard-section .top-today-title {*/
-    /*float: left;*/
-    /*margin-left: 10px;*/
-/*}*/
 
 .leaderboard-section .leaderboard-slider {
     position: absolute;
