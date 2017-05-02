@@ -143,7 +143,9 @@ let submitScore = getElementId('submit-score');
 let submitWrong = getElementId('submit-wrong');
 let submitButton = getElementId('submit-button');
 let userAndStats = getElementId('user-and-stats');
+let leaderboard = getElementId('leaderboard');
 let openUserProfile = getElementId('open-user-profile');
+let openLeaderboard = getElementId('open-leaderboard');
 let leaderBoardSlider = getElementClass('leaderboard-slider')[0];
 let toggleLeaderBoard = getElementClass('toggle-leaderboard');
 
@@ -211,32 +213,22 @@ let chartDataWpm = {
 ------------------------------------------------------------*/
 //onLoad?
 userAndStats.style.marginLeft = '-100%';
-leaderBoardSlider.style.marginLeft = '0%';
-let openMenu = (element) => {
+leaderboard.style.marginLeft = '-100%';
+let openMenu = (element, section) => {
     let elementClass = element.className;
     element.addEventListener('click', function() {
-        if(userAndStats.style.marginLeft != '-100%') {
+        if(section.style.marginLeft != '-100%') {
             element.className = elementClass;
-            userAndStats.style.marginLeft = '-100%';
+            section.style.marginLeft = '-100%';
         } else {
             element.className = 'fa fa-times';
-            userAndStats.style.marginLeft = '0%';
+            section.style.marginLeft = '0%';
         }
     });
 };
 
-openMenu(openUserProfile);
-
-toggleLeaderBoard[0].addEventListener('click', () => {
-    leaderBoardSlider.style.marginLeft = '0%';
-    toggleLeaderBoard[0].classList.add('unactive');
-    toggleLeaderBoard[1].classList.remove('unactive');
-});
-toggleLeaderBoard[1].addEventListener('click', () => {
-    leaderBoardSlider.style.marginLeft = '-100%';
-    toggleLeaderBoard[1].classList.add('unactive');
-    toggleLeaderBoard[0].classList.remove('unactive');
-});
+openMenu(openUserProfile, userAndStats);
+openMenu(openLeaderboard, leaderboard);
 
 /*  END OF MENU SECTION
  ------------------------------------------------------------*/

@@ -5,12 +5,9 @@ block content
     .fade
 
     .menu-area
-        a.logout(href="logout" style="float: right")
-            i(class="fa fa-user-times" aria-hidden="true")
         .menu-wrapper
             i(class="fa fa-user-circle-o" id="open-user-profile" aria-hidden="true")
-            #open-leaderboard(style="display:none")
-                i(class="fa fa-list-ol" aria-hidden="true")
+            i(class="fa fa-list-ol" id="open-leaderboard" aria-hidden="true")
     #user-and-stats
         .container.user-and-stats
             .user-and-stats-menu.clearfix
@@ -38,28 +35,32 @@ block content
                                 th Name
                                 th Score
                                 th Date
-            .leaderboard-section
                 .row
-                    .title-wrapper
-                        i(class="fa fa-arrow-left toggle-leaderboard unactive" aria-hidden="true")
-                        .title LEADERBOARD
-                        i(class="fa fa-arrow-right toggle-leaderboard" aria-hidden="true")
+                    a.logout(href="logout" style="float: right") LOGOUT
+                        i(class="fa fa-user-times" aria-hidden="true")
+    #leaderboard
+        .container.leaderboard
+            .leaderboard-section
+                .title LEADERBOARD
                 .row
                     .col.col-100
-                        .leaderboard-slider
-                            table#top-all-score
-                                //put the titles outside of the table
-                                tr
-                                    th
-                                    th Name
-                                    th Score
-                                    th Date
-                            table#top-today-score
-                                tr
-                                    th
-                                    th Name
-                                    th Score
-                                    th Date
+                        .sub-title TOP TODAY
+                        table#top-today-score
+                            tr
+                                th
+                                th Name
+                                th Score
+                                th Date
+                .row
+                    .col.col-100
+                        .sub-title TOP ALL
+                        table#top-all-score
+                            //put the titles outside of the table
+                            tr
+                                th
+                                th Name
+                                th Score
+                                th Date
 
     .container
         #game-area
