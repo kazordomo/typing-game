@@ -112,6 +112,7 @@ router.get('/game', (req, res, next) => {
     res.render('game', {title: 'GameZone'});
 });
 
+//TODO: ADD PERFECT ROUND. 100% CORRECT WORDS
 router.get('/score', (req, res, next) => {
     Score.find({}, (error, doc) => {
 
