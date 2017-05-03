@@ -142,24 +142,41 @@ div.title-wrapper {
 
 /*  GAME
 ------------------------------------------------------------ */
-.menu-area {
+#game-popup {
     position: absolute;
-    z-index: 999;
-    width: 100%;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    /*margin: 80px auto 0px auto;*/
+    width: 320px;
+    color: #EFDC05;
+    font-size: 50px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: .5s ease-in-out;
 }
 
-.menu-area .menu-wrapper {
+.menu-area {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+}
+
+.menu-wrapper {
     float: right;
     width: 25%;
     padding: 20px;
+    transition: .3s ease-in-out;
+    overflow: hidden;
 }
 
-.menu-area .menu-wrapper i {
+.menu-wrapper i {
+    float: right;
     font-size: 30px;
     cursor: pointer;
 }
 
-.menu-area #open-user-profile {
+#open-user-profile {
     float: right;
 }
 
@@ -275,7 +292,7 @@ div.title-wrapper {
 }
 
 #leaderboard {
-    background-color: #0059FF;
+    background-color: #0EB1E3;
 }
 
 .logout {
@@ -358,7 +375,7 @@ div.container.user-and-stats, div.container.leaderboard {
 
 .leaderboard .sub-title {
     margin-bottom: 20px;
-    text-align: right;
+    text-align: left;
 }
 
 .leaderboard-section .row {
@@ -394,7 +411,7 @@ table tr th:first-child {
 }
 
 .leaderboard-section table tr:nth-child(even) {
-    background-color: #30A9DE;
+    background-color: #1D47A1;
 }
 
 table tr td {

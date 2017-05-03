@@ -9,8 +9,10 @@ block content
             i(class="fa fa-user-circle-o" id="open-user-profile" aria-hidden="true")
             i(class="fa fa-list-ol" id="open-leaderboard" aria-hidden="true")
     #user-and-stats
+        .menu-wrapper
+            i(class="fa fa-times close" aria-hidden="true")
         .container.user-and-stats
-            .user-and-stats-menu.clearfix
+            //.user-and-stats-menu.clearfix BAJS
             .profile-section
                 .row
                     div.user-name.title
@@ -39,9 +41,20 @@ block content
                     a.logout(href="logout" style="float: right") LOGOUT
                         i(class="fa fa-user-times" aria-hidden="true")
     #leaderboard
+        .menu-wrapper
+            i(class="fa fa-times close" aria-hidden="true")
         .container.leaderboard
             .leaderboard-section
                 .title LEADERBOARD
+                .row
+                    .col.col-100
+                        .sub-title TOP ALL
+                        table#top-all-score
+                            tr
+                                th
+                                th Name
+                                th Score
+                                th Date
                 .row
                     .col.col-100
                         .sub-title TOP TODAY
@@ -51,18 +64,9 @@ block content
                                 th Name
                                 th Score
                                 th Date
-                .row
-                    .col.col-100
-                        .sub-title TOP ALL
-                        table#top-all-score
-                            //put the titles outside of the table
-                            tr
-                                th
-                                th Name
-                                th Score
-                                th Date
 
     .container
+        span#game-popup GAME OVER!
         #game-area
             .reset
                 span#time-counter

@@ -142,12 +142,15 @@ let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
 let submitWrong = getElementId('submit-wrong');
 let submitButton = getElementId('submit-button');
+let menuWrapper = getElementClass('menu-wrapper')[0];
 let userAndStats = getElementId('user-and-stats');
 let leaderboard = getElementId('leaderboard');
 let openUserProfile = getElementId('open-user-profile');
 let openLeaderboard = getElementId('open-leaderboard');
 let leaderBoardSlider = getElementClass('leaderboard-slider')[0];
 let toggleLeaderBoard = getElementClass('toggle-leaderboard');
+let closeSection = getElementClass('close');
+let gamePopUp = getElementId('game-popup');
 
 let yellowColor = '#EFDC05';
 let redColor = '#E53A40';
@@ -215,18 +218,24 @@ let chartDataWpm = {
 userAndStats.style.marginLeft = '-100%';
 leaderboard.style.marginLeft = '-100%';
 let openMenu = (element, section) => {
-    let elementClass = element.className;
-    element.addEventListener('click', function() {
-        if(section.style.marginLeft != '-100%') {
-            element.className = elementClass;
-            section.style.marginLeft = '-100%';
-        } else {
-            element.className = 'fa fa-times';
-            section.style.marginLeft = '0%';
-        }
+    // let elementClass = element.className;
+    element.addEventListener('click', () => {
+            // element.className = elementClass;
+        // section.style.marginLeft = '-200px';
+        menuWrapper.style.marginRight = '-200px';
+        section.style.marginLeft = '0%';
     });
 };
 
+let close = (element, section) => {
+    element.addEventListener('click', () => {
+        section.style.marginLeft = '-100%';
+        menuWrapper.style.marginRight = '0px';
+    });
+};
+
+close(closeSection[0], userAndStats);
+close(closeSection[1], leaderboard);
 openMenu(openUserProfile, userAndStats);
 openMenu(openLeaderboard, leaderboard);
 
@@ -257,6 +266,17 @@ let multipleCss = (classGroup, style) => {
 
 words = shuffle(words);
 
+let gamePopUpFunc = () => {
+    // gamePopUp.style.zIndex = '1';
+    gamePopUp.style.opacity = '0.7';
+    gamePopUp.style.transform ='scale(2)';
+    setTimeout(function() {
+        gamePopUp.style.transform ='scale(0.2)';
+        gamePopUp.style.opacity = '0';
+        // gamePopUp.style.zIndex = '-1';
+    }, 500);
+};
+
 let startTimer = (duration, element) => {
     timer = duration;
     element.innerHTML = timer;
@@ -266,9 +286,11 @@ let startTimer = (duration, element) => {
             clearInterval(start);
             // resets
             element.style.color = '#FFFFFF';
-            element.innerHTML = "GAME!";
+            // element.innerHTML = "GAME!";
+            element.innerHTML = '';
             typingArea.disabled = true;
             typingArea.value = 'Press ENTER to restart';
+            gamePopUpFunc();
             multipleCss(showScore, 'block');
             multipleCss(word, 'none');
             showScore[0].innerHTML = correct + ' correct words!';
