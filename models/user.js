@@ -24,6 +24,9 @@ let UserSchema = new mongoose.Schema({
     },
     wrongWords: {
         type: Number
+    },
+    perfectGames: {
+        type: Number
     }
 });
 
@@ -31,7 +34,6 @@ UserSchema.statics.authenticate = (email, password, callback) => {
     User.findOne({ email: email })
         .exec((error, user) => {
             if (error) {
-                console.log("FAILED AT ROW 31");
                 return callback(error);
             } else if (!user) {
                 var err = new Error('User not found.');

@@ -6,13 +6,14 @@ block content
 
     .menu-area
         .menu-wrapper
-            i(class="fa fa-user-circle-o" id="open-user-profile" aria-hidden="true")
+            if userId
+                i(class="fa fa-user-circle-o" id="open-user-profile" aria-hidden="true")
             i(class="fa fa-list-ol" id="open-leaderboard" aria-hidden="true")
     #user-and-stats
         .menu-wrapper
             i(class="fa fa-times close" aria-hidden="true")
         .container.user-and-stats
-            //.user-and-stats-menu.clearfix BAJS
+            //.user-and-stats-menu.clearfix
             .profile-section
                 .row
                     div.user-name.title
@@ -22,7 +23,7 @@ block content
                     .col.col-100.user-chart
                         .col.col-50
                             .canvas-wrapper(style="width: 70%; float:left;")
-                                .sub-title WPM COMPARED
+                                .sub-title WPM
                                 canvas(id="wpm-chart")
                         .col.col-50
                             .canvas-wrapper(style="width: 70%; float:right;")

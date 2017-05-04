@@ -146,14 +146,14 @@ div.title-wrapper {
     position: absolute;
     right: 0;
     left: 0;
-    margin: 0 auto;
-    /*margin: 80px auto 0px auto;*/
-    width: 320px;
+    /*margin: 0 auto;*/
+    margin: 80px auto 0px auto;
+    width: 380px;
     color: #EFDC05;
-    font-size: 50px;
+    font-size: 60px;
     opacity: 0;
     transform: scale(0.5);
-    transition: .5s ease-in-out;
+    transition: .3s ease-in-out;
 }
 
 .menu-area {
@@ -174,10 +174,6 @@ div.title-wrapper {
     float: right;
     font-size: 30px;
     cursor: pointer;
-}
-
-#open-user-profile {
-    float: right;
 }
 
 #game-area {
@@ -252,9 +248,8 @@ div.title-wrapper {
     background: rgba(0,0,0,0.7);
 }
 
-#open-leaderboard {
-    float: right;
-    margin-right: 30px;
+#open-user-profile {
+    margin-left: 30px;
 }
 
 #close-leaderboard {
@@ -274,6 +269,15 @@ div.title-wrapper {
 
 /*  USER PROFILE
 ------------------------------------------------------------ */
+div.container.user-and-stats, div.container.leaderboard {
+    width: 600px;
+    padding: 75px 0px 135px 0px;
+    position: absolute;
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+}
+
 #user-and-stats, #leaderboard {
     position: fixed;
     width: 100%;
@@ -297,7 +301,7 @@ div.title-wrapper {
 
 .logout {
     display: block;
-    width: 115px;
+    width: 110px;
     padding: 10px 20px;
     background-color: #1D47A1;
     float: right;
@@ -309,15 +313,6 @@ div.title-wrapper {
 .logout i {
     float: right;
     font-size: 20px;
-}
-
-div.container.user-and-stats, div.container.leaderboard {
-    width: 600px;
-    padding-top: 75px;
-    position: absolute;
-    margin: 0 auto;
-    right: 0;
-    left: 0;
 }
 
 .row {
@@ -411,7 +406,7 @@ table tr th:first-child {
 }
 
 .leaderboard-section table tr:nth-child(even) {
-    background-color: #1D47A1;
+    background-color: #D17B02;
 }
 
 table tr td {

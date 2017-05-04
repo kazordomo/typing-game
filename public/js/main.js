@@ -132,6 +132,9 @@ let getElementClass = (elements) => {
 };
 
 //VARIABLES
+const yellowColor = '#EFDC05';
+const redColor = '#E53A40';
+const greenColor = '#0DD442';
 
 let words = en_words;
 let refresh = getElementId('refresh');
@@ -152,11 +155,6 @@ let toggleLeaderBoard = getElementClass('toggle-leaderboard');
 let closeSection = getElementClass('close');
 let gamePopUp = getElementId('game-popup');
 
-let yellowColor = '#EFDC05';
-let redColor = '#E53A40';
-// let blueColor = '#30A9DE';
-let greenColor = '#0DD442';
-
 let counter = 0;
 let correct = 0;
 let wrong = 0;
@@ -170,45 +168,38 @@ let start = null;
 let context = getElementId('words-chart').getContext('2d');
 let context2 = getElementId('wpm-chart').getContext('2d');
 
-//CREATE A CLASS TO INIT THE CHARTS
+class UserChart {
+    constructor(labels, brColor, data) {
+        this.labels = labels;
+        this.brColor = brColor;
+        this.data = data;
+    }
 
-let chartDataWords = {
-    labels: [
-        'Correct words',
-        'Wrong words'
-    ],
-    datasets: [
-        {
-            data: [0, 0],
-            backgroundColor: [
-                greenColor,
-                redColor,
-            ],
-            borderColor: [
-                "#fff",
-                "#fff"
-            ],
-        }]
-};
+    get chartData() {
+        return this.initChart;
+    }
 
-let chartDataWpm = {
-    labels: [
-        'Your wpm',
-        'Players wpm'
-    ],
-    datasets: [
-        {
-            data: [0, 0],
-            backgroundColor: [
-                yellowColor,
-                redColor,
-            ],
-            borderColor: [
-                "#fff",
-                "#fff"
-            ],
-        }]
-};
+    initChart() {
+        let chartData = {
+            labels: this.labels,
+            datasets: [
+                {
+                    data: this.data,
+                    backgroundColor: this.brColor,
+                    borderColor: [
+                        "#fff",
+                        "#fff"
+                    ]
+                }
+            ]
+        };
+        return chartData;
+    }
+}
+
+let wpmChart = new UserChart(["Your wpm", "Others wpm"], [yellowColor, redColor], [0, 0]);
+let wordsChart = new UserChart(["Your % accuracy", "Others % accuracy"], [greenColor, redColor], [0, 0]);
+
 /* END OF CHART SECTION
 ------------------------------------------------------------- */
 
@@ -236,7 +227,8 @@ let close = (element, section) => {
 
 close(closeSection[0], userAndStats);
 close(closeSection[1], leaderboard);
-openMenu(openUserProfile, userAndStats);
+if(openUserProfile)
+    openMenu(openUserProfile, userAndStats);
 openMenu(openLeaderboard, leaderboard);
 
 /*  END OF MENU SECTION
@@ -269,7 +261,7 @@ words = shuffle(words);
 let gamePopUpFunc = () => {
     // gamePopUp.style.zIndex = '1';
     gamePopUp.style.opacity = '0.7';
-    gamePopUp.style.transform ='scale(2)';
+    gamePopUp.style.transform ='scale(2.3)';
     setTimeout(function() {
         gamePopUp.style.transform ='scale(0.2)';
         gamePopUp.style.opacity = '0';
@@ -283,14 +275,17 @@ let startTimer = (duration, element) => {
     start = setInterval(() => {
         timer--;
         if(timer === 0) {
+            gamePopUpFunc();
             clearInterval(start);
             // resets
             element.style.color = '#FFFFFF';
             // element.innerHTML = "GAME!";
-            element.innerHTML = '';
+            if(wrong === 0)
+                element.innerHTML = 'PERFECT GAME!';
+            else
+                element.innerHTML = '';
             typingArea.disabled = true;
             typingArea.value = 'Press ENTER to restart';
-            gamePopUpFunc();
             multipleCss(showScore, 'block');
             multipleCss(word, 'none');
             showScore[0].innerHTML = correct + ' correct words!';
@@ -417,7 +412,6 @@ $(document).ready(function() {
     let topToday = getElementClass('topToday')[0];
     let topAll = getElementClass('topAll')[0];
     let userInformation = getElementClass('user-information')[0];
-    let userChart = getElementClass('user-chart')[0];
     let userName = getElementClass('user-name')[0];
     let userScore = getElementId('user-score');
     let topAllScore = getElementId('top-all-score');
@@ -442,6 +436,18 @@ $(document).ready(function() {
         }
     };
 
+    let initChart = (ctxt, type, data) => {
+        new Chart(ctxt, {
+            type: type,
+            data: data,
+            options: {
+                legend: {
+                    display: false
+                }
+            }
+        });
+    };
+
     let updateTopList = (list, table) => {
         for(let i = 0; i < list.length; i++) {
             //i + 1 to avoid tr with th
@@ -453,12 +459,14 @@ $(document).ready(function() {
             td[1].innerHTML = list[i].name;
             td[2].innerHTML = list[i].score;
             td[3].innerHTML = list[i].date;
+
+            console.log("UPDATING");
         }
     };
 
     let initUserInformation = (response, create) => {
         if(create) {
-            for(let i = 0; i < 4; i++) {
+            for(let i = 0; i < 5; i++) {
                 userInformation.appendChild(document.createElement('div'));
             }
         }
@@ -467,31 +475,13 @@ $(document).ready(function() {
         div[1].innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
         div[2].innerHTML = response.userRightWords + ' TOTAL CORRECT WORDS';
         div[3].innerHTML = response.userWrongWords + ' TOTAL WRONG WORDS';
+        div[4].innerHTML = response.perfectGames + ' PERFECT GAMES';
 
-        chartDataWords.datasets[0].data[0] = response.userRightWords;
-        chartDataWords.datasets[0].data[1] = response.userWrongWords;
-        chartDataWpm.datasets[0].data[0] = response.userWpm;
-        chartDataWpm.datasets[0].data[1] = response.wpm;
+        wordsChart.data = [response.userAccuracy, response.totalAccuracy];
+        wpmChart.data = [response.userWpm, response.wpm];
 
-        let wordsChart = new Chart(context,{
-            type: 'pie',
-            data: chartDataWords,
-            options: {
-                legend: {
-                    display: false
-                }
-            }
-        });
-
-        let wpmChart = new Chart(context2,{
-            type: 'pie',
-            data: chartDataWpm,
-            options: {
-                legend: {
-                    display: false
-                }
-            }
-        });
+        let createWpmChart = initChart(context, 'pie', wordsChart.chartData());
+        let createWordsChart = initChart(context2, 'pie', wpmChart.chartData());
     };
 
     $.ajax({
@@ -500,9 +490,11 @@ $(document).ready(function() {
         success: function(response) {
             initTopList(response.topAll, topAllScore);
             initTopList(response.topToday, topTodayScore);
-            initTopList(response.userTopFive, userScore);
-            userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
-            initUserInformation(response, true);
+            if(response.name) {
+                initTopList(response.userTopFive, userScore);
+                userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
+                initUserInformation(response, true);
+            }
         }
     });
 

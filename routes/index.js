@@ -86,7 +86,8 @@ router.post('/register', (req, res, next) => {
             name: req.body.name,
             password: req.body.password,
             gamesPlayed: 0,
-            wrongWords: 0
+            wrongWords: 0,
+            perfectGames: 0
         };
 
         // use schema's 'create' method to insert document into Mongo
@@ -109,7 +110,8 @@ router.post('/register', (req, res, next) => {
 
 // GET /game
 router.get('/game', (req, res, next) => {
-    res.render('game', {title: 'GameZone'});
+    let userId = req.session.userId;
+    res.render('game', {title: 'GameZone', userId: userId});
 });
 
 //TODO: ADD PERFECT ROUND. 100% CORRECT WORDS
@@ -147,6 +149,7 @@ router.get('/score', (req, res, next) => {
             score.userTopFive = _.orderBy(userScore, 'score', 'desc').slice(0, 5);
             score.userWpm = Math.round(userTotalScore / userScore.length);
             score.userTitle = '';
+
             if(score.userWpm <= 50) {
                 score.userTitle = 'the rookie';
             } else if(score.userWpm > 50 && score.userWpm <= 75) {
@@ -159,6 +162,10 @@ router.get('/score', (req, res, next) => {
                 score.userTitle = 'the god';
             }
 
+            let calculateAccuracy = (rightWords, wrongWords) => {
+                return Math.round((rightWords / (rightWords + wrongWords)) * 100);
+            };
+
             User.findById(req.session.userId, (error, user) => {
                 if(error)
                     return next(error);
@@ -170,7 +177,18 @@ router.get('/score', (req, res, next) => {
                         else {
                             score.userGamesPlayed = user.gamesPlayed;
                             score.userWrongWords = user.wrongWords;
-                            res.send(score);
+                            score.perfectGames = user.perfectGames;
+                            score.userAccuracy = calculateAccuracy(score.userRightWords, score.userWrongWords);
+                            User.find({}, (error, doc) => {
+                                let totalRightWords = totalScore;
+                                let totalWrongWords = 0;
+                                for(let i = 0; i < doc.length; i++) {
+                                    totalWrongWords += doc[i].wrongWords;
+                                }
+                                score.totalAccuracy = calculateAccuracy(totalRightWords, totalWrongWords);
+
+                                res.send(score);
+                            });
                         }
                     });
                 }
@@ -196,9 +214,13 @@ router.post('/score', (req, res, next) => {
             scoreData.name = user.name;
             let wrongWordsValue = user.wrongWords += req.body.wrong;
             let gamesPlayedValue = user.gamesPlayed + 1;
+            let perfectGamesValue = user.perfectGames;
+            if(req.body.wrong === 0) {
+                perfectGamesValue = user.perfectGames + 1;
+            }
 
             //TODO: do it right pl0x... fetching user twice. not good. not good at all.
-            User.findOneAndUpdate({_id: user._id}, {$set:{wrongWords: wrongWordsValue, gamesPlayed: gamesPlayedValue}}, {new: true}, function(err, doc){
+            User.findOneAndUpdate({_id: user._id}, {$set:{wrongWords: wrongWordsValue, gamesPlayed: gamesPlayedValue, perfectGames: perfectGamesValue}}, {new: true}, function(err, doc){
                 if(err){
                     return next(error);
                 }
