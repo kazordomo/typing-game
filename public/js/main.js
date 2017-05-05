@@ -396,40 +396,35 @@ $(document).ready(function() {
     let topTodayScore = getElementId('top-today-score');
 
     let initTopList = (list, table) => {
-        for(let i = 0; i < list.length; i++) {
+        for(let i = 0; i < 10; i++) {
             //create element inside the loop to get a unique element each loop
             let createTr = document.createElement('tr');
             table.appendChild(createTr);
-            //TODO: remove hardcoded property-length
             for(let j = 0; j < 4; j++) {
                 createTr.appendChild(document.createElement('td'));
             }
 
             let td = createTr.getElementsByTagName('td');
+            td[0].innerHTML = i + 1;
+            td[1].innerHTML = '-';
+            td[2].innerHTML = '-';
+            td[3].innerHTML = '-';
+        }
+
+        updateTopList(list, table);
+    };
+
+    let updateTopList = (list, table) => {
+
+        //TODO: IF table got 10 rows, update them. IF not, create tr.
+        for (let i = 0; i < list.length; i++) {
+            let row = table.getElementsByTagName('tr')[i + 1];
+            let td = row.getElementsByTagName('td');
 
             td[0].innerHTML = (i + 1) + ': ';
             td[1].innerHTML = list[i].name;
             td[2].innerHTML = list[i].score;
             td[3].innerHTML = list[i].date;
-        }
-    };
-
-    let updateTopList = (list, table, rowLength) => {
-
-        //rowlength will always be 10 or 5.
-        //TODO: IF table got 10 rows, update them. IF not, create tr.
-        for (let i = 0; i < list.length; i++) {
-            if(table.getElementsByTagName('tr').length == rowLength) {
-                let row = table.getElementsByTagName('tr')[i + 1];
-                let td = row.getElementsByTagName('td');
-
-                td[0].innerHTML = (i + 1) + ': ';
-                td[1].innerHTML = list[i].name;
-                td[2].innerHTML = list[i].score;
-                td[3].innerHTML = list[i].date;
-            } else {
-                initTopList(list, table);
-            }
         }
     };
 
@@ -469,10 +464,10 @@ $(document).ready(function() {
         url: '/score',
         contentType: 'application/json',
         success: function(response) {
-            initTopList(response.topAll, topAllScore);
-            initTopList(response.topToday, topTodayScore);
+            initTopList(response.topAll, topAllScore, 10);
+            initTopList(response.topToday, topTodayScore, 10);
             if(response.name) {
-                initTopList(response.userTopFive, userScore);
+                initTopList(response.userTopFive, userScore, 5);
                 userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
                 initUserInformation(response, true);
             }
@@ -492,9 +487,9 @@ $(document).ready(function() {
             //parse score to int to prevent it to covert to a string.
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10), wrong: parseInt(wrongInput.val(), 10)}),
             success: function(response) {
-                updateTopList(response.topAll, topAllScore, 10);
-                updateTopList(response.topToday, topTodayScore, 10);
-                updateTopList(response.userTopFive, userScore, 5);
+                updateTopList(response.topAll, topAllScore);
+                updateTopList(response.topToday, topTodayScore);
+                updateTopList(response.userTopFive, userScore);
                 userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
                 initUserInformation(response, false);
                 scoreInput.val(null);

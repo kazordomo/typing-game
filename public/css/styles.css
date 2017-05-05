@@ -274,16 +274,6 @@ div.container.user-and-stats, div.container.leaderboard {
     background-color: #0EB1E3;
 }
 
-.noGames {
-    padding: 50px 0px;
-    font-size: 30px;
-    text-align: center;
-}
-
-.noGames span {
-    font-style: normal;
-}
-
 .logout {
     float: right;
     display: block;
