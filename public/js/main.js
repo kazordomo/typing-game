@@ -145,15 +145,14 @@ let timeCounter = getElementId('time-counter');
 let submitScore = getElementId('submit-score');
 let submitWrong = getElementId('submit-wrong');
 let submitButton = getElementId('submit-button');
-let menuWrapper = getElementClass('menu-wrapper')[0];
+let menuWrapper = getElementClass('menu')[0];
 let userAndStats = getElementId('user-and-stats');
 let leaderboard = getElementId('leaderboard');
 let openUserProfile = getElementId('open-user-profile');
 let openLeaderboard = getElementId('open-leaderboard');
-let leaderBoardSlider = getElementClass('leaderboard-slider')[0];
-let toggleLeaderBoard = getElementClass('toggle-leaderboard');
 let closeSection = getElementClass('close');
-let gamePopUp = getElementId('game-popup');
+let context = getElementId('words-chart').getContext('2d');
+let context2 = getElementId('wpm-chart').getContext('2d');
 
 let counter = 0;
 let correct = 0;
@@ -164,10 +163,7 @@ let timer = 0;
 let start = null;
 
 /* CHART SECTION
-------------------------------------------------------------*/
-let context = getElementId('words-chart').getContext('2d');
-let context2 = getElementId('wpm-chart').getContext('2d');
-
+------------------------------------------------------------- */
 class UserChart {
     constructor(labels, brColor, data) {
         this.labels = labels;
@@ -204,15 +200,12 @@ let wordsChart = new UserChart(["Your % accuracy", "Others % accuracy"], [greenC
 ------------------------------------------------------------- */
 
 /*  MENU SECTION
-------------------------------------------------------------*/
+------------------------------------------------------------- */
 //onLoad?
 userAndStats.style.marginLeft = '-100%';
 leaderboard.style.marginLeft = '-100%';
 let openMenu = (element, section) => {
-    // let elementClass = element.className;
     element.addEventListener('click', () => {
-            // element.className = elementClass;
-        // section.style.marginLeft = '-200px';
         menuWrapper.style.marginRight = '-200px';
         section.style.marginLeft = '0%';
     });
@@ -232,7 +225,7 @@ if(openUserProfile)
 openMenu(openLeaderboard, leaderboard);
 
 /*  END OF MENU SECTION
- ------------------------------------------------------------*/
+ ----------------------------------------------------------- */
 
 let initWords = (arr, element) => {
     for(let i = 0; i < element.length; i++) {
@@ -258,26 +251,13 @@ let multipleCss = (classGroup, style) => {
 
 words = shuffle(words);
 
-let gamePopUpFunc = () => {
-    // gamePopUp.style.zIndex = '1';
-    gamePopUp.style.opacity = '0.7';
-    gamePopUp.style.transform ='scale(2.3)';
-    setTimeout(function() {
-        gamePopUp.style.transform ='scale(0.2)';
-        gamePopUp.style.opacity = '0';
-        // gamePopUp.style.zIndex = '-1';
-    }, 500);
-};
-
 let startTimer = (duration, element) => {
     timer = duration;
     element.innerHTML = timer;
     start = setInterval(() => {
         timer--;
         if(timer === 0) {
-            gamePopUpFunc();
             clearInterval(start);
-            // resets
             element.style.color = '#FFFFFF';
             // element.innerHTML = "GAME!";
             if(wrong === 0)
@@ -299,17 +279,16 @@ let startTimer = (duration, element) => {
             //this is needed to invoke the submit. .submit() do not work.
             submitButton.click();
         } else {
-            if (timer <= 5) {
+            if (timer <= 5)
                 element.style.color = redColor;
-            } else if (timer <= 10) {
+            else if (timer <= 10)
                 element.style.color = yellowColor;
-            }
+
             element.innerHTML = timer;
         }
     }, 1000);
 };
 
-//check if the word that is typed is correct
 let spellChecker = () => {
     if(typingArea.value == word[0].innerHTML) {
         counter++;
@@ -347,7 +326,6 @@ let resetAll = () => {
 document.onkeydown = (e) => {
     if (e.keyCode == 13) {
         resetAll();
-        //prevent page reload
         e.preventDefault();
     }
 };
@@ -357,7 +335,7 @@ let keyPress = {
         //instead of space, reset the typing area
         typingArea.value=typingArea.value.replace(/\s+/g,'');
 
-        if(timer > 0 || timer === 0) {
+        if(timer >= 0) {
             if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
                 keystrokes++;
                 if(timer === 0) {
@@ -436,6 +414,25 @@ $(document).ready(function() {
         }
     };
 
+    let updateTopList = (list, table, rowLength) => {
+
+        //rowlength will always be 10 or 5.
+        //TODO: IF table got 10 rows, update them. IF not, create tr.
+        for (let i = 0; i < list.length; i++) {
+            if(table.getElementsByTagName('tr').length == rowLength) {
+                let row = table.getElementsByTagName('tr')[i + 1];
+                let td = row.getElementsByTagName('td');
+
+                td[0].innerHTML = (i + 1) + ': ';
+                td[1].innerHTML = list[i].name;
+                td[2].innerHTML = list[i].score;
+                td[3].innerHTML = list[i].date;
+            } else {
+                initTopList(list, table);
+            }
+        }
+    };
+
     let initChart = (ctxt, type, data) => {
         new Chart(ctxt, {
             type: type,
@@ -446,22 +443,6 @@ $(document).ready(function() {
                 }
             }
         });
-    };
-
-    let updateTopList = (list, table) => {
-        for(let i = 0; i < list.length; i++) {
-            //i + 1 to avoid tr with th
-            let row = table.getElementsByTagName('tr')[i + 1];
-            //throws an undefined error. length - 1 wrong?
-            let td = row.getElementsByTagName('td');
-
-            td[0].innerHTML = (i + 1) + ': ';
-            td[1].innerHTML = list[i].name;
-            td[2].innerHTML = list[i].score;
-            td[3].innerHTML = list[i].date;
-
-            console.log("UPDATING");
-        }
     };
 
     let initUserInformation = (response, create) => {
@@ -511,9 +492,9 @@ $(document).ready(function() {
             //parse score to int to prevent it to covert to a string.
             data: JSON.stringify({ score: parseInt(scoreInput.val(), 10), wrong: parseInt(wrongInput.val(), 10)}),
             success: function(response) {
-                updateTopList(response.topAll, topAllScore);
-                updateTopList(response.topToday, topTodayScore);
-                updateTopList(response.userTopFive, userScore);
+                updateTopList(response.topAll, topAllScore, 10);
+                updateTopList(response.topToday, topTodayScore, 10);
+                updateTopList(response.userTopFive, userScore, 5);
                 userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
                 initUserInformation(response, false);
                 scoreInput.val(null);

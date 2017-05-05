@@ -2,18 +2,15 @@ extends layout
 
 block content
 
-    .fade
-
-    .menu-area
-        .menu-wrapper
+    .main-menu
+        .menu
             if userId
                 i(class="fa fa-user-circle-o" id="open-user-profile" aria-hidden="true")
             i(class="fa fa-list-ol" id="open-leaderboard" aria-hidden="true")
     #user-and-stats
-        .menu-wrapper
+        .menu
             i(class="fa fa-times close" aria-hidden="true")
         .container.user-and-stats
-            //.user-and-stats-menu.clearfix
             .profile-section
                 .row
                     div.user-name.title
@@ -22,16 +19,16 @@ block content
                 .row.clearfix
                     .col.col-100.user-chart
                         .col.col-50
-                            .canvas-wrapper(style="width: 70%; float:left;")
+                            .canvas-wrapper.wpm-canvas
                                 .sub-title WPM
                                 canvas(id="wpm-chart")
                         .col.col-50
-                            .canvas-wrapper(style="width: 70%; float:right;")
+                            .canvas-wrapper.words-canvas
                                 .sub-title ACCURACY
                                 canvas(id="words-chart")
                 .row
                     .col.col-100.user-top-five
-                        .sub-title(style="margin-bottom: 15px") TOP FIVE SCORES
+                        .sub-title TOP FIVE SCORES
                         table#user-score
                             tr
                                 th
@@ -39,10 +36,10 @@ block content
                                 th Score
                                 th Date
                 .row
-                    a.logout(href="logout" style="float: right") LOGOUT
+                    a.logout(href="logout") LOGOUT
                         i(class="fa fa-user-times" aria-hidden="true")
     #leaderboard
-        .menu-wrapper
+        .menu
             i(class="fa fa-times close" aria-hidden="true")
         .container.leaderboard
             .leaderboard-section
@@ -67,7 +64,6 @@ block content
                                 th Date
 
     .container
-        span#game-popup GAME OVER!
         #game-area
             .reset
                 span#time-counter
@@ -87,5 +83,5 @@ block content
 
             form#score-form(method="POST" action="/score")
                 input#submit-score(type="hidden" value="" name="submitscore")
-                input#submit-wrong(type="hidden" value="" name="submitWrong")
+                input#submit-wrong(type="hidden" value="" name="submitwrong")
                 button#submit-button(type="submit")

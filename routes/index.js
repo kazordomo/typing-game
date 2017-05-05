@@ -134,7 +134,7 @@ router.get('/score', (req, res, next) => {
 
         score.topToday = _.orderBy(score.topToday, 'score', 'desc').slice(0, 10);
         score.topAll = _.orderBy(doc, 'score', 'desc').slice(0, 10);
-        score.wpm = wpm;
+        score.wpm = wpm ? wpm : 0;
 
         if(req.session.userId) {
             let userScore = _.filter(doc, function(d) {
@@ -147,8 +147,8 @@ router.get('/score', (req, res, next) => {
 
             score.userRightWords = userTotalScore;
             score.userTopFive = _.orderBy(userScore, 'score', 'desc').slice(0, 5);
-            score.userWpm = Math.round(userTotalScore / userScore.length);
-            score.userTitle = '';
+            score.userWpm = Math.round(userTotalScore / userScore.length) ? Math.round(userTotalScore / userScore.length) : 0;
+            score.userTitle = 'the rookie';
 
             if(score.userWpm <= 50) {
                 score.userTitle = 'the rookie';

@@ -142,27 +142,13 @@ div.title-wrapper {
 
 /*  GAME
 ------------------------------------------------------------ */
-#game-popup {
-    position: absolute;
-    right: 0;
-    left: 0;
-    /*margin: 0 auto;*/
-    margin: 80px auto 0px auto;
-    width: 380px;
-    color: #EFDC05;
-    font-size: 60px;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: .3s ease-in-out;
-}
-
-.menu-area {
+.main-menu {
     position: absolute;
     width: 100%;
     overflow: hidden;
 }
 
-.menu-wrapper {
+.menu {
     float: right;
     width: 25%;
     padding: 20px;
@@ -170,7 +156,7 @@ div.title-wrapper {
     overflow: hidden;
 }
 
-.menu-wrapper i {
+.menu i {
     float: right;
     font-size: 30px;
     cursor: pointer;
@@ -237,17 +223,6 @@ div.title-wrapper {
     margin-right: 10px;
 }
 
-.fade {
-    display: none;
-    position: fixed;
-    z-index: 99;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0,0,0,0.7);
-}
-
 #open-user-profile {
     margin-left: 30px;
 }
@@ -299,7 +274,18 @@ div.container.user-and-stats, div.container.leaderboard {
     background-color: #0EB1E3;
 }
 
+.noGames {
+    padding: 50px 0px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.noGames span {
+    font-style: normal;
+}
+
 .logout {
+    float: right;
     display: block;
     width: 110px;
     padding: 10px 20px;
@@ -332,12 +318,6 @@ div.container.user-and-stats, div.container.leaderboard {
     width: 100%;
 }
 
-#user-and-stats .user-and-stats-menu {
-    position: absolute;
-    display: flex;
-    width: 100%;
-}
-
 .profile-section {
     width: 100%;
     border-radius: 5px;
@@ -358,8 +338,29 @@ div.container.user-and-stats, div.container.leaderboard {
     border-bottom: 1px solid #ffffff;
 }
 
+.profile-section .user-information div i {
+    float: right;
+    color: #fff !important;
+}
+
 .profile-section .user-information div:last-child {
     margin-bottom: 0px;
+}
+
+.profile-section .canvas-wrapper {
+    width: 70%;
+}
+
+.profile-section .canvas-wrapper.wpm-canvas {
+    float: left;
+}
+
+.profile-section .canvas-wrapper.words-canvas {
+    float: right;
+}
+
+.user-top-five .sub-title {
+    margin-bottom: 15px;
 }
 
 .leaderboard-section {
