@@ -395,8 +395,9 @@ $(document).ready(function() {
     let topAllScore = getElementId('top-all-score');
     let topTodayScore = getElementId('top-today-score');
 
-    let initTopList = (list, table) => {
-        for(let i = 0; i < 10; i++) {
+    let initTopList = (list, table, rowLength) => {
+        console.log(list);
+        for(let i = 0; i < rowLength; i++) {
             //create element inside the loop to get a unique element each loop
             let createTr = document.createElement('tr');
             table.appendChild(createTr);

@@ -118,6 +118,7 @@ router.get('/game', (req, res, next) => {
 router.get('/score', (req, res, next) => {
     Score.find({}, (error, doc) => {
 
+        console.log(today);
         //-----LOGIC FOR AVAREGE WPM ALL USERS
         let totalScore = 0;
         for(let i = 0; i < doc.length; i++) {
@@ -143,7 +144,7 @@ router.get('/score', (req, res, next) => {
             let userTotalScore = 0;
             for(let i = 0; i < userScore.length; i++) {
                 userTotalScore += userScore[i].score;
-            };
+            }
 
             score.userRightWords = userTotalScore;
             score.userTopFive = _.orderBy(userScore, 'score', 'desc').slice(0, 5);

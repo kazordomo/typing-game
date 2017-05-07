@@ -48,15 +48,12 @@ input[type="text"], input[type="password"], input[type="email"], button {
 }
 
 div.container {
-    max-width: 80%;
-    /*width: 1200px;*/
     width: 725px;
     margin: 0 auto;
     padding-top: 200px;
 }
 
 div.wrapper {
-    max-width: 100%;
     width: 500px;
     margin: 0 auto;
 }
@@ -67,10 +64,6 @@ div.title {
     text-align: center;
 }
 
-div.title-wrapper {
-    width: 100%;
-}
-
 /*  INDEX/FRONT PAGE
 ------------------------------------------------------------ */
 #front-page a {
@@ -79,7 +72,6 @@ div.title-wrapper {
     width: 100%;
     margin-bottom: 20px;
     padding: 20px 10px;
-    /*background-color: #1D47A1;*/
     background-color: #30A9DE;
     text-align: center;
     font-size: 25px;
@@ -145,6 +137,7 @@ div.title-wrapper {
 .main-menu {
     position: absolute;
     width: 100%;
+    min-width: 725px;
     overflow: hidden;
 }
 
@@ -245,8 +238,8 @@ div.title-wrapper {
 /*  USER PROFILE
 ------------------------------------------------------------ */
 div.container.user-and-stats, div.container.leaderboard {
-    width: 600px;
-    padding: 75px 0px 135px 0px;
+    width: 625px;
+    padding: 75px 50px 135px 50px;
     position: absolute;
     margin: 0 auto;
     right: 0;
