@@ -8,6 +8,7 @@ const app = express();
 // mongo connection
 // this will also create the db when running it the first time
 mongoose.connect("mongodb://localhost:27017/typing-game");
+mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 
@@ -65,6 +66,6 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.listen(3000, function () {
+app.listen(3030, function () {
     console.log('Express app listening on port 3000');
 });

@@ -30,6 +30,7 @@ block content
                 .row
                     .col.col-100.user-top-five
                         .sub-title TOP TEN SCORES
+                            i(class="fa fa-star" aria-hidden="true")
                         table#user-score
                             tr
                                 th
@@ -40,14 +41,16 @@ block content
                     a.logout(href="logout") LOGOUT
                         i(class="fa fa-user-times" aria-hidden="true")
     #leaderboard
-        .menu
-            i(class="fa fa-times close" aria-hidden="true")
+        .main-menu
+            .menu
+                i(class="fa fa-times close" aria-hidden="true")
         .container.leaderboard
             .leaderboard-section
                 .title LEADERBOARD
                 .row
                     .col.col-100
                         .sub-title TOP ALL
+                            i(class="fa fa-star" aria-hidden="true")
                         table#top-all-score
                             tr
                                 th
@@ -57,6 +60,7 @@ block content
                 .row
                     .col.col-100
                         .sub-title TOP TODAY
+                            i(class="fa fa-star-half-o" aria-hidden="true")
                         table#top-today-score
                             tr
                                 th

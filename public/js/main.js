@@ -396,7 +396,6 @@ $(document).ready(function() {
     let topTodayScore = getElementId('top-today-score');
 
     let initTopList = (list, table, rowLength) => {
-        console.log(list);
         for(let i = 0; i < rowLength; i++) {
             //create element inside the loop to get a unique element each loop
             let createTr = document.createElement('tr');
@@ -465,6 +464,7 @@ $(document).ready(function() {
         url: '/score',
         contentType: 'application/json',
         success: function(response) {
+            console.log(response);
             initTopList(response.topAll, topAllScore, 10);
             initTopList(response.topToday, topTodayScore, 10);
             if(response.name) {
@@ -476,27 +476,32 @@ $(document).ready(function() {
     });
 
     $('#score-form').on('submit', function(event) {
-        event.preventDefault();
+        if(openUserProfile) {
+            event.preventDefault();
 
-        let scoreInput = $('#submit-score');
-        let wrongInput = $('#submit-wrong');
+            let scoreInput = $('#submit-score');
+            let wrongInput = $('#submit-wrong');
 
-        $.ajax({
-            url: '/score',
-            method: 'POST',
-            contentType: 'application/json',
-            //parse score to int to prevent it to covert to a string.
-            data: JSON.stringify({ score: parseInt(scoreInput.val(), 10), wrong: parseInt(wrongInput.val(), 10)}),
-            success: function(response) {
-                updateTopList(response.topAll, topAllScore);
-                updateTopList(response.topToday, topTodayScore);
-                updateTopList(response.userTopFive, userScore);
-                userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
-                initUserInformation(response, false);
-                scoreInput.val(null);
-                wrongInput.val(null);
-            }
-        });
+            $.ajax({
+                url: '/score',
+                method: 'POST',
+                contentType: 'application/json',
+                //parse score to int to prevent it to covert to a string.
+                data: JSON.stringify({ score: parseInt(scoreInput.val(), 10), wrong: parseInt(wrongInput.val(), 10)}),
+                success: function(response) {
+                    console.log(response);
+                    updateTopList(response.topAll, topAllScore);
+                    updateTopList(response.topToday, topTodayScore);
+                    updateTopList(response.userTopFive, userScore);
+                    userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
+                    initUserInformation(response, false);
+                    scoreInput.val(null);
+                    wrongInput.val(null);
+                }
+            });
+        } else {
+            return false;
+        }
     });
 
 });
