@@ -208,7 +208,7 @@ router.post('/score', (req, res, next) => {
             scoreData.name = user.name;
             user.wrongWords += req.body.wrong;
             user.gamesPlayed++;
-            if(req.body.wrong === 0)
+            if(req.body.wrong === 0 && req.body.score)
                 user.perfectGames++;
 
             user.save((error) => {

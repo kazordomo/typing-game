@@ -65,6 +65,18 @@ div.title {
     font-family: 'BioRhyme', serif;
 }
 
+.user-note {
+    font-style: italic;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.user-note i {
+    margin-right: 10px;
+    font-size: 20px;
+    font-style: italic;
+}
+
 /*  INDEX/FRONT PAGE
 ------------------------------------------------------------ */
 #front-page a {
@@ -88,17 +100,6 @@ div.title {
 
 #front-page a:hover i {
     opacity: 1;
-}
-
-#front-page .user-note {
-    font-style: italic;
-    font-size: 17px;
-}
-
-#front-page .user-note i {
-    margin-right: 10px;
-    font-size: 20px;
-    font-style: italic;
 }
 
 /*  REGISTER/LOGIN
@@ -289,6 +290,10 @@ div.container.user-and-stats, div.container.leaderboard {
     margin-top: 30px;
 }
 
+.row.chart-row {
+    margin-top: 15px;
+}
+
 .col {
     box-sizing: border-box;
 }
@@ -392,6 +397,7 @@ table tr th {
     width: 30%;
     padding: 0px 10px 10px 10px;
 }
+
 table tr th:first-child {
     width: 10%;
 }

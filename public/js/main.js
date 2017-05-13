@@ -194,7 +194,7 @@ class UserChart {
 }
 
 let wpmChart = new UserChart(["Your wpm", "Others wpm"], [yellowColor, redColor], [0, 0]);
-let wordsChart = new UserChart(["Your % accuracy", "Others % accuracy"], [greenColor, redColor], [0, 0]);
+let wordsChart = new UserChart(["Your acc in %", "Others acc in %"], [greenColor, redColor], [0, 0]);
 
 /* END OF CHART SECTION
 ------------------------------------------------------------- */
@@ -260,7 +260,7 @@ let startTimer = (duration, element) => {
             clearInterval(start);
             element.style.color = '#FFFFFF';
             // element.innerHTML = "GAME!";
-            if(wrong === 0)
+            if(wrong === 0 && correct)
                 element.innerHTML = 'PERFECT GAME!';
             else
                 element.innerHTML = '';
@@ -276,7 +276,7 @@ let startTimer = (duration, element) => {
             typingArea.style.border = '3px solid transparent';
             submitScore.value = correct;
             submitWrong.value = wrong;
-            //this is needed to invoke the submit. .submit() do not work.
+            //this is needed to invoke the submit. .submit() does not work.
             submitButton.click();
         } else {
             if (timer <= 5)
@@ -421,10 +421,18 @@ $(document).ready(function() {
             let row = table.getElementsByTagName('tr')[i + 1];
             let td = row.getElementsByTagName('td');
 
-            td[0].innerHTML = (i + 1) + ': ';
-            td[1].innerHTML = list[i].name;
-            td[2].innerHTML = list[i].score;
-            td[3].innerHTML = list[i].date;
+            if(table == userScore) {
+                td[0].innerHTML = (i + 1) + ': ';
+                td[1].innerHTML = list[i].score;
+                td[2].innerHTML = '';
+                td[3].innerHTML = list[i].date;
+
+            } else {
+                td[0].innerHTML = (i + 1) + ': ';
+                td[1].innerHTML = list[i].name;
+                td[2].innerHTML = list[i].score;
+                td[3].innerHTML = list[i].date;
+            }
         }
     };
 

@@ -17,7 +17,10 @@ block content
                     div.user-name.title
                 .row
                     .col.col-100.user-information
-                .row.clearfix
+                .row.chart-row.clearfix
+                    p.user-note
+                        i(class="fa fa-exclamation-circle" aria-hidden="true")
+                        | Your stats compared to other player stats.
                     .col.col-100.user-chart
                         .col.col-50
                             .canvas-wrapper.wpm-canvas
@@ -29,13 +32,13 @@ block content
                                 canvas(id="words-chart")
                 .row
                     .col.col-100.user-top-five
-                        .sub-title TOP TEN SCORES
+                        .sub-title TOP FIVE SCORES
                             i(class="fa fa-star" aria-hidden="true")
                         table#user-score
                             tr
                                 th
-                                th Name
                                 th Score
+                                th
                                 th Date
                 .row
                     a.logout(href="logout") LOGOUT
