@@ -407,7 +407,11 @@ $(document).ready(function() {
             let td = createTr.getElementsByTagName('td');
             td[0].innerHTML = i + 1;
             td[1].innerHTML = '-';
-            td[2].innerHTML = '-';
+            if(table == userScore) {
+                td[2].innerHTML = '';
+            } else {
+                td[2].innerHTML = '-';
+            }
             td[3].innerHTML = '-';
         }
 

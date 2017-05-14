@@ -2,7 +2,6 @@
 ------------------------------------------------------------ */
 
 body {
-    /*background-color: #30A9DE;*/
     background-color: #1D47A1;
     font-family: 'Droid Serif', serif;
     color: #FFFFFF;
@@ -21,16 +20,25 @@ a {
     color: #FFFFFF;
 }
 
-.btn {
-    width: 25%;
-    padding: 15px 5px;
-    color: #FFFFFF;
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: 700;
-    cursor: pointer;
-    box-sizing: border-box;
-    text-align: center;
+table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+table tr th {
+    width: 30%;
+    padding: 0px 10px 10px 10px;
+}
+
+table tr th:first-child {
+    width: 10%;
+}
+
+table tr td {
+    padding: 5px 10px;
 }
 
 input[type="text"], input[type="password"], input[type="email"], button {
@@ -47,6 +55,18 @@ input[type="text"], input[type="password"], input[type="email"], button {
     display: table;
 }
 
+.btn {
+    width: 25%;
+    padding: 15px 5px;
+    color: #FFFFFF;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 div.container {
     width: 725px;
     margin: 0 auto;
@@ -58,11 +78,21 @@ div.wrapper {
     margin: 0 auto;
 }
 
-div.title {
+.title {
     font-size: 30px;
     padding: 20px 0px;
     text-align: center;
     font-family: 'BioRhyme', serif;
+}
+
+.sub-title {
+    font-size: 22px;
+    font-family: 'BioRhyme', serif;
+}
+
+.sub-title i {
+    margin-left: 10px;
+    color: #EFDC05;
 }
 
 .user-note {
@@ -75,6 +105,23 @@ div.title {
     margin-right: 10px;
     font-size: 20px;
     font-style: italic;
+}
+
+.row {
+    margin-top: 30px;
+}
+
+.col {
+    box-sizing: border-box;
+}
+
+.col-50 {
+    float: left;
+    width: 50%;
+}
+
+.col-100 {
+    width: 100%;
 }
 
 /*  INDEX/FRONT PAGE
@@ -186,7 +233,6 @@ div.title {
 }
 
 #typing-area {
-    /*float: left;*/
     width: 100%;
     margin-bottom: 15px;
     padding: 30px 50px;
@@ -240,7 +286,7 @@ div.title {
 /*  USER PROFILE
 ------------------------------------------------------------ */
 div.container.user-and-stats, div.container.leaderboard {
-    width: 625px;
+    width: 650px;
     padding: 75px 50px 135px 50px;
     position: absolute;
     margin: 0 auto;
@@ -286,40 +332,13 @@ div.container.user-and-stats, div.container.leaderboard {
     font-size: 20px;
 }
 
-.row {
-    margin-top: 30px;
-}
-
 .row.chart-row {
     margin-top: 15px;
-}
-
-.col {
-    box-sizing: border-box;
-}
-
-.col-50 {
-    float: left;
-    width: 50%;
-}
-
-.col-100 {
-    width: 100%;
 }
 
 .profile-section {
     width: 100%;
     border-radius: 5px;
-}
-
-.sub-title {
-    font-size: 22px;
-    font-family: 'BioRhyme', serif;
-}
-
-.sub-title i {
-    margin-left: 10px;
-    color: #EFDC05;
 }
 
 .user-chart .sub-title {
@@ -373,41 +392,16 @@ div.container.user-and-stats, div.container.leaderboard {
     margin-top: 50px;
 }
 
-table {
-    font-weight: bold;
-    font-size: 18px;
-}
-
-
 .leaderboard-section .topScore {
     margin-bottom: 19px;
-}
-
-table {
-    width: 100%;
-    text-align: left;
-    border-collapse: collapse;
 }
 
 .profile-section table tr:nth-child(even) {
     background-color: #4290B3;
 }
 
-table tr th {
-    width: 30%;
-    padding: 0px 10px 10px 10px;
-}
-
-table tr th:first-child {
-    width: 10%;
-}
-
 .leaderboard-section table tr:nth-child(even) {
     background-color: #4290B3;
-}
-
-table tr td {
-    padding: 5px 10px;
 }
 
 /*  ERROR
