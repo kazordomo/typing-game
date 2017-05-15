@@ -7,7 +7,8 @@ const app = express();
 
 // mongo connection
 // this will also create the db when running it the first time
-mongoose.connect("mongodb://localhost:27017/typing-game");
+// mongoose.connect("mongodb://localhost:27017/typing-game");
+mongoose.connect("mongodb://root:root@ds062919.mlab.com:62919/the-typig-game-db");
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
