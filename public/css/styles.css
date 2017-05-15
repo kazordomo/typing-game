@@ -209,27 +209,41 @@ div.wrapper {
     margin: 0 auto;
 }
 
-#game-area .reset {
+#game-area .upper-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 45px;
     margin-bottom: 15px;
 }
 
-#game-area .reset button {
+#game-area .upper-section div {
+    min-width: 100px;
+}
+
+#game-area .upper-section .score-board {
+    margin: 0 auto;
+    font-size: 30px;
+}
+
+#game-area .upper-section .score-board span:first-child {
+    color: #0DD442;
+}
+
+#game-area .upper-section .score-board span:last-child {
+    color: #E53A40;
+}
+
+#refresh {
+    float: right;
     width: 50px;
     height: 100%;
     border: none;
     outline: none;
     border-radius: 10px;
     cursor: pointer;
-}
-
-#game-area .reset button i {
-    font-size: 20px;
-}
-
-#refresh {
-    float: right;
     background: #EFDC05;
+    font-size: 20px;
 }
 
 #typing-area {
@@ -240,6 +254,7 @@ div.wrapper {
     border-radius: 20px;
     box-sizing: border-box;
     border: 3px solid transparent;
+    /*transition: .5s all ease-in-out;*/
 }
 
 #time-counter {

@@ -1,4 +1,134 @@
 let en_words = [
+    "mouse",
+    "rat",
+    "paper",
+    "more",
+    "less",
+    "bank",
+    "card",
+    "wheel",
+    "taco",
+    "package",
+    "hero",
+    "trust",
+    "blue",
+    "where",
+    "was",
+    "wool",
+    "cloth",
+    "socks",
+    "tree",
+    "bush",
+    "nice",
+    "hard",
+    "below",
+    "above",
+    "click",
+    "point",
+    "fail",
+    "yes",
+    "maybe",
+    "correct",
+    "false",
+    "trio",
+    "double",
+    "reggie",
+    "metal",
+    "beat",
+    "hot",
+    "strength",
+    "bar",
+    "fierce",
+    "group",
+    "single",
+    "cow",
+    "horse",
+    "lock",
+    "park",
+    "board",
+    "skate",
+    "bike",
+    "poor",
+    "sauce",
+    "general",
+    "capten",
+    "great",
+    "small",
+    "medium",
+    "strong",
+    "weak",
+    "save",
+    "board",
+    "boar",
+    "bear",
+    "cap",
+    "young",
+    "old",
+    "flower",
+    "married",
+    "throat",
+    "rice",
+    "potatoe",
+    "fork",
+    "spoon",
+    "knife",
+    "grow",
+    "shrink",
+    "butter",
+    "bread",
+    "cheese",
+    "ham",
+    "move",
+    "ring",
+    "july",
+    "summer",
+    "winter",
+    "spring",
+    "fall",
+    "movie",
+    "animation",
+    "work",
+    "fun",
+    "light",
+    "heavy",
+    "write",
+    "type",
+    "typing",
+    "fast",
+    "slow",
+    "minute",
+    "hour",
+    "second",
+    "sun",
+    "moon",
+    "forest",
+    "grass",
+    "soap",
+    "car",
+    "buzz",
+    "bee",
+    "wash",
+    "house",
+    "ball",
+    "crush",
+    "typical",
+    "free",
+    "wing",
+    "happy",
+    "medicine",
+    "tight",
+    "party",
+    "floor",
+    "door",
+    "crown",
+    "juice",
+    "apple",
+    "banana",
+    "local",
+    "tenant",
+    "blue",
+    "sure",
+    "bored",
     "hello",
     "no",
     "maybe",
@@ -259,7 +389,6 @@ let startTimer = (duration, element) => {
         if(timer === 0) {
             clearInterval(start);
             element.style.color = '#FFFFFF';
-            // element.innerHTML = "GAME!";
             if(wrong === 0 && correct)
                 element.innerHTML = 'PERFECT GAME!';
             else
@@ -291,15 +420,14 @@ let startTimer = (duration, element) => {
 
 let spellChecker = () => {
     if(typingArea.value == word[0].innerHTML) {
-        counter++;
         correct++;
     } else {
-        counter++;
         wrong++;
         typingArea.style.border = '3px solid ' + redColor;
     }
-    typingArea.value = '';
+    counter++;
     character = 0;
+    typingArea.value = '';
     initWords(words, word);
 };
 
@@ -425,18 +553,14 @@ $(document).ready(function() {
             let row = table.getElementsByTagName('tr')[i + 1];
             let td = row.getElementsByTagName('td');
 
+            td[0].innerHTML = i + 1;
+            td[1].innerHTML = list[i].score;
             if(table == userScore) {
-                td[0].innerHTML = (i + 1) + ': ';
-                td[1].innerHTML = list[i].score;
                 td[2].innerHTML = '';
-                td[3].innerHTML = list[i].date;
-
             } else {
-                td[0].innerHTML = (i + 1) + ': ';
-                td[1].innerHTML = list[i].name;
-                td[2].innerHTML = list[i].score;
-                td[3].innerHTML = list[i].date;
+                td[2].innerHTML = list[i].name;
             }
+            td[3].innerHTML = list[i].date;
         }
     };
 
@@ -476,7 +600,6 @@ $(document).ready(function() {
         url: '/score',
         contentType: 'application/json',
         success: function(response) {
-            console.log(response);
             initTopList(response.topAll, topAllScore, 10);
             initTopList(response.topToday, topTodayScore, 10);
             if(response.name) {
@@ -501,7 +624,6 @@ $(document).ready(function() {
                 //parse score to int to prevent it to covert to a string.
                 data: JSON.stringify({ score: parseInt(scoreInput.val(), 10), wrong: parseInt(wrongInput.val(), 10)}),
                 success: function(response) {
-                    console.log(response);
                     updateTopList(response.topAll, topAllScore);
                     updateTopList(response.topToday, topTodayScore);
                     updateTopList(response.userTopFive, userScore);

@@ -73,7 +73,7 @@ block content
 
     .container
         #game-area
-            .reset
+            .upper-section
                 span#time-counter
                 button#refresh
                     i(class="fa fa-refresh" aria-hidden="true")
@@ -93,3 +93,7 @@ block content
                 input#submit-score(type="hidden" value="" name="submitscore")
                 input#submit-wrong(type="hidden" value="" name="submitwrong")
                 button#submit-button(type="submit")
+
+    script(src="js/jquery.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.js")
+    script(src="js/main.js")

@@ -48,7 +48,6 @@ router.post('/login', (req, res, next) => {
             } else {
                 //give user a session. _id is the id mongo gave the user collection when created
                 req.session.userId = user._id;
-                console.log('req.session: ' + req.session.userId);
                 return res.redirect('game');
             }
         });
