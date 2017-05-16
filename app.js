@@ -5,6 +5,9 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const app = express();
 
+//heroku
+app.set('port', (process.env.PORT || 3000));
+
 // mongo connection
 // this will also create the db when running it the first time
 // mongoose.connect("mongodb://localhost:27017/typing-game");
@@ -67,6 +70,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.listen(3030, function () {
-    console.log('Express app listening on port 3000');
+// app.listen(3030, function () {
+//     console.log('Express app listening on port 3000');
+// });
+//heroku
+app.listen(app.get('port'), () => {
+    console.log('Node app is running on port', app.get('port'));
 });
