@@ -467,7 +467,7 @@ let keyPress = {
             if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
                 keystrokes++;
                 if(timer === 0) {
-                    startTimer(10, timeCounter);
+                    startTimer(60, timeCounter);
                 }
                 if(e.keyCode === 8) {
                     character--;
