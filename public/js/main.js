@@ -313,8 +313,8 @@ class UserChart {
                     data: this.data,
                     backgroundColor: this.brColor,
                     borderColor: [
-                        "#fff",
-                        "#fff"
+                        "#FFFFFF",
+                        "#FFFFFF"
                     ]
                 }
             ]
@@ -446,6 +446,7 @@ let resetAll = () => {
     initWords(words, word);
     typingArea.focus();
     timeCounter.innerHTML = '';
+    timeCounter.style.color = "#FFFFFF";
     typingArea.style.border = '3px solid transparent';
     timer = 0;
 };
@@ -583,7 +584,7 @@ $(document).ready(function() {
             }
         }
         let div = userInformation.getElementsByTagName('div');
-        div[0].innerHTML = response.userWpm + ' AVERAGE WPM';
+        div[0].innerHTML = response.userWpm + ' WORDS PER MINUTE IN AVARAGE';
         div[1].innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
         div[2].innerHTML = response.userRightWords + ' TOTAL CORRECT WORDS';
         div[3].innerHTML = response.userWrongWords + ' TOTAL WRONG WORDS';

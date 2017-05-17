@@ -46,6 +46,11 @@ input[type="text"], input[type="password"], input[type="email"], button {
     outline: none;
 }
 
+/*remove that annoying x for inputs in edge*/
+input[type="text"]::-ms-clear, input[type="password"]::-ms-clear, input[type="email"]::-ms-clear {
+    display: none;
+}
+
 /*  GLOBALS
 ------------------------------------------------------------ */
 
