@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const favicon = require('serve-favicon');
+const path = require('path');
 const app = express();
 
 //heroku
