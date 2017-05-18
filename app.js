@@ -16,7 +16,7 @@ mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
 
-// ----------------- COOKIES OR SESSION? ------------------
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // use sessions for tracking user login
 app.use(session({
