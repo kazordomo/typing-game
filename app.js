@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const favicon = require('serve-favicon');
 const app = express();
 
 //heroku
@@ -39,6 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // serve static files from /public folder
 app.use(express.static(__dirname + '/public'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 
 // view engine setup
 app.set('view engine', 'pug');

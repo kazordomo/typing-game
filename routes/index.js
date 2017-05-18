@@ -5,7 +5,6 @@ const router = express.Router();
 const User = require('../models/user');
 const Score = require('../models/score');
 const mid = require('../middleware');
-
 let today = moment().format("MMMM Do YY");
 
 // GET /
