@@ -6,7 +6,7 @@ block content
             .wrapper
                 form#register-form(method='POST' action='/register')
                     input#register-email.user-form(type="email" placeholder="Email..." autocomplete="off" name="email")
-                    input#register-name.user-form(type="text" placeholder="Name..." maxlength="10" autocomplete="off" name="name")
+                    input#register-name.user-form(type="text" placeholder="Name..." maxlength="15" autocomplete="off" name="name")
                     input#register-password.user-form(type="password" placeholder="Password..." name="password")
                     input#register-password2.user-form(type="password" placeholder="Reenter password..." name="confirmPassword")
                     a.btn.button-cancel(href="/") Cancel
