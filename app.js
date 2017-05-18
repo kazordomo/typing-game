@@ -3,8 +3,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const favicon = require('serve-favicon');
-const path = require('path');
 const app = express();
 
 //heroku
@@ -17,8 +15,6 @@ mongoose.connect("mongodb://root:root@ds062919.mlab.com:62919/the-typig-game-db"
 mongoose.Promise = global.Promise;
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'));
-
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // use sessions for tracking user login
 app.use(session({
@@ -36,8 +32,6 @@ app.use(function (req, res, next) {
     res.locals.currentUser = req.session.userId;
     next();
 });
-
-// --------------------------------------------------------
 
 //parse incoming requests
 app.use(bodyParser.json());
