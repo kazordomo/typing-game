@@ -51,7 +51,7 @@ let en_words = [
     "poor",
     "sauce",
     "general",
-    "capten",
+    "captain",
     "great",
     "small",
     "medium",
@@ -68,7 +68,7 @@ let en_words = [
     "married",
     "throat",
     "rice",
-    "potatoe",
+    "potato",
     "fork",
     "spoon",
     "knife",
@@ -555,12 +555,12 @@ $(document).ready(function() {
             let td = row.getElementsByTagName('td');
 
             td[0].innerHTML = i + 1;
-            td[1].innerHTML = list[i].score;
             if(table == userScore) {
-                td[2].innerHTML = '';
+                td[1].innerHTML = '';
             } else {
-                td[2].innerHTML = list[i].name;
+                td[1].innerHTML = list[i].name;
             }
+            td[2].innerHTML = list[i].score;
             td[3].innerHTML = list[i].date;
         }
     };
