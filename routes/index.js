@@ -113,14 +113,17 @@ router.get('/game', (req, res, next) => {
 router.get('/score', (req, res, next) => {
     Score.find({}, (error, doc) => {
 
-        let score = {};
-        let totalScore = 0;
+        let calculateTotalScore = (arr) => {
+            return _.reduce(_.map(arr, 'score'), (sum, n) => {
+                return sum + n;
+            }, 0);
+        };
 
-        for(let i = 0; i < doc.length; i++) {
-            totalScore += doc[i].score;
-        }
+        let score = {};
+        let totalScore = calculateTotalScore(doc);
         let wpm = Math.round(totalScore / doc.length);
-        score.topToday = _.filter(doc, function (d) {
+
+        score.topToday = _.filter(doc, (d) => {
             return d.date == today;
         });
         score.topToday = _.orderBy(score.topToday, 'score', 'desc').slice(0, 10);
@@ -131,31 +134,24 @@ router.get('/score', (req, res, next) => {
             let userScore = _.filter(doc, function(d) {
                 return d.userId == req.session.userId;
             });
-            let userTotalScore = 0;
-            for(let i = 0; i < userScore.length; i++) {
-                userTotalScore += userScore[i].score;
-            }
+            let userTotalScore = calculateTotalScore(userScore);
 
             score.userRightWords = userTotalScore;
             score.userTopFive = _.orderBy(userScore, 'score', 'desc').slice(0, 5);
             score.userWpm = Math.round(userTotalScore / userScore.length) ? Math.round(userTotalScore / userScore.length) : 0;
             score.userTitle = 'the rookie';
 
-            if(score.userWpm <= 50) {
+            if(score.userWpm <= 40) {
                 score.userTitle = 'the rookie';
-            } else if(score.userWpm > 50 && score.userWpm <= 75) {
+            } else if(score.userWpm > 40 && score.userWpm <= 65) {
                 score.userTitle = 'the average';
-            } else if(score.userWpm > 75 && score.userWpm <= 95) {
+            } else if(score.userWpm > 65 && score.userWpm <= 85) {
                 score.userTitle = 'the pro'
-            } else if(score.userWpm > 95 && score.userWpm <= 110) {
+            } else if(score.userWpm > 85 && score.userWpm <= 100) {
                 score.userTitle = 'the allstar';
-            } else if(score.userWpm < 110) {
+            } else if(score.userWpm < 100) {
                 score.userTitle = 'the god';
             }
-
-            let calculateAccuracy = (rightWords, wrongWords) => {
-                return Math.round((rightWords / (rightWords + wrongWords)) * 100);
-            };
 
             User.findById(req.session.userId, (error, user) => {
                 if(error)
@@ -166,16 +162,19 @@ router.get('/score', (req, res, next) => {
                         if(error)
                             return next(error);
                         else {
+                            let calculateAccuracy = (rightWords, wrongWords) => {
+                                return Math.round((rightWords / (rightWords + wrongWords)) * 100);
+                            };
+
                             score.userGamesPlayed = user.gamesPlayed;
                             score.userWrongWords = user.wrongWords;
                             score.perfectGames = user.perfectGames;
                             score.userAccuracy = calculateAccuracy(score.userRightWords, score.userWrongWords);
                             User.find({}, (error, doc) => {
                                 let totalRightWords = totalScore;
-                                let totalWrongWords = 0;
-                                for(let i = 0; i < doc.length; i++) {
-                                    totalWrongWords += doc[i].wrongWords;
-                                }
+                                let totalWrongWords = _.reduce(_.map(doc, 'wrongWords'), (sum, n) => {
+                                   return sum + n;
+                                }, 0);
                                 score.totalAccuracy = calculateAccuracy(totalRightWords, totalWrongWords);
 
                                 res.send(score);

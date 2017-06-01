@@ -1,4 +1,22 @@
 let en_words = [
+    "bottle",
+    "water",
+    "bear",
+    "sword",
+    "gun",
+    "fun",
+    "card",
+    "pay",
+    "lion",
+    "free",
+    "life",
+    "care",
+    "bright",
+    "bride",
+    "wolf",
+    "poor",
+    "rich",
+    "lift",
     "mouse",
     "rat",
     "paper",
@@ -331,7 +349,6 @@ let wordsChart = new UserChart(["Your acc in %", "Others acc in %"], [greenColor
 
 /*  MENU SECTION
 ------------------------------------------------------------- */
-//onLoad?
 userAndStats.style.marginLeft = '-100%';
 leaderboard.style.marginLeft = '-100%';
 let openMenu = (element, section) => {
@@ -535,12 +552,8 @@ $(document).ready(function() {
 
             let td = createTr.getElementsByTagName('td');
             td[0].innerHTML = i + 1;
-            td[1].innerHTML = '-';
-            if(table == userScore) {
-                td[2].innerHTML = '';
-            } else {
-                td[2].innerHTML = '-';
-            }
+            (table == userScore) ? td[1].innerHTML = '' : td[1].innerHTML = '-';
+            td[2].innerHTML = '-';
             td[3].innerHTML = '-';
         }
 
@@ -555,11 +568,7 @@ $(document).ready(function() {
             let td = row.getElementsByTagName('td');
 
             td[0].innerHTML = i + 1;
-            if(table == userScore) {
-                td[1].innerHTML = '';
-            } else {
-                td[1].innerHTML = list[i].name;
-            }
+            (table == userScore) ? td[1].innerHTML = '' : td[1].innerHTML = list[i].name;
             td[2].innerHTML = list[i].score;
             td[3].innerHTML = list[i].date;
         }
