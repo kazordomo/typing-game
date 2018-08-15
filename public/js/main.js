@@ -1,664 +1,225 @@
-let en_words = [
-    "bottle",
-    "water",
-    "bear",
-    "sword",
-    "gun",
-    "fun",
-    "card",
-    "pay",
-    "lion",
-    "free",
-    "life",
-    "care",
-    "bright",
-    "bride",
-    "wolf",
-    "poor",
-    "rich",
-    "lift",
-    "mouse",
-    "rat",
-    "paper",
-    "more",
-    "less",
-    "bank",
-    "card",
-    "wheel",
-    "taco",
-    "package",
-    "hero",
-    "trust",
-    "blue",
-    "where",
-    "was",
-    "wool",
-    "cloth",
-    "socks",
-    "tree",
-    "bush",
-    "nice",
-    "hard",
-    "below",
-    "above",
-    "click",
-    "point",
-    "fail",
-    "yes",
-    "maybe",
-    "correct",
-    "false",
-    "trio",
-    "double",
-    "reggie",
-    "metal",
-    "beat",
-    "hot",
-    "strength",
-    "bar",
-    "fierce",
-    "group",
-    "single",
-    "cow",
-    "horse",
-    "lock",
-    "park",
-    "board",
-    "skate",
-    "bike",
-    "poor",
-    "sauce",
-    "general",
-    "captain",
-    "great",
-    "small",
-    "medium",
-    "strong",
-    "weak",
-    "save",
-    "board",
-    "boar",
-    "bear",
-    "cap",
-    "young",
-    "old",
-    "flower",
-    "married",
-    "throat",
-    "rice",
-    "potato",
-    "fork",
-    "spoon",
-    "knife",
-    "grow",
-    "shrink",
-    "butter",
-    "bread",
-    "cheese",
-    "ham",
-    "move",
-    "ring",
-    "july",
-    "summer",
-    "winter",
-    "spring",
-    "fall",
-    "movie",
-    "animation",
-    "work",
-    "fun",
-    "light",
-    "heavy",
-    "write",
-    "type",
-    "typing",
-    "fast",
-    "slow",
-    "minute",
-    "hour",
-    "second",
-    "sun",
-    "moon",
-    "forest",
-    "grass",
-    "soap",
-    "car",
-    "buzz",
-    "bee",
-    "wash",
-    "house",
-    "ball",
-    "crush",
-    "typical",
-    "free",
-    "wing",
-    "happy",
-    "medicine",
-    "tight",
-    "party",
-    "floor",
-    "door",
-    "crown",
-    "juice",
-    "apple",
-    "banana",
-    "local",
-    "tenant",
-    "blue",
-    "sure",
-    "bored",
-    "hello",
-    "no",
-    "maybe",
-    "fruits",
-    "fingers",
-    "cloud",
-    "computer",
-    "foot",
-    "monitor",
-    "food",
-    "go",
-    "mum",
-    "shallow",
-    "cup",
-    "of",
-    "tea",
-    "race",
-    "bottle",
-    "finger",
-    "arm",
-    "stomach",
-    "lamp",
-    "clock",
-    "and",
-    "know",
-    "mountain",
-    "fish",
-    "ask",
-    "fool",
-    "mobile",
-    "television",
-    "star",
-    "paper",
-    "bag",
-    "doll",
-    "mouse",
-    "crush",
-    "more",
-    "five",
-    "glitch",
-    "journey",
-    "hello",
-    "no",
-    "maybe",
-    "fruits",
-    "fingers",
-    "cloud",
-    "computer",
-    "foot",
-    "monitor",
-    "food",
-    "go",
-    "mum",
-    "shallow",
-    "cup",
-    "of",
-    "tea",
-    "race",
-    "bottle",
-    "finger",
-    "arm",
-    "stomach",
-    "lamp",
-    "clock",
-    "and",
-    "know",
-    "mountain",
-    "fish",
-    "ask",
-    "fool",
-    "mobile",
-    "television",
-    "star",
-    "paper",
-    "bag",
-    "doll",
-    "mouse",
-    "crush",
-    "more",
-    "five",
-    "glitch",
-    "journey",
-    "hello",
-    "no",
-    "maybe",
-    "fruits",
-    "fingers",
-    "cloud",
-    "computer",
-    "foot",
-    "monitor",
-    "food",
-    "go",
-    "mum",
-    "shallow",
-    "cup",
-    "of",
-    "tea",
-    "race",
-    "bottle",
-    "finger",
-    "arm",
-    "stomach",
-    "lamp",
-    "clock",
-    "and",
-    "know",
-    "mountain",
-    "fish",
-    "ask",
-    "fool",
-    "mobile",
-    "television",
-    "star",
-    "paper",
-    "bag",
-    "doll",
-    "mouse",
-    "crush",
-    "more",
-    "five",
-    "glitch",
-    "journey"
-];
-
-let getElementId = (element) =>  {
-    return document.getElementById(element);
-};
-let getElementClass = (elements) => {
-    return document.getElementsByClassName(elements);
-};
-
-//VARIABLES
-const yellowColor = '#EFDC05';
-const redColor = '#E53A40';
-const greenColor = '#0DD442';
-
 let words = en_words;
-let refresh = getElementId('refresh');
-let typingArea = getElementId('typing-area');
-let showScore = getElementClass('score');
-let word = getElementClass('word');
-let timeCounter = getElementId('time-counter');
-let submitScore = getElementId('submit-score');
-let submitWrong = getElementId('submit-wrong');
-let submitButton = getElementId('submit-button');
-let menuWrapper = getElementClass('menu')[0];
-let userAndStats = getElementId('user-and-stats');
-let leaderboard = getElementId('leaderboard');
-let openUserProfile = getElementId('open-user-profile');
-let openLeaderboard = getElementId('open-leaderboard');
-let closeSection = getElementClass('close');
-let context = getElementId('words-chart').getContext('2d');
-let context2 = getElementId('wpm-chart').getContext('2d');
+const typingArea = getElementId('typing-area');
+const showScore = getElementClass('score');
+const word = getElementClass('word');
+const timeCounter = getElementId('time-counter');
+const submitScore = getElementId('submit-score');
+const submitWrong = getElementId('submit-wrong');
+const submitButton = getElementId('submit-button');
+const menuWrapper = getElementClass('menu')[0];
+const userAndStats = getElementId('user-and-stats');
+const leaderboard = getElementId('leaderboard');
+const openUserProfile = getElementId('open-user-profile');
+const openLeaderboard = getElementId('open-leaderboard');
+const closeSection = getElementClass('close');
+
+const gameStats = { 
+    correct: 0, 
+    wrong: 0, 
+    keystrokes: 0,  
+};
 
 let counter = 0;
-let correct = 0;
-let wrong = 0;
-let keystrokes = 0;
 let character = 0;
 let timer = 0;
 let start = null;
 
-/* CHART SECTION
-------------------------------------------------------------- */
-class UserChart {
-    constructor(labels, brColor, data) {
-        this.labels = labels;
-        this.brColor = brColor;
-        this.data = data;
-    }
-
-    get chartData() {
-        return this.initChart;
-    }
-
-    initChart() {
-        let chartData = {
-            labels: this.labels,
-            datasets: [
-                {
-                    data: this.data,
-                    backgroundColor: this.brColor,
-                    borderColor: [
-                        "#FFFFFF",
-                        "#FFFFFF"
-                    ]
-                }
-            ]
-        };
-        return chartData;
-    }
+const init = () => {
+    words = shuffle(words);
+    initEventListener();
+    initMenu();
+    initOnKeyEvent();
 }
 
-let wpmChart = new UserChart(["Your wpm", "Others wpm"], [yellowColor, redColor], [0, 0]);
-let wordsChart = new UserChart(["Your acc in %", "Others acc in %"], [greenColor, redColor], [0, 0]);
-
-/* END OF CHART SECTION
-------------------------------------------------------------- */
-
-/*  MENU SECTION
-------------------------------------------------------------- */
-userAndStats.style.marginLeft = '-100%';
-leaderboard.style.marginLeft = '-100%';
-let openMenu = (element, section) => {
+const openMenu = (element, section) => {
     element.addEventListener('click', () => {
         menuWrapper.style.marginRight = '-200px';
         section.style.marginLeft = '0%';
     });
 };
 
-let close = (element, section) => {
+const close = (element, section) => {
     element.addEventListener('click', () => {
         section.style.marginLeft = '-100%';
         menuWrapper.style.marginRight = '0px';
     });
 };
 
-close(closeSection[0], userAndStats);
-close(closeSection[1], leaderboard);
-if(openUserProfile)
-    openMenu(openUserProfile, userAndStats);
-openMenu(openLeaderboard, leaderboard);
+const initWords = (arr, element) => {
+    //TODO: .shift()
+    Array.from(element).forEach((item, index) => 
+        item.innerHTML = arr[counter + index]);
+}
 
-/*  END OF MENU SECTION
- ----------------------------------------------------------- */
-
-let initWords = (arr, element) => {
-    for(let i = 0; i < element.length; i++) {
-        element[i].innerHTML = arr[counter + i];
-    }
-};
-
-//shuffle the words
-let shuffle = (arr) => {
+const shuffle = arr => {
+    const newArr = arr;
     for (let i = arr.length; i; i--) {
         let j = Math.floor(Math.random() * i);
         [arr[i - 1], arr[j]] = [arr[j], arr[i - 1]];
     }
-    initWords(arr, word);
-    return arr;
+    initWords(newArr, word);
+    return newArr;
 };
 
-let multipleCss = (classGroup, style) => {
-    for(let i = 0; i < classGroup.length; i++) {
-        classGroup[i].style.display = style;
-    }
-};
+const multipleCss = (classGroup, style) => 
+    Array.from(classGroup).forEach(item => item.style.display = style);
 
-words = shuffle(words);
-
-let startTimer = (duration, element) => {
+const startTimer = (duration, element) => {
     timer = duration;
     element.innerHTML = timer;
     start = setInterval(() => {
         timer--;
         if(timer === 0) {
-            clearInterval(start);
-            element.style.color = '#FFFFFF';
-            if(wrong === 0 && correct)
-                element.innerHTML = 'PERFECT GAME!';
-            else
-                element.innerHTML = '';
-            typingArea.disabled = true;
-            typingArea.value = 'Press ENTER to restart';
-            multipleCss(showScore, 'block');
-            multipleCss(word, 'none');
-            showScore[0].innerHTML = correct + ' correct words!';
-            showScore[1].innerHTML = wrong + (wrong == 1 ? ' wrong word. ' : ' wrong words. ');
-            showScore[2].innerHTML = keystrokes + ' total keystrokes.';
-            showScore[0].style.color = greenColor;
-            showScore[1].style.color = redColor;
-            typingArea.style.border = '3px solid transparent';
-            submitScore.value = correct;
-            submitWrong.value = wrong;
-            //this is needed to invoke the submit. .submit() does not work.
-            submitButton.click();
+            onGameOver(element);
         } else {
             if (timer <= 5)
-                element.style.color = redColor;
+                element.style.color = appColors.red;
             else if (timer <= 10)
-                element.style.color = yellowColor;
+                element.style.color = appColors.yellow;
 
             element.innerHTML = timer;
         }
     }, 1000);
 };
 
-let spellChecker = () => {
-    if(typingArea.value == word[0].innerHTML) {
-        correct++;
-    } else {
-        wrong++;
-        typingArea.style.border = '3px solid ' + redColor;
+const handleShowScore = () => {
+    const { correct, wrong, keystrokes } = gameStats;
+
+    showScore[0].innerHTML = correct + ' correct words!';
+    showScore[1].innerHTML = wrong + (wrong == 1 ? ' wrong word. ' : ' wrong words. ');
+    showScore[2].innerHTML = keystrokes + ' total keystrokes.';
+    showScore[0].style.color = appColors.green;
+    showScore[1].style.color = appColors.red;
+}
+
+const handleTypingArea = () => {
+    typingArea.disabled = true;
+    typingArea.value = 'Press ENTER to restart';
+    typingArea.style.border = '3px solid transparent';
+}
+
+const handleSubmitButtonClick = () => {
+    submitScore.value = gameStats.correct;
+    submitWrong.value = gameStats.wrong;
+    submitButton.click();
+}
+
+const onGameOver = element => {
+    clearInterval(start);
+    element.style.color = '#FFFFFF';
+    if(gameStats.wrong === 0 && gameStats.correct)
+        element.innerHTML = 'PERFECT GAME!';
+    else
+        element.innerHTML = '';
+
+    multipleCss(showScore, 'block');
+    multipleCss(word, 'none');
+    handleTypingArea();
+    handleShowScore();
+    handleSubmitButtonClick();
+}
+
+const spellChecker = () => {
+    if(typingArea.value == word[0].innerHTML)
+        gameStats.correct++;
+    else {
+        gameStats.wrong++;
+        typingArea.style.border = '3px solid ' + appColors.red;
     }
+    
     counter++;
     character = 0;
     typingArea.value = '';
     initWords(words, word);
 };
 
-let resetAll = () => {
+const resetAll = () => {
     clearInterval(start);
-    shuffle(words);
-    typingArea.disabled = false;
-    typingArea.value = '';
-    multipleCss(showScore, 'none');
-    multipleCss(word, 'block');
-    counter = 0;
-    correct = 0;
-    wrong = 0;
-    keystrokes = 0;
+    
     character = 0;
-    initWords(words, word);
-    typingArea.focus();
+    timer = 0;
     timeCounter.innerHTML = '';
     timeCounter.style.color = "#FFFFFF";
+
+    shuffle(words);
+    multipleCss(showScore, 'none');
+    multipleCss(word, 'block');
+    resetTypingArea();
+    Object.keys(gameStats).forEach(prop => gameStats[prop] = 0);
+};
+
+const resetTypingArea = () => {
+    typingArea.disabled = false;
+    typingArea.value = '';
+    typingArea.focus();
     typingArea.style.border = '3px solid transparent';
-    timer = 0;
-};
+}
 
-//reset game with "enter"
-document.onkeydown = (e) => {
-    if (e.keyCode == 13) {
-        resetAll();
-        e.preventDefault();
-    }
-};
+const onKeyPressDown = e => {
+    typingArea.value=typingArea.value.replace(/\s+/g,'');
 
-let keyPress = {
-    down: (e) => {
-        //instead of space, reset the typing area
-        typingArea.value=typingArea.value.replace(/\s+/g,'');
-
-        if(timer >= 0) {
-            if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
-                keystrokes++;
-                if(timer === 0) {
-                    startTimer(60, timeCounter);
-                }
-                if(e.keyCode === 8) {
-                    character--;
-                    if(word[0].innerHTML.slice(0, character) == typingArea.value.slice(0, character)){
-                        typingArea.style.border = '3px solid transparent';
-                    }
-                } else {
-                    if(e.keyCode === 32){
-                        spellChecker();
-                    } else {
-                        character++;
-                    }
-                }
-            }
-        }
-    },
-    up: (e) => {
-        if(timer > 0) {
-            if(typingArea.value == '')
-                character = 0;
-            if(e.keyCode !== 32) {
-                if (word[0].innerHTML.slice(0, character) != typingArea.value.slice(0, character)) {
-                    typingArea.style.border = '3px solid ' + redColor;
-                }
-                else if(word[0].innerHTML.slice(0, character) == typingArea.value.slice(0, character)){
-                    typingArea.style.border = '3px solid transparent';
-                }
-            }
-        }
-    }
-};
-
-typingArea.onkeydown = (e) => {
-    keyPress.down(e);
-};
-
-typingArea.onkeyup = (e) => {
-    keyPress.up(e);
-};
-
-//reset stats and timer when refresh is clicked
-refresh.addEventListener("click", resetAll);
-
-/* AJAX
- ------------------------------------------------------------*/
-$(document).ready(function() {
-
-    let topToday = getElementClass('topToday')[0];
-    let topAll = getElementClass('topAll')[0];
-    let userInformation = getElementClass('user-information')[0];
-    let userName = getElementClass('user-name')[0];
-    let userScore = getElementId('user-score');
-    let topAllScore = getElementId('top-all-score');
-    let topTodayScore = getElementId('top-today-score');
-
-    let initTopList = (list, table, rowLength) => {
-        for(let i = 0; i < rowLength; i++) {
-            //create element inside the loop to get a unique element each loop
-            let createTr = document.createElement('tr');
-            table.appendChild(createTr);
-            for(let j = 0; j < 4; j++) {
-                createTr.appendChild(document.createElement('td'));
-            }
-
-            let td = createTr.getElementsByTagName('td');
-            td[0].innerHTML = i + 1;
-            (table == userScore) ? td[1].innerHTML = '' : td[1].innerHTML = '-';
-            td[2].innerHTML = '-';
-            td[3].innerHTML = '-';
-        }
-
-        updateTopList(list, table);
-    };
-
-    let updateTopList = (list, table) => {
-
-        //TODO: IF table got 10 rows, update them. IF not, create tr.
-        for (let i = 0; i < list.length; i++) {
-            let row = table.getElementsByTagName('tr')[i + 1];
-            let td = row.getElementsByTagName('td');
-
-            td[0].innerHTML = i + 1;
-            (table == userScore) ? td[1].innerHTML = '' : td[1].innerHTML = list[i].name;
-            td[2].innerHTML = list[i].score;
-            td[3].innerHTML = list[i].date;
-        }
-    };
-
-    let initChart = (ctxt, type, data) => {
-        new Chart(ctxt, {
-            type: type,
-            data: data,
-            options: {
-                legend: {
-                    display: false
-                }
-            }
-        });
-    };
-
-    let initUserInformation = (response, create) => {
-        if(create) {
-            for(let i = 0; i < 5; i++) {
-                userInformation.appendChild(document.createElement('div'));
-            }
-        }
-        let div = userInformation.getElementsByTagName('div');
-        div[0].innerHTML = response.userWpm + ' WORDS PER MINUTE IN AVARAGE';
-        div[1].innerHTML = response.userGamesPlayed + ' GAMES PLAYED';
-        div[2].innerHTML = response.userRightWords + ' TOTAL CORRECT WORDS';
-        div[3].innerHTML = response.userWrongWords + ' TOTAL WRONG WORDS';
-        div[4].innerHTML = response.perfectGames + ' PERFECT GAMES';
-
-        wordsChart.data = [response.userAccuracy, response.totalAccuracy];
-        wpmChart.data = [response.userWpm, response.wpm];
-
-        let createWpmChart = initChart(context, 'pie', wordsChart.chartData());
-        let createWordsChart = initChart(context2, 'pie', wpmChart.chartData());
-    };
-
-    $.ajax({
-        url: '/score',
-        contentType: 'application/json',
-        success: function(response) {
-            initTopList(response.topAll, topAllScore, 10);
-            initTopList(response.topToday, topTodayScore, 10);
-            if(response.name) {
-                initTopList(response.userTopFive, userScore, 5);
-                userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
-                initUserInformation(response, true);
-            }
-        }
-    });
-
-    $('#score-form').on('submit', function(event) {
-        if(openUserProfile) {
-            event.preventDefault();
-
-            let scoreInput = $('#submit-score');
-            let wrongInput = $('#submit-wrong');
-
-            $.ajax({
-                url: '/score',
-                method: 'POST',
-                contentType: 'application/json',
-                //parse score to int to prevent it to covert to a string.
-                data: JSON.stringify({ score: parseInt(scoreInput.val(), 10), wrong: parseInt(wrongInput.val(), 10)}),
-                success: function(response) {
-                    updateTopList(response.topAll, topAllScore);
-                    updateTopList(response.topToday, topTodayScore);
-                    updateTopList(response.userTopFive, userScore);
-                    userName.innerHTML = response.name.toUpperCase() + ', ' + '<i>' + response.userTitle + '</i>';
-                    initUserInformation(response, false);
-                    scoreInput.val(null);
-                    wrongInput.val(null);
-                }
-            });
+    if((e.keyCode >= 65 && e.keyCode <= 95) || e.keyCode == 8 || e.keyCode == 32) {
+        gameStats.keystrokes++;
+        if(timer === 0)
+            startTimer(5, timeCounter);
+        if(e.keyCode === 8) {
+            character--;
+            if(word[0].innerHTML.slice(0, character) == typingArea.value.slice(0, character))
+                typingArea.style.border = '3px solid transparent';
         } else {
-            return false;
+            if(e.keyCode === 32)
+                spellChecker();
+            else
+                character++;
         }
-    });
+    }
+}
 
-});
+const onKeyPressUp = e => {
+    if(timer <= 0)
+        return;
 
+    if(typingArea.value == '')
+        character = 0;
 
+    if(e.keyCode === 32)
+        return;
+        
+    if (word[0].innerHTML.slice(0, character) != typingArea.value.slice(0, character)) {
+        typingArea.style.border = '3px solid ' + appColors.red;
+    }
+    else if(word[0].innerHTML.slice(0, character) == typingArea.value.slice(0, character)){
+        typingArea.style.border = '3px solid transparent';
+    }
+}
 
+const initEventListener = () =>
+    getElementId('refresh').addEventListener("click", resetAll);
 
+const initMenu = () => {
+    userAndStats.style.marginLeft = '-100%';
+    leaderboard.style.marginLeft = '-100%';
+    
+    close(closeSection[0], userAndStats);
+    close(closeSection[1], leaderboard);
+    if(openUserProfile)
+        openMenu(openUserProfile, userAndStats);
+    openMenu(openLeaderboard, leaderboard);
+}
 
+const initOnKeyEvent = () => {
+    document.onkeydown = (e) => {
+        if (e.keyCode == 13) {
+            resetAll();
+            e.preventDefault();
+        }
+    };   
+    typingArea.onkeydown = e => {
+        onKeyPressDown(e);
+    };
+    typingArea.onkeyup = e => {
+        onKeyPressUp(e);
+    };
+}
 
-
-
-
-
-
-
-
+init();
