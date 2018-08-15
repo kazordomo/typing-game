@@ -48,8 +48,9 @@ app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 
 // include routes
-const routes = require('./routes/index');
-app.use('/', routes);
+// app.use('/', routes);
+require('./routes/api')(app);
+require('./routes/auth')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
