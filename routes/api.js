@@ -33,20 +33,20 @@ module.exports = router => {
     router.get('/game', (req, res) =>
         res.render('game', {title: 'GameZone', userId: req.session.userId}));
     
+    // GET /score
+    //TODO: refactor - minimize - moveout chunks
     router.get('/score', async (req, res) => {
-
         const scores = await Score.find({});
 
         const calculateTotalScore = arr =>
             _.reduce(_.map(arr, 'score'), (sum, n) => sum + n, 0);
-        let score = {};
-        let totalScore = calculateTotalScore(scores);
-        let wpm = Math.round(totalScore / scores.length);
 
-        score.topToday = _.filter(scores, row => row.date === today);
-        score.topToday = _.orderBy(score.topToday, 'score', 'desc').slice(0, 10);
-        score.topAll = _.orderBy(scores, 'score', 'desc').slice(0, 10);
-        score.wpm = wpm ? wpm : 0;
+        let score = {
+            topToday: _.filter(scores, row => row.date === today),
+            topToday: _.orderBy(score.topToday, 'score', 'desc').slice(0, 10),
+            topAll: _.orderBy(scores, 'score', 'desc').slice(0, 10),
+            wpm = scores.length ? calculateTotalScore(scores) : 0,
+        }
 
         if(!req.session.userId)
             return res.send(score);
@@ -67,13 +67,14 @@ module.exports = router => {
 
         let calculateAccuracy = (rightWords, wrongWords) =>
             Math.round((rightWords / (rightWords + wrongWords)) * 100);
+
         score.userGamesPlayed = user.gamesPlayed;
         score.userWrongWords = user.wrongWords;
         score.perfectGames = user.perfectGames;
         score.userAccuracy = calculateAccuracy(score.userRightWords, score.userWrongWords);
 
         const users = await User.find({});
-        let totalRightWords = totalScore;
+        let totalRightWords =  calculateTotalScore(scores);
         let totalWrongWords = _.reduce(_.map(users, 'wrongWords'), (sum, n) => sum + n, 0);
         score.totalAccuracy = calculateAccuracy(totalRightWords, totalWrongWords);
 
@@ -81,7 +82,6 @@ module.exports = router => {
     });
     
     router.post('/score', async (req, res, next) => {
-    
         let scoreData = {
             score: req.body.score,
             userId: req.session.userId,
@@ -97,7 +97,7 @@ module.exports = router => {
 
         await user.save();
         await Score.create(scoreData);
-        
+
         res.redirect('/score');
     });
 }

@@ -47,7 +47,6 @@ module.exports = router => {
     
     // POST /register
     router.post('/register', async (req, res, next) => {
-
         if(
             !req.body.email ||
             !req.body.name ||
