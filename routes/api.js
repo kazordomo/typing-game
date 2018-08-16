@@ -5,6 +5,22 @@ const Score = require('../models/score');
 const today = moment().format("MMMM Do YY");
 
 module.exports = router => {
+
+    const getUserTitle = wpm => {
+        switch(wpm) {
+            case wpm <= 40:
+                return 'the rookie';
+            case wpm > 40 && wpm <= 65:
+                return 'the average';
+            case wpm > 65 && wpm <= 85:
+                return 'the pro';
+            case wpm > 85 && wpm <= 100:
+                return 'the allstar';
+            case wpm < 100:
+                return 'the god';
+        }
+    }
+
     // GET /
     router.get('/', (req, res, next) => {
         if(req.session.userId)
@@ -20,81 +36,66 @@ module.exports = router => {
     });
     
     router.get('/score', (req, res, next) => {
+        //TODO: asyn/await
         Score.find({}, (error, doc) => {
-    
-            let calculateTotalScore = (arr) => {
-                return _.reduce(_.map(arr, 'score'), (sum, n) => {
-                    return sum + n;
-                }, 0);
-            };
+            //TODO: handle error...
+            if(error)
+                return error;
+
+            const calculateTotalScore = arr =>
+                _.reduce(_.map(arr, 'score'), (sum, n) => sum + n, 0);
     
             let score = {};
             let totalScore = calculateTotalScore(doc);
             let wpm = Math.round(totalScore / doc.length);
     
-            score.topToday = _.filter(doc, (d) => {
-                return d.date == today;
-            });
+            score.topToday = _.filter(doc, row => row.date === today);
             score.topToday = _.orderBy(score.topToday, 'score', 'desc').slice(0, 10);
             score.topAll = _.orderBy(doc, 'score', 'desc').slice(0, 10);
             score.wpm = wpm ? wpm : 0;
+
+            if(!req.session.userId)
+                return res.send(score);
     
-            if(req.session.userId) {
-                let userScore = _.filter(doc, function(d) {
-                    return d.userId == req.session.userId;
-                });
-                let userTotalScore = calculateTotalScore(userScore);
-    
-                score.userRightWords = userTotalScore;
-                score.userTopFive = _.orderBy(userScore, 'score', 'desc').slice(0, 5);
-                score.userWpm = Math.round(userTotalScore / userScore.length) ? Math.round(userTotalScore / userScore.length) : 0;
-                score.userTitle = 'the rookie';
-    
-                if(score.userWpm <= 40) {
-                    score.userTitle = 'the rookie';
-                } else if(score.userWpm > 40 && score.userWpm <= 65) {
-                    score.userTitle = 'the average';
-                } else if(score.userWpm > 65 && score.userWpm <= 85) {
-                    score.userTitle = 'the pro'
-                } else if(score.userWpm > 85 && score.userWpm <= 100) {
-                    score.userTitle = 'the allstar';
-                } else if(score.userWpm < 100) {
-                    score.userTitle = 'the god';
+            let userScore = _.filter(doc, d => d.userId == req.session.userId);
+            let userTotalScore = calculateTotalScore(userScore);
+
+            score.userRightWords = userTotalScore;
+            score.userTopFive = _.orderBy(userScore, 'score', 'desc').slice(0, 5);
+            score.userWpm = Math.round(userTotalScore / userScore.length) ? 
+                            Math.round(userTotalScore / userScore.length) : 0;
+            score.userTitle = getUserTitle(score.userWpm);
+
+            User.findById(req.session.userId, (error, user) => {
+                if(error)
+                    return next(error);
+                else {
+                    score.name = user.name;
+                    user.save((error) => {
+                        if(error)
+                            return next(error);
+                        else {
+                            let calculateAccuracy = (rightWords, wrongWords) => {
+                                return Math.round((rightWords / (rightWords + wrongWords)) * 100);
+                            };
+
+                            score.userGamesPlayed = user.gamesPlayed;
+                            score.userWrongWords = user.wrongWords;
+                            score.perfectGames = user.perfectGames;
+                            score.userAccuracy = calculateAccuracy(score.userRightWords, score.userWrongWords);
+                            User.find({}, (error, doc) => {
+                                let totalRightWords = totalScore;
+                                let totalWrongWords = _.reduce(_.map(doc, 'wrongWords'), (sum, n) => {
+                                    return sum + n;
+                                }, 0);
+                                score.totalAccuracy = calculateAccuracy(totalRightWords, totalWrongWords);
+
+                                res.send(score);
+                            });
+                        }
+                    });
                 }
-    
-                User.findById(req.session.userId, (error, user) => {
-                    if(error)
-                        return next(error);
-                    else {
-                        score.name = user.name;
-                        user.save((error) => {
-                            if(error)
-                                return next(error);
-                            else {
-                                let calculateAccuracy = (rightWords, wrongWords) => {
-                                    return Math.round((rightWords / (rightWords + wrongWords)) * 100);
-                                };
-    
-                                score.userGamesPlayed = user.gamesPlayed;
-                                score.userWrongWords = user.wrongWords;
-                                score.perfectGames = user.perfectGames;
-                                score.userAccuracy = calculateAccuracy(score.userRightWords, score.userWrongWords);
-                                User.find({}, (error, doc) => {
-                                    let totalRightWords = totalScore;
-                                    let totalWrongWords = _.reduce(_.map(doc, 'wrongWords'), (sum, n) => {
-                                       return sum + n;
-                                    }, 0);
-                                    score.totalAccuracy = calculateAccuracy(totalRightWords, totalWrongWords);
-    
-                                    res.send(score);
-                                });
-                            }
-                        });
-                    }
-                });
-            } else {
-                res.send(score);
-            }
+            });
         });
     });
     
