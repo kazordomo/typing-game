@@ -29,12 +29,12 @@ module.exports = router => {
             return next(err);
         }
 
+        //TODO: crashes if user not found.
         try {
             const user = await User.authenticate(req.body.email, req.body.password);
             req.session.userId = user._id;
             return res.redirect('game');
         } catch(error) {
-            console.log(error);
             let err = new Error('Wrong email or password');
             err.status = 401;
             return next(err);

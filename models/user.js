@@ -31,31 +31,27 @@ let UserSchema = new mongoose.Schema({
 });
 
 UserSchema.statics.authenticate = (email, password, callback) => {
-    User.findOne({ email: email })
+    User.findOne({ email })
         .exec((error, user) => {
-            if (error) {
-                return callback(error);
-            } else if (!user) {
+            if (error)
+                return error;
+            else if (!user) {
                 var err = new Error('User not found.');
                 err.status = 401;
-                return callback(err);
+                return err;
             }
             //plain text password, hashed password and a callback function
             bcrypt.compare(password, user.password, (err, result) => {
-                if (result === false) {
-                    //the callbacks first argument is error. if no error, return error == null
+                if (result === false)
                     return callback(null, user);
-                } else {
-                    console.log(result);
-                    console.log('user.password: ' + user.password + ' \n', 'password: ' + password);
+                else
                     return callback();
-                }
             });
         });
 }
 
 //arrow-function gives error
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', next => {
     //user object and ts data
     let user = this;
     //replace the plain text pass with the hash

@@ -4,7 +4,8 @@
   "description": "A Typing Game",
   "private": true,
   "scripts": {
-    "start": "node ./app"
+    "start": "node ./app",
+    "test": "jest --watchAll *.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -20,6 +21,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "jest": "^23.5.0",
     "nodemon": "^1.11.0"
   }
 }

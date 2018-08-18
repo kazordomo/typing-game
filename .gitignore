@@ -1,3 +1,5 @@
 node_modules/
 .idea/
 Procile.txt
+
+config/
