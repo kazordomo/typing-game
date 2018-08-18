@@ -29,7 +29,6 @@ module.exports = router => {
             return next(err);
         }
 
-        //TODO: crashes if user not found.
         try {
             const user = await User.authenticate(req.body.email, req.body.password);
             req.session.userId = user._id;
