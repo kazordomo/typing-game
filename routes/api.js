@@ -37,17 +37,16 @@ module.exports = {
         //TODO: refactor - minimize - moveout chunks
         router.get('/score', async (req, res) => {
             const scores = await Score.find({});
-    
+
             const calculateTotalScore = arr =>
                 _.reduce(_.map(arr, 'score'), (sum, n) => sum + n, 0);
-    
+
             let score = {
-                topToday: _.filter(scores, row => row.date === today),
-                topToday: _.orderBy(scores.topToday, 'score', 'desc').slice(0, 10),
+                topToday: _.orderBy(scores.filter(score => score.date === today), 'score', 'desc').slice(0, 10),
                 topAll: _.orderBy(scores, 'score', 'desc').slice(0, 10),
                 wpm: scores.length ? calculateTotalScore(scores) : 0,
             }
-    
+
             if(!req.session.userId)
                 return res.send(score);
     
