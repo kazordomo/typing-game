@@ -87,17 +87,18 @@ module.exports = {
                 userId: req.session.userId,
                 date: today
             };
-        
-            const user = User.findById(req.session.userId);
+
+            const user = await User.findById(req.session.userId);
             scoreData.name = user.name;
             user.wrongWords += req.body.wrong;
             user.gamesPlayed++;
             if(req.body.wrong === 0 && req.body.score)
                 user.perfectGames++;
-    
+
             await user.save();
             await Score.create(scoreData);
     
+            //???
             res.redirect('/score');
         });
     }
